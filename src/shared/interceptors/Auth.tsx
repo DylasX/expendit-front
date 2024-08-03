@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
 import * as authStorage from '@/pages/login/utils/session';
-import { useNavigate } from 'react-router-dom';
 import { useUser } from '@/pages/login/hooks/useUser';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -9,7 +8,6 @@ type AuthInterceptorProps = {
 };
 
 const AuthInterceptor: React.FC<AuthInterceptorProps> = ({ children }) => {
-  const navigate = useNavigate();
   const userQuery = useUser();
   const queryClient = useQueryClient();
 
@@ -25,7 +23,8 @@ const AuthInterceptor: React.FC<AuthInterceptorProps> = ({ children }) => {
     const cleanerQuery = () => {
       if (!authStorage.getToken()) {
         queryClient.clear();
-        navigate('/login', { replace: true, unstable_viewTransition: true });
+        //instead of navigate to clean orphan data from queryClient
+        window.location.href = '/login';
       }
     };
 
@@ -34,7 +33,7 @@ const AuthInterceptor: React.FC<AuthInterceptorProps> = ({ children }) => {
     return () => {
       window.removeEventListener('storage', cleanerQuery);
     };
-  }, [userQuery, navigate, queryClient]);
+  }, [userQuery, queryClient]);
 
   return children;
 };
