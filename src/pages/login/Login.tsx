@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { unprotectedApi } from '@/shared/services/request';
 import { useNavigate } from 'react-router-dom';
 import { LoginPayload } from '@/pages/login/types/auth';
 import * as authStorage from '@/pages/login/utils/session';
+import { useUser } from '@/pages/login/hooks/useUser';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const userQuery = useUser();
 
   useEffect(() => {
-    if (
-      queryClient.getQueryData(['user']) &&
-      queryClient.getQueryData(['token'])
-    ) {
+    if (userQuery.data?.id) {
       navigate('/', { unstable_viewTransition: true });
     }
-  }, [navigate, queryClient]);
+  }, [navigate, userQuery.data?.id]);
 
   const formik = useFormik<LoginPayload>({
     initialValues: {
@@ -34,10 +32,8 @@ const Login: React.FC = () => {
       return unprotectedApi.post('/auth/login', payload);
     },
     onSuccess: ({ data }) => {
-      queryClient.setQueryData(['token'], data.token.token);
-      queryClient.setQueryData(['user'], data.user);
       authStorage.saveToken(data.token.token);
-      authStorage.saveUser(data.user);
+      userQuery.refetch();
       navigate('/', { unstable_viewTransition: true });
     },
   });

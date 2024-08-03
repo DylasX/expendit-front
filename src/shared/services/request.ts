@@ -27,7 +27,6 @@ protectedApi.interceptors.response.use(
       (error.response.status === 403 || error.response.status === 401)
     ) {
       authStorage.removeToken();
-      authStorage.removeUser();
     }
     return Promise.reject(error);
   }

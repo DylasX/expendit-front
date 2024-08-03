@@ -15,9 +15,12 @@
   "dependencies": {
     "@fontsource/poppins": "^5.0.14",
     "@tanstack/react-query": "^5.51.21",
+    "@tanstack/react-query-devtools": "^5.51.21",
     "@vinejs/vine": "^2.1.0",
     "axios": "^1.7.3",
+    "flowbite": "^2.4.1",
     "formik": "^2.4.6",
+    "iconsax-react": "^0.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",

@@ -5,7 +5,6 @@ import { Group } from '@/pages/groups/types/group';
 
 const Groups: React.FC = () => {
   const fetchGroups = async ({ pageParam }: { pageParam: number }) => {
-    // Replace this with your actual API call to fetch groups
     const { data } = await protectedApi.get(`/groups?page=${pageParam}`);
     return data;
   };
@@ -22,7 +21,6 @@ const Groups: React.FC = () => {
     queryFn: fetchGroups,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      console.log(lastPage.meta);
       return lastPage.meta.nextPageUrl
         ? lastPage.meta.currentPage + 1
         : undefined;
