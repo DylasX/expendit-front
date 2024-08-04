@@ -84,6 +84,7 @@ const Groups: React.FC = () => {
           ) || 0
         }
       />
+      <hr className='my-4 border border-gray-100' />
       <section className='flex flex-col bg-white  rounded-lg mt-4 w-full'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
           Groups
