@@ -4,7 +4,7 @@ import React from 'react';
 const Header: React.FC = () => {
   const { data: user } = useUser();
   return (
-    <section className='block bg-white border  border-gray-200 rounded-lg shadow'>
+    <section className='block bg-white rounded-lg'>
       <div className=' text-zinc-600 p-4 flex-row flex'>
         <div className='text-lg flex-row flex'>
           <img

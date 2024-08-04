@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const BottomNavigator: React.FC = () => {
   //TODO: implement active link
   return (
-    <div className='box fixed bottom-0 left-0 z-50 w-full h-16 bg-white rounded-lg shadow-[rgba(0,0,15,0.5)_0px_0px_10px_-5px]'>
+    <div className='box fixed bottom-0 left-0 z-50 w-full h-16 bg-white rounded-lg shadow-[rgba(0,0,15,0.5)_0px_0px_10px_-6px]'>
       <div className='grid h-full grid-cols-5 mx-auto font-medium'>
         <Link
           to='/groups'

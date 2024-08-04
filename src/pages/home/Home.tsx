@@ -6,6 +6,7 @@ const Home: React.FC = () => {
   return (
     <main className='max-h-[90vh] overflow-y-auto scrollbar-hide'>
       <Header />
+      <hr className='my-4 border border-gray-100' />
       <Content />
     </main>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Content: React.FC = () => {
   return (
-    <section className='flex flex-col bg-white border border-gray-200 rounded-lg shadow mt-4 w-full'>
+    <section className='flex flex-col bg-white  rounded-lg mt-4 w-full'>
       <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
         Recent expenses.
         <p className='mt-1 text-sm font-light text-gray-500 '>
