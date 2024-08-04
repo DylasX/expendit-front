@@ -10,6 +10,8 @@ const Groups: React.FC = () => {
   const { ref, inView } = useInView();
   const { data: user } = useUser();
 
+  //TODO: add searh group and sorting modal
+
   const renderOwesYou = (group: Group) =>
     group.balances.length
       ? group.balances.map((balance) => (
