@@ -41,6 +41,7 @@ const Groups: React.FC = () => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ['groups'],
+    // staleTime: 1000 * 60 * 5,
     queryFn: fetchGroups,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -48,7 +49,6 @@ const Groups: React.FC = () => {
         ? lastPage.meta.currentPage + 1
         : undefined;
     },
-    refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 
