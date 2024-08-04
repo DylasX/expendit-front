@@ -1,4 +1,5 @@
 import Groups from '@/pages/groups/Groups';
+import Home from '@/pages/home/Home';
 import { useUser } from '@/pages/login/hooks/useUser';
 import Login from '@/pages/login/Login';
 import MainLayout from '@/shared/layouts/Main';
@@ -23,7 +24,7 @@ const AppRouter: React.FC = () => {
           path='/'
           element={
             <ProtectedRoute>
-              <div>HOME</div>
+              <Home />
             </ProtectedRoute>
           }
         />

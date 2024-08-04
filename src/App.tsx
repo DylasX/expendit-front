@@ -16,7 +16,10 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition='top-right' />
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition='bottom-left'
+        />
         <Router future={{ v7_startTransition: true }}>
           <AuthInterceptor>
             <AppRouter />
