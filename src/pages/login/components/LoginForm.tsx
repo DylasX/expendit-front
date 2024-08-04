@@ -28,7 +28,7 @@ const LoginForm: React.FC = () => {
     onSuccess: ({ data }) => {
       authStorage.saveToken(data.token.token);
       userQuery.refetch();
-      navigate('/', { unstable_viewTransition: true });
+      navigate('/');
     },
   });
 

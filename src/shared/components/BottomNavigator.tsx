@@ -10,7 +10,6 @@ const BottomNavigator: React.FC = () => {
         <Link
           to='/groups'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-          unstable_viewTransition
         >
           <Share size='22' variant='Broken' className='text-teal-400' />
           <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
@@ -20,7 +19,6 @@ const BottomNavigator: React.FC = () => {
         <Link
           to='/groups'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-          unstable_viewTransition
         >
           <Profile2User size='22' variant='Broken' className='text-teal-400' />
           <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
@@ -30,14 +28,12 @@ const BottomNavigator: React.FC = () => {
         <Link
           to='/expenses'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-          unstable_viewTransition
         >
           <AddSquare size='44' variant='Bold' className='text-teal-400' />
         </Link>
         <Link
           to='/'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-          unstable_viewTransition
         >
           <Activity size='22' variant='Broken' className='text-teal-400' />
           <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
@@ -47,7 +43,6 @@ const BottomNavigator: React.FC = () => {
         <Link
           to='/expenses'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-          unstable_viewTransition
         >
           <User size='22' variant='Broken' className='text-teal-400' />
           <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>

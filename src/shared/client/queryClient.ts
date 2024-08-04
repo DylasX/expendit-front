@@ -18,4 +18,15 @@ const localStoragePersister = createSyncStoragePersister({
 persistQueryClient({
   queryClient,
   persister: localStoragePersister,
+  dehydrateOptions: {
+    shouldDehydrateQuery: (query) => {
+      const queryIsReadyForPersistance = query.state.status === 'success';
+      if (queryIsReadyForPersistance) {
+        const { queryKey } = query;
+        const excludeFromPersisting = queryKey.includes('invitations');
+        return !excludeFromPersisting;
+      }
+      return queryIsReadyForPersistance;
+    },
+  },
 });

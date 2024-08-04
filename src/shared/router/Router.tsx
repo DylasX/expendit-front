@@ -1,5 +1,6 @@
 import Groups from '@/pages/groups/Groups';
 import Home from '@/pages/home/Home';
+import Invitations from '@/pages/invitations/Invitations';
 import { useUser } from '@/pages/login/hooks/useUser';
 import Login from '@/pages/login/Login';
 import MainLayout from '@/shared/layouts/Main';
@@ -30,12 +31,23 @@ const AppRouter: React.FC = () => {
         />
       </Route>
       <Route path='/login' element={<Login />} />
+
       <Route element={<MainLayout />}>
         <Route
           path='/groups'
           element={
             <ProtectedRoute>
               <Groups />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='/invitations'
+          element={
+            <ProtectedRoute>
+              <Invitations />
             </ProtectedRoute>
           }
         />

@@ -13,7 +13,7 @@ function App() {
           initialIsOpen={false}
           buttonPosition='bottom-left'
         />
-        <Router future={{ v7_startTransition: true }}>
+        <Router>
           <AuthInterceptor>
             <AppRouter />
           </AuthInterceptor>

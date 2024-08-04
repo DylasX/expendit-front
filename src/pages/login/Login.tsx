@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (userQuery.data?.id) {
-      navigate('/', { unstable_viewTransition: true });
+      navigate('/');
     }
   }, [navigate, userQuery.data?.id]);
 

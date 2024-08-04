@@ -1,19 +1,17 @@
-import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { protectedApi } from '@/shared/services/request';
 import { Group } from '@/pages/groups/types/group';
 import { useInView } from 'react-intersection-observer';
 import Header from '@/shared/components/Header';
 import { useUser } from '@/pages/login/hooks/useUser';
+import React from 'react';
 
 const Groups: React.FC = () => {
   const { ref, inView } = useInView();
   const { data: user } = useUser();
 
-  //TODO: add searh group and sorting modal
-
   const renderOwesYou = (group: Group) =>
-    group.balances.length
+    group.balances?.length
       ? group.balances.map((balance) => (
           <span key={balance.id + 'balance'}>
             {parseFloat(balance.amount) > 0 ? (
@@ -50,6 +48,8 @@ const Groups: React.FC = () => {
         ? lastPage.meta.currentPage + 1
         : undefined;
     },
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   React.useEffect(() => {
