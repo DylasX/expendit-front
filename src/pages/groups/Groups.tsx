@@ -93,8 +93,11 @@ const Groups: React.FC = () => {
           </p>
         </div>
         <ul className='flex-1 divide-y  divide-gray-200 p-4'>
-          {groups?.map((group: Group) => (
-            <li key={group.id + 'group'} className='pb-3 pt-3 sm:pb-4'>
+          {groups?.map((group: Group, index: number) => (
+            <li
+              key={group.id + group.name + index}
+              className='pb-3 pt-3 sm:pb-4'
+            >
               <div className='flex items-center space-x-4 rtl:space-x-reverse'>
                 <div className='flex-shrink-0'>
                   <img
