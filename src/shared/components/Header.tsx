@@ -1,8 +1,14 @@
 import { useUser } from '@/pages/login/hooks/useUser';
 import React from 'react';
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  owesYou: number;
+  youOwe: number;
+};
+
+const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
   const { data: user } = useUser();
+
   return (
     <section className='block bg-white rounded-lg'>
       <div className=' text-zinc-600 p-4 flex-row flex'>
@@ -22,19 +28,23 @@ const Header: React.FC = () => {
       </div>
       <div className='p-4'>
         <h2 className='text-sm font-extralight'>Total Balance</h2>
-        <span className='text-lg font-semibold'>$12.000</span>
+        <span
+          className={`text-lg font-semibold ${
+            owesYou - youOwe < 0 ? 'text-red-500' : 'text-green-500'
+          }`}
+        >{`$${Math.abs(owesYou - youOwe)}`}</span>
       </div>
       <div className='flex flex-row min-h-14 w-full gap-8 px-4 mb-4'>
         <div className='block flex-grow rounded-xl  bg-teal-300 shadow'>
           <div className='flex text-zinc-500 flex-col  text-center p-4'>
             <span className='text-sm font-light text-black'>You owe</span>
-            <span className='text-lg font-semibold text-black'>$12.000</span>
+            <span className='text-lg font-semibold text-black'>{`$${youOwe}`}</span>
           </div>
         </div>
         <div className='block flex-grow rounded-xl bg-teal-300 shadow'>
           <div className='flex text-zinc-500 flex-col text-center p-4'>
             <span className='text-sm font-light text-black'>Owes you</span>
-            <span className='text-lg font-semibold text-black'>$12.000</span>
+            <span className='text-lg font-semibold text-black'>{`$${owesYou}`}</span>
           </div>
         </div>
       </div>

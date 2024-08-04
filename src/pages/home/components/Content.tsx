@@ -6,7 +6,7 @@ const Content: React.FC = () => {
       <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
         Recent expenses.
         <p className='mt-1 text-sm font-light text-gray-500 '>
-          Here are some of the recent expenses made by you or your friends.
+          Expenses from the last 30 days.
         </p>
       </div>
       <ul className='flex-1 divide-y  divide-gray-200 p-4'>
@@ -25,7 +25,7 @@ const Content: React.FC = () => {
                 July 3
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold  '>
+            <div className='inline-flex items-center text-base font-normal  '>
               $320
             </div>
           </div>
@@ -45,7 +45,7 @@ const Content: React.FC = () => {
                 July 4
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold  '>
+            <div className='inline-flex items-center text-base font-normal  '>
               $3467
             </div>
           </div>
@@ -65,7 +65,7 @@ const Content: React.FC = () => {
                 August 31
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold  '>
+            <div className='inline-flex items-center text-base font-normal  '>
               $67
             </div>
           </div>
@@ -85,7 +85,7 @@ const Content: React.FC = () => {
                 August 31
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold'>
+            <div className='inline-flex items-center text-base font-normal'>
               $2367
             </div>
           </div>
@@ -105,7 +105,7 @@ const Content: React.FC = () => {
                 August 31
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold'>
+            <div className='inline-flex items-center text-base font-normal'>
               $2367
             </div>
           </div>
@@ -125,7 +125,7 @@ const Content: React.FC = () => {
                 August 31
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold'>
+            <div className='inline-flex items-center text-base font-normal'>
               $2367
             </div>
           </div>
@@ -145,7 +145,7 @@ const Content: React.FC = () => {
                 August 31
               </p>
             </div>
-            <div className='inline-flex items-center text-base font-semibold'>
+            <div className='inline-flex items-center text-base font-normal'>
               $2367
             </div>
           </div>
