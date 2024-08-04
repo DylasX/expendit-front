@@ -4,11 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import React from 'react';
 import * as authStorage from '@/pages/login/utils/session';
-import { useUser } from '@/pages/login/hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm: React.FC = () => {
-  const userQuery = useUser();
   const navigate = useNavigate();
 
   //TODO: Implement handle error
@@ -29,7 +27,6 @@ const RegisterForm: React.FC = () => {
     },
     onSuccess: ({ data }) => {
       authStorage.saveToken(data.token.token);
-      userQuery.refetch();
       navigate('/');
     },
   });

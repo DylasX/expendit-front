@@ -4,11 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import React from 'react';
 import * as authStorage from '@/pages/login/utils/session';
-import { useUser } from '@/pages/login/hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
-  const userQuery = useUser();
   const navigate = useNavigate();
 
   const formik = useFormik<LoginPayload>({
@@ -27,7 +25,6 @@ const LoginForm: React.FC = () => {
     },
     onSuccess: ({ data }) => {
       authStorage.saveToken(data.token.token);
-      userQuery.refetch();
       navigate('/');
     },
   });

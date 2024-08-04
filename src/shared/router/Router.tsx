@@ -11,8 +11,8 @@ type ProtectedRouteProps = {
   children: ReactNode;
 };
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { data: user } = useUser();
-  const userLogged = user?.id;
+  const queryUser = useUser();
+  const userLogged = queryUser.data?.id;
 
   return userLogged ? <>{children}</> : <Navigate to='/login' replace />;
 };

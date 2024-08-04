@@ -1,6 +1,7 @@
 import { protectedApi } from '@/shared/services/request';
 import { User } from '@/shared/types/user';
 import { useQuery } from '@tanstack/react-query';
+import * as authStorage from '@/pages/login/utils/session';
 
 export enum QUERY_KEYS {
   USER = 'user',
@@ -17,6 +18,7 @@ export const useUser = () => {
     queryFn: () => {
       return fetchUser();
     },
-    enabled: false,
+    enabled: authStorage.getToken() ? true : false,
+    refetchOnWindowFocus: true,
   });
 };

@@ -7,7 +7,7 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
-  const { data: user } = useUser();
+  const queryUser = useUser();
 
   return (
     <section className='block bg-white rounded-lg'>
@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
             alt='user photo'
           />
           <span className='ml-2 place-content-end  text-sm font-light text-zinc-800'>
-            <p className='font-semibold'>Hi {user?.fullName}</p>
+            <p className='font-semibold'>Hi {queryUser.data?.fullName}</p>
             <p className='font-extralight text-sm'>
               Make your expenses simple.
             </p>
