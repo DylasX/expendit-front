@@ -13,7 +13,7 @@ const BottomNavigator: React.FC = () => {
           unstable_viewTransition
         >
           <Share size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-400 group-hover:text-teal-300 '>
+          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
             Groups
           </span>
         </Link>
@@ -23,7 +23,7 @@ const BottomNavigator: React.FC = () => {
           unstable_viewTransition
         >
           <Profile2User size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-400 group-hover:text-teal-300 '>
+          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
             Friends
           </span>
         </Link>
@@ -40,7 +40,7 @@ const BottomNavigator: React.FC = () => {
           unstable_viewTransition
         >
           <Activity size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-400 group-hover:text-teal-300 '>
+          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
             Activity
           </span>
         </Link>
@@ -50,7 +50,7 @@ const BottomNavigator: React.FC = () => {
           unstable_viewTransition
         >
           <User size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-400 group-hover:text-teal-300 '>
+          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
             Account
           </span>
         </Link>
