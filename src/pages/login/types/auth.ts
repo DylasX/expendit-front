@@ -1,6 +1,9 @@
-import { loginValidator, RegisterPayload } from '@/pages/login/validator/login';
-import { Infer } from '@vinejs/vine/types';
+import {
+  loginValidator,
+  registerValidator,
+} from '@/pages/login/validator/login';
+import { z } from 'zod';
 
-export type LoginPayload = Infer<typeof loginValidator>;
+export type LoginPayload = z.infer<typeof loginValidator>;
 
-export type RegisterPayload = Infer<typeof RegisterPayload>;
+export type RegisterPayload = z.infer<typeof registerValidator>;

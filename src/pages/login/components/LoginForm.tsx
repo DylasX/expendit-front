@@ -5,6 +5,8 @@ import { useFormik } from 'formik';
 import React from 'react';
 import * as authStorage from '@/pages/login/utils/session';
 import { useNavigate } from 'react-router-dom';
+import { loginValidator } from '@/pages/login/validator/login';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const LoginForm: React.FC = () => {
     onSubmit: (values) => {
       loginMutation.mutate(values);
     },
+    validationSchema: toFormikValidationSchema(loginValidator),
   });
 
   const loginMutation = useMutation({
@@ -41,7 +44,6 @@ const LoginForm: React.FC = () => {
           value={formik.values.email}
           autoComplete='off'
           onChange={formik.handleChange}
-          required
         />
         <label
           htmlFor='email'
@@ -49,6 +51,7 @@ const LoginForm: React.FC = () => {
         >
           Email address
         </label>
+        <span className='text-xs text-red-500'>{formik.errors.email}</span>
       </div>
       <div className='relative z-0 w-full mb-5 group'>
         <input
@@ -59,7 +62,6 @@ const LoginForm: React.FC = () => {
           placeholder=' '
           value={formik.values.password}
           onChange={formik.handleChange}
-          required
         />
         <label
           htmlFor='password'
@@ -67,6 +69,7 @@ const LoginForm: React.FC = () => {
         >
           Password
         </label>
+        <span className='text-xs text-red-500'>{formik.errors.password}</span>
       </div>
       <a className='text-xs text-teal-500 mb-2' href='#'>
         Forgot password?
