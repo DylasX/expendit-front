@@ -2,6 +2,18 @@ import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import * as authStorage from '@/pages/login/utils/session';
 import { queryClient } from '@/shared/client/queryClient';
 
+export interface errorMutationAxios {
+  response: {
+    data: {
+      errors: [
+        {
+          message: string;
+        }
+      ];
+    };
+  };
+}
+
 const protectedApi: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });

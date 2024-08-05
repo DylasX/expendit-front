@@ -1,5 +1,5 @@
 import { LoginPayload } from '@/pages/login/types/auth';
-import { unprotectedApi } from '@/shared/services/request';
+import { errorMutationAxios, unprotectedApi } from '@/shared/services/request';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -16,6 +16,8 @@ const LoginForm: React.FC = () => {
       email: '',
       password: '',
     },
+    validateOnChange: false,
+    validateOnBlur: true,
     onSubmit: (values) => {
       loginMutation.mutate(values);
     },
@@ -80,6 +82,14 @@ const LoginForm: React.FC = () => {
       >
         Login
       </button>
+      {loginMutation.isError && (
+        <span className='text-red-500 text-sm mt-2 text-center block'>
+          {
+            (loginMutation.error as unknown as errorMutationAxios).response.data
+              .errors[0].message
+          }
+        </span>
+      )}
     </form>
   );
 };

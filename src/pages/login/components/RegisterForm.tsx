@@ -1,5 +1,5 @@
 import { RegisterPayload } from '@/pages/login/types/auth';
-import { unprotectedApi } from '@/shared/services/request';
+import { errorMutationAxios, unprotectedApi } from '@/shared/services/request';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -21,6 +21,7 @@ const RegisterForm: React.FC = () => {
     onSubmit: (values) => {
       registerMutation.mutate(values);
     },
+    validateOnChange: false,
     validationSchema: toFormikValidationSchema(registerValidator),
   });
 
@@ -102,6 +103,14 @@ const RegisterForm: React.FC = () => {
       >
         Register
       </button>
+      {registerMutation.isError && (
+        <span className='text-red-500 text-sm mt-2 text-center block'>
+          {
+            (registerMutation.error as unknown as errorMutationAxios).response
+              .data.errors[0].message
+          }
+        </span>
+      )}
     </form>
   );
 };
