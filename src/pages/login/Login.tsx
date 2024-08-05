@@ -4,15 +4,16 @@ import { useUser } from '@/pages/login/hooks/useUser';
 import { Google, Icon } from 'iconsax-react';
 import LoginForm from '@/pages/login/components/LoginForm';
 import RegisterForm from '@/pages/login/components/RegisterForm';
+import * as authStorage from '@/pages/login/utils/session';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const userQuery = useUser();
 
   useEffect(() => {
-    if (userQuery.data?.id) {
+    if (userQuery.data?.id && authStorage.getToken()) {
       navigate('/');
-    }
+    } //TODO: after deleting this in the browser react-query cache is not cleared and user remains with data in localStorage
   }, [navigate, userQuery.data?.id]);
 
   return (

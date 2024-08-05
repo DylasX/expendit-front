@@ -41,7 +41,7 @@ const BottomNavigator: React.FC = () => {
           </span>
         </Link>
         <Link
-          to='/expenses'
+          to='/invitations'
           className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
         >
           <User size='22' variant='Broken' className='text-teal-400' />

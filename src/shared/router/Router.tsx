@@ -31,7 +31,6 @@ const AppRouter: React.FC = () => {
         />
       </Route>
       <Route path='/login' element={<Login />} />
-
       <Route element={<MainLayout />}>
         <Route
           path='/groups'

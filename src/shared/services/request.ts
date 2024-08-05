@@ -29,6 +29,7 @@ protectedApi.interceptors.response.use(
     ) {
       authStorage.removeToken();
       queryClient.clear();
+      window.location.href = '/login';
     }
     return Promise.reject(error);
   }

@@ -21,11 +21,11 @@ const Groups: React.FC = () => {
                 <p>{`${balance.debtUser.fullName} owes to you`}</p>
               )
             ) : (
-              ''
+              'Settled up'
             )}
           </span>
         ))
-      : 'With no debts';
+      : `You aren't part of any expenses`; //TODO: review this message
 
   const fetchGroups = async ({ pageParam }: { pageParam: number }) => {
     const { data } = await protectedApi.get(`/groups?page=${pageParam}`);
@@ -125,18 +125,13 @@ const Groups: React.FC = () => {
           ))}
         </ul>
       </section>
-      <button
-        ref={ref}
-        className='text-xs flex m-auto text-gray-500'
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
+      <span ref={ref} className='block text-xs text-center  text-gray-500'>
         {isFetchingNextPage
           ? 'Loading more...'
           : hasNextPage
           ? 'Load More'
           : 'No more groups to load'}
-      </button>
+      </span>
     </main>
   );
 };
