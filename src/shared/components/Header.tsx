@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
   const renderIcon = () => {
     if (location.pathname === '/groups') {
       return (
-        <div className='bg-amber-300 absolute right-[101px] rounded-full p-1'>
+        <div className='bg-amber-300 absolute right-[95px] rounded-full p-1'>
           <Profile2User size='22' className='text-zinc-700 ' variant='Bold' />
         </div>
       );

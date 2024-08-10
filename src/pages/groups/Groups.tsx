@@ -84,7 +84,7 @@ const Groups: React.FC = () => {
           ) || 0
         }
       />
-      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh]'>
+      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
           Groups
           <p className='mt-1 text-sm font-light text-gray-500 '>
