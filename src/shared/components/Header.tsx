@@ -12,22 +12,16 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
   const location = useLocation();
   const queryUser = useUser();
 
-  const addLabel = () => {
-    if (location.pathname === '/groups') {
-      return 'New group';
-    }
-    return 'New expense';
-  };
   const renderIcon = () => {
     if (location.pathname === '/groups') {
       return (
-        <div className='bg-amber-300 absolute right-[95px] rounded-full p-1'>
+        <div className='bg-amber-300 absolute right-[55px] rounded-full p-1'>
           <Profile2User size='22' className='text-zinc-700 ' variant='Bold' />
         </div>
       );
     }
     return (
-      <div className='bg-amber-300 absolute right-[101px] rounded-full p-1'>
+      <div className='bg-amber-300 absolute right-[55px] rounded-full p-1'>
         <ReceiptAdd size='22' className='text-zinc-700 ' variant='Bold' />
       </div>
     );
@@ -48,9 +42,7 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
         </div>
         <button className='ml-auto relative bg-slate-400 bg-opacity-10 flex flex-row items-center w-26 rounded-2xl p-2 px-4'>
           {renderIcon()}
-          <span className='text-black text-xs ml-4 text-left'>
-            {addLabel()}
-          </span>
+          <span className='text-black text-xs ml-4 text-left'>{'New'}</span>
         </button>
       </div>
       <div className='p-4'>
