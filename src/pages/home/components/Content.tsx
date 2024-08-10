@@ -79,6 +79,11 @@ const Content: React.FC = () => {
         </p>
       </div>
       <ul className='flex-1 divide-y  divide-gray-200 p-4'>
+        {expenses.length === 0 && (
+          <li className='text-center text-xs text-gray-500 mt-4'>
+            No expenses yet.
+          </li>
+        )}
         {expenses.map((expense, index) => (
           <li key={index} className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'>
             <div className='flex items-center space-x-4 rtl:space-x-reverse'>
@@ -104,13 +109,20 @@ const Content: React.FC = () => {
           </li>
         ))}
       </ul>
-      <span ref={ref} className='block text-xs text-center  text-gray-500 mb-2'>
-        {isFetchingNextPage
-          ? 'Loading more...'
-          : hasNextPage
-          ? 'Load More'
-          : 'No more expenses to load'}
-      </span>
+      {expenses.length ? (
+        <span
+          ref={ref}
+          className='block text-xs text-center  text-gray-500 mb-2'
+        >
+          {isFetchingNextPage
+            ? 'Loading more...'
+            : hasNextPage
+            ? 'Load More'
+            : 'No more expenses to load'}
+        </span>
+      ) : (
+        ''
+      )}
     </section>
   );
 };

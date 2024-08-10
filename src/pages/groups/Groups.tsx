@@ -92,6 +92,11 @@ const Groups: React.FC = () => {
           </p>
         </div>
         <ul className='flex-1  p-4'>
+          {groups.length === 0 && (
+            <li className='text-center text-xs text-gray-500 mt-4'>
+              No groups yet.
+            </li>
+          )}
           {groups?.map((group: Group, index: number) => (
             <li
               key={group.id + group.name + index}
@@ -123,16 +128,20 @@ const Groups: React.FC = () => {
             </li>
           ))}
         </ul>
-        <span
-          ref={ref}
-          className='block text-xs text-center  text-gray-500 mb-2'
-        >
-          {isFetchingNextPage
-            ? 'Loading more...'
-            : hasNextPage
-            ? 'Load More'
-            : 'No more groups to load'}
-        </span>
+        {groups.length ? (
+          <span
+            ref={ref}
+            className='block text-xs text-center  text-gray-500 mb-2'
+          >
+            {isFetchingNextPage
+              ? 'Loading more...'
+              : hasNextPage
+              ? 'Load More'
+              : 'No more groups to load'}
+          </span>
+        ) : (
+          ''
+        )}
       </section>
     </main>
   );
