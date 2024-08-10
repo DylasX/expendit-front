@@ -1,53 +1,66 @@
-import { Activity, AddSquare, Profile2User, Share, User } from 'iconsax-react';
+import { DirectboxNotif, Profile2User, Receipt } from 'iconsax-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const BottomNavigator: React.FC = () => {
-  //TODO: implement active link
+  const location = useLocation();
+
+  // Function to determine if a link is active
+  const isActiveLink = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
-    <div className='box fixed bottom-0 left-0 z-50 w-full h-16 bg-white rounded-lg shadow-[rgba(0,0,15,0.5)_0px_0px_10px_-6px]'>
-      <div className='grid h-full grid-cols-5 mx-auto font-medium'>
+    <div className='box fixed bottom-0 left-0 z-50 bg-white h-16 w-full'>
+      <div className='grid h-full grid-cols-3 w-1/2 mx-auto font-medium'>
         <Link
           to='/groups'
-          className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
+          className={`inline-flex flex-col items-center justify-center px-5 ${
+            isActiveLink('/groups') ? 'active' : ''
+          }`}
         >
-          <Share size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
-            Groups
-          </span>
-        </Link>
-        <Link
-          to='/groups'
-          className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-        >
-          <Profile2User size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
-            Friends
-          </span>
-        </Link>
-        <Link
-          to='/expenses'
-          className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
-        >
-          <AddSquare size='44' variant='Bold' className='text-teal-400' />
+          {isActiveLink('/groups') ? (
+            <Profile2User size='24' variant='Bold' className='text-amber-300' />
+          ) : (
+            <Profile2User
+              size='22'
+              variant='Broken'
+              className='text-zinc-700'
+            />
+          )}{' '}
         </Link>
         <Link
           to='/'
-          className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
+          className={`inline-flex flex-col items-center justify-center px-5 ${
+            isActiveLink('/') ? 'active' : ''
+          }`}
         >
-          <Activity size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
-            Activity
-          </span>
+          {isActiveLink('/') ? (
+            <Receipt size='24' variant='Bold' className='text-amber-300' />
+          ) : (
+            <Receipt size='22' variant='Broken' className='text-zinc-700' />
+          )}{' '}
         </Link>
         <Link
           to='/invitations'
-          className='inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50  group'
+          className={`inline-flex flex-col items-center justify-center px-5 ${
+            isActiveLink('/invitations') ? 'active' : ''
+          }`}
         >
-          <User size='22' variant='Broken' className='text-teal-400' />
-          <span className='text-xs font-light text-zinc-600 group-hover:text-teal-300 '>
-            Account
-          </span>
+          {isActiveLink('/invitations') ? (
+            <DirectboxNotif
+              size='24'
+              variant='Bold'
+              className='text-amber-300'
+            />
+          ) : (
+            <DirectboxNotif
+              size='22'
+              variant='Broken'
+              className='text-zinc-700'
+            />
+          )}
         </Link>
       </div>
     </div>

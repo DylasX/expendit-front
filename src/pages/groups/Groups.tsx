@@ -25,7 +25,7 @@ const Groups: React.FC = () => {
             )}
           </span>
         ))
-      : `You aren't part of any expenses`; //TODO: review this message
+      : `Settled up`;
 
   const fetchGroups = async ({ pageParam }: { pageParam: number }) => {
     const { data } = await protectedApi.get(`/groups?page=${pageParam}`);
@@ -84,21 +84,20 @@ const Groups: React.FC = () => {
           ) || 0
         }
       />
-      <hr className='my-4 border border-gray-100' />
-      <section className='flex flex-col bg-white  rounded-lg mt-4 w-full'>
+      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh]'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
           Groups
           <p className='mt-1 text-sm font-light text-gray-500 '>
             Sorted by most recent activity.
           </p>
         </div>
-        <ul className='flex-1 divide-y  divide-gray-200 p-4'>
+        <ul className='flex-1  p-4'>
           {groups?.map((group: Group, index: number) => (
             <li
               key={group.id + group.name + index}
-              className='pb-3 pt-3 sm:pb-4'
+              className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl min-h-[84px]'
             >
-              <div className='flex items-center space-x-4 rtl:space-x-reverse'>
+              <div className='flex items-center space-x-4 rtl:space-x-reverse min-h-[56px]'>
                 <div className='flex-shrink-0'>
                   <img
                     className='w-8 h-8 rounded-full'
@@ -124,14 +123,17 @@ const Groups: React.FC = () => {
             </li>
           ))}
         </ul>
+        <span
+          ref={ref}
+          className='block text-xs text-center  text-gray-500 mb-2'
+        >
+          {isFetchingNextPage
+            ? 'Loading more...'
+            : hasNextPage
+            ? 'Load More'
+            : 'No more groups to load'}
+        </span>
       </section>
-      <span ref={ref} className='block text-xs text-center  text-gray-500'>
-        {isFetchingNextPage
-          ? 'Loading more...'
-          : hasNextPage
-          ? 'Load More'
-          : 'No more groups to load'}
-      </span>
     </main>
   );
 };

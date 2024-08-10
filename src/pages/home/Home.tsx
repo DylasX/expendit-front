@@ -6,7 +6,7 @@ import React from 'react';
 const Home: React.FC = () => {
   const { data: user } = useUser();
   return (
-    <main className='max-h-[90vh] overflow-y-auto scrollbar-hide'>
+    <main className='overflow-y-auto scrollbar-hide'>
       <Header
         owesYou={
           user?.myCredit?.reduce(
@@ -21,7 +21,6 @@ const Home: React.FC = () => {
           ) || 0
         }
       />{' '}
-      <hr className='my-4 border border-gray-100' />
       <Content />
     </main>
   );

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 const MainLayout: React.FC = () => {
   return (
-    <section className='bg-white min-h-screen p-3'>
+    <section className='min-h-screen bg-white'>
       <BottomNavigator />
       <Outlet />
     </section>
