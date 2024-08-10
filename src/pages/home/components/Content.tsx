@@ -4,14 +4,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { formatDistance } from 'date-fns';
+import { useUser } from '@/pages/login/hooks/useUser';
 
 const Content: React.FC = () => {
   const { ref, inView } = useInView();
+  const { data: user } = useUser();
 
   const formatMoneyPayed = (expense: Expense) => {
     const amount = parseFloat(expense.amount);
     const amountByUser = parseFloat(expense.amountByUser);
-    const amountToPay = amount - amountByUser;
+    const amountToPay =
+      expense.ownerUserId === user?.id ? amount - amountByUser : amountByUser;
     return (
       <div
         className={`text-xs flex flex-col text-right ${
@@ -19,7 +22,7 @@ const Content: React.FC = () => {
         }`}
       >
         <span>${Math.abs(amountToPay)}</span>
-        <span>{amountToPay > 0 ? `You lent` : `You borrowed}`}</span>
+        <span>{amountToPay > 0 ? `You lent` : `You borrowed`}</span>
       </div>
     );
     return expense.amount;
