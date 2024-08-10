@@ -1,16 +1,80 @@
+import { Expense } from '@/pages/home/types/expense';
+import { protectedApi } from '@/shared/services/request';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
+import { formatDistance } from 'date-fns';
 
 const Content: React.FC = () => {
+  const { ref, inView } = useInView();
+
+  const formatMoneyPayed = (expense: Expense) => {
+    const amount = parseFloat(expense.amount);
+    const amountByUser = parseFloat(expense.amountByUser);
+    const amountToPay = amount - amountByUser;
+    return (
+      <div
+        className={`text-xs flex flex-col text-right ${
+          amountToPay < 0 ? 'text-red-500' : 'text-green-500'
+        }`}
+      >
+        <span>${Math.abs(amountToPay)}</span>
+        <span>{amountToPay > 0 ? `You lent` : `You borrowed}`}</span>
+      </div>
+    );
+    return expense.amount;
+  };
+
+  const fetchExpenses = async ({ pageParam }: { pageParam: number }) => {
+    const { data } = await protectedApi.get(`/user/expenses?page=${pageParam}`);
+    return data;
+  };
+  const {
+    data: data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['expenses'],
+    // staleTime: 1000 * 60 * 5,
+    queryFn: fetchExpenses,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.meta.nextPageUrl
+        ? lastPage.meta.currentPage + 1
+        : undefined;
+    },
+    refetchOnWindowFocus: true,
+  });
+
+  React.useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  const expenses = data?.pages.map(({ data }) => data).flat() as Expense[];
+
   return (
     <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh]'>
       <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
         Recent expenses.
         <p className='mt-1 text-sm font-light text-gray-500 '>
-          Expenses from the last 30 days.
+          Most recent expenses.
         </p>
       </div>
       <ul className='flex-1 divide-y  divide-gray-200 p-4'>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {expenses.map((expense, index) => (
           <li key={index} className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'>
             <div className='flex items-center space-x-4 rtl:space-x-reverse'>
               <div className='flex-shrink-0'>
@@ -21,21 +85,27 @@ const Content: React.FC = () => {
                 />
               </div>
               <div className='flex-1 min-w-0'>
-                <p className='text-sm font-normal  truncate '>Ice cream</p>
-                <p className='text-sm text-gray-500 truncate font-light '>
-                  July 3
+                <p className='text-sm font-normal truncate'>
+                  {expense.description}
                 </p>
                 <p className='text-xs text-gray-500 truncate font-light '>
-                  You weren't included.
+                  {formatDistance(new Date(expense.createdAt), new Date())}
                 </p>
               </div>
               <div className='inline-flex items-center text-base font-normal  '>
-                $320
+                {formatMoneyPayed(expense)}
               </div>
             </div>
           </li>
         ))}
       </ul>
+      <span ref={ref} className='block text-xs text-center  text-gray-500 mb-2'>
+        {isFetchingNextPage
+          ? 'Loading more...'
+          : hasNextPage
+          ? 'Load More'
+          : 'No more expenses to load'}
+      </span>
     </section>
   );
 };

@@ -95,9 +95,9 @@ const Groups: React.FC = () => {
           {groups?.map((group: Group, index: number) => (
             <li
               key={group.id + group.name + index}
-              className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl min-h-[84px]'
+              className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'
             >
-              <div className='flex items-center space-x-4 rtl:space-x-reverse min-h-[56px]'>
+              <div className='flex items-center space-x-4 rtl:space-x-reverse'>
                 <div className='flex-shrink-0'>
                   <img
                     className='w-8 h-8 rounded-full'

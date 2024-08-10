@@ -19,6 +19,7 @@
     "@tanstack/react-query-devtools": "^5.51.21",
     "@tanstack/react-query-persist-client": "^5.51.21",
     "axios": "^1.7.3",
+    "date-fns": "^3.6.0",
     "flowbite": "^2.4.1",
     "formik": "^2.4.6",
     "iconsax-react": "^0.0.8",
