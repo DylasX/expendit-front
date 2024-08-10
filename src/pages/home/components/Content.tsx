@@ -17,12 +17,14 @@ const Content: React.FC = () => {
       expense.ownerUserId === user?.id ? amount - amountByUser : amountByUser;
     return (
       <div
-        className={`text-xs flex flex-col text-right ${
+        className={`flex flex-col text-right ${
           amountToPay < 0 ? 'text-red-500' : 'text-green-500'
         }`}
       >
-        <span>${Math.abs(amountToPay)}</span>
-        <span>{amountToPay > 0 ? `You lent` : `You borrowed`}</span>
+        <span className='text-md'>${Math.abs(amountToPay)}</span>
+        <span className='text-xs'>
+          {amountToPay > 0 ? `You lent` : `You borrowed`}
+        </span>
       </div>
     );
     return expense.amount;
