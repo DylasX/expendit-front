@@ -54,13 +54,13 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
         >{`$${Math.abs(owesYou - youOwe)}`}</span>
       </div>
       <div className='flex flex-row min-h-14 w-full gap-8 px-4'>
-        <div className='block flex-grow rounded-xl  bg-amber-300 shadow'>
+        <div className='block flex-grow rounded-2xl  bg-amber-300 shadow'>
           <div className='flex text-zinc-500 flex-col  text-center p-4'>
             <span className='text-sm font-light text-zinc-700'>You owe</span>
             <span className='text-lg font-semibold text-zinc-700'>{`$${youOwe}`}</span>
           </div>
         </div>
-        <div className='block flex-grow rounded-xl bg-amber-300 shadow'>
+        <div className='block flex-grow rounded-2xl bg-amber-300 shadow'>
           <div className='flex text-zinc-500 flex-col text-center p-4'>
             <span className='text-sm font-light text-zinc-700'>Owes you</span>
             <span className='text-lg font-semibold text-zinc-700'>{`$${owesYou}`}</span>
