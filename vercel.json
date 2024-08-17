@@ -1,5 +1,5 @@
 {
-    "rewrites": [
+    "fallbacks": [
         {
             "source": "/(.*)",
             "destination": "/index.html"
