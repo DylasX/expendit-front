@@ -1,29 +1,32 @@
 import React, { ReactNode } from 'react';
 
 interface DrawerProps {
-  drawerButtonId: string;
   children: ReactNode;
   isFullScreen: boolean;
+  open: boolean;
+  onClose: () => void;
 }
 
 const Drawer: React.FC<DrawerProps> = ({
-  drawerButtonId,
   children,
   isFullScreen,
+  open,
+  onClose,
 }) => {
+  if (!open) {
+    return null;
+  }
   return (
     <div
-      id={drawerButtonId}
       className={`fixed bottom-0 ${
         isFullScreen ? 'h-full' : ''
-      } left-0 right-0 z-40 w-full p-4 overflow-y-auto transition-transform bg-white translate-y-full`}
+      } left-0 right-0 z-40 w-full p-4 overflow-y-auto transition-transform bg-white animate-fade-up animate-duration-300`}
       tabIndex={1}
       aria-labelledby='drawer-top-label'
     >
       <button
         type='button'
-        data-drawer-hide={drawerButtonId}
-        aria-controls={drawerButtonId}
+        onClick={onClose}
         className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center '
       >
         <svg

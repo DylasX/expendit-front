@@ -167,6 +167,9 @@ const Invitations: React.FC = () => {
             0
           ) || 0
         }
+        openDrawer={() => {
+          console.log('hi');
+        }}
       />{' '}
       <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>

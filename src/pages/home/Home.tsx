@@ -20,6 +20,9 @@ const Home: React.FC = () => {
             0
           ) || 0
         }
+        openDrawer={() => {
+          console.log('hi');
+        }}
       />{' '}
       <Content />
     </main>

@@ -11,6 +11,7 @@ import GroupForm from '@/pages/groups/components/groupForm';
 const Groups: React.FC = () => {
   const { ref, inView } = useInView();
   const { data: user } = useUser();
+  const [open, setOpen] = React.useState(false);
 
   const renderOwesYou = (group: Group) =>
     group.balances?.length
@@ -70,6 +71,10 @@ const Groups: React.FC = () => {
 
   const groups = data?.pages.map(({ data }) => data).flat() as Group[];
 
+  const onClose = () => {
+    setOpen(false);
+  };
+
   return (
     <main className='max-h-[90vh] overflow-y-auto scrollbar-hide'>
       <Header
@@ -85,6 +90,7 @@ const Groups: React.FC = () => {
             0
           ) || 0
         }
+        openDrawer={() => setOpen(true)}
       />
       <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
@@ -145,7 +151,7 @@ const Groups: React.FC = () => {
           ''
         )}
       </section>
-      <Drawer drawerButtonId='drawer-group' isFullScreen={true}>
+      <Drawer isFullScreen={true} open={open} onClose={onClose}>
         <GroupForm />
       </Drawer>
     </main>
