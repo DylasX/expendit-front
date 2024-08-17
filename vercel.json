@@ -1,8 +1,8 @@
 {
-    "fallbacks": [
+    "rewrites": [
         {
             "source": "/(.*)",
-            "destination": "/index.html"
+            "destination": "/"
         }
     ]
 }
