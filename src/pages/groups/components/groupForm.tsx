@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { Profile2User } from 'iconsax-react';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 interface GroupFormProps {
@@ -48,7 +49,12 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups'] });
+      toast.success('Group created');
       onClose();
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error('Error creating group');
     },
   });
 
