@@ -5,6 +5,8 @@ import { useInView } from 'react-intersection-observer';
 import Header from '@/shared/components/Header';
 import { useUser } from '@/pages/login/hooks/useUser';
 import React from 'react';
+import Drawer from '@/shared/components/Drawer';
+import GroupForm from '@/pages/groups/components/groupForm';
 
 const Groups: React.FC = () => {
   const { ref, inView } = useInView();
@@ -143,6 +145,9 @@ const Groups: React.FC = () => {
           ''
         )}
       </section>
+      <Drawer drawerButtonId='drawer-group' isFullScreen={true}>
+        <GroupForm />
+      </Drawer>
     </main>
   );
 };

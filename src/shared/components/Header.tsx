@@ -47,7 +47,13 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
             <p className='font-light'>{queryUser.data?.fullName}</p>
           </span>
         </div>
-        <button className='ml-auto relative bg-slate-400 bg-opacity-10 flex flex-row items-center w-26 rounded-2xl p-2 px-4'>
+        <button
+          className='ml-auto relative bg-slate-400 bg-opacity-10 flex flex-row items-center w-26 rounded-2xl p-2 px-4'
+          data-drawer-target='drawer-group'
+          data-drawer-show='drawer-group'
+          data-drawer-placement='bottom'
+          aria-controls='drawer-group'
+        >
           {renderIcon()}
           <span className='text-black text-xs ml-4 text-left'>{'New'}</span>
         </button>
