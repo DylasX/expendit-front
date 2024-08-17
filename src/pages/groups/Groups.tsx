@@ -152,7 +152,7 @@ const Groups: React.FC = () => {
         )}
       </section>
       <Drawer isFullScreen={true} open={open} onClose={onClose}>
-        <GroupForm />
+        <GroupForm onClose={onClose} />
       </Drawer>
     </main>
   );

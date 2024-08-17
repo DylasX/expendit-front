@@ -1,3 +1,6 @@
+import { groupValidator } from '@/pages/groups/validator/group';
+import { z } from 'zod';
+
 export interface Group {
   id: number;
   name: string;
@@ -23,3 +26,5 @@ export interface Balance {
     id: number;
   };
 }
+
+export type GroupPayload = z.infer<typeof groupValidator>;

@@ -1,19 +1,63 @@
+import { GroupPayload } from '@/pages/groups/types/group';
+import { groupValidator } from '@/pages/groups/validator/group';
+import { protectedApi } from '@/shared/services/request';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useFormik } from 'formik';
 import { Profile2User } from 'iconsax-react';
 import React, { useState } from 'react';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
-interface GroupFormProps {}
+interface GroupFormProps {
+  onClose: () => void;
+}
 
-const GroupForm: React.FC<GroupFormProps> = () => {
+const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
   const [selectedColor, setSelectedColor] = useState<string>('');
+  const queryClient = useQueryClient();
 
-  const colors = ['#A8DADC', '#457B9D', '#1D3557', '#AAADDD', '#E63946'];
+  const colors = [
+    '#B1112C',
+    '#457B9D',
+    '#1D3557',
+    '#AAADDD',
+    '#E63946',
+    '#ACCBE1',
+    '#A8E6CE',
+    '#475D9A',
+    '#2DC163',
+  ];
+
+  const formik = useFormik<GroupPayload>({
+    initialValues: {
+      name: '',
+      color: '',
+      inviteEmails: '',
+    },
+    validateOnChange: false,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      console.log(values);
+      groupMutation.mutate(values);
+    },
+    validationSchema: toFormikValidationSchema(groupValidator),
+  });
+
+  const groupMutation = useMutation({
+    mutationFn: (payload: GroupPayload) => {
+      return protectedApi.post('/groups/', payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
+      onClose();
+    },
+  });
 
   return (
     <section className='p-4'>
       <h2 className='text-lg font-semibold text-zinc-700 mb-6'>
         Create a new group{' '}
       </h2>
-      <form className='max-w-sm mx-auto'>
+      <form className='max-w-sm mx-auto' onSubmit={formik.handleSubmit}>
         <label
           htmlFor='groupName'
           className='block mb-2 text-sm font-light text-zinc-700'
@@ -30,12 +74,15 @@ const GroupForm: React.FC<GroupFormProps> = () => {
             name='name'
             className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full ps-10 p-2.5'
             placeholder='My Group'
+            value={formik.values.name}
+            onChange={formik.handleChange}
           />
         </div>
+        <span className='text-xs text-red-500'>{formik.errors.name}</span>
         <label className='block mb-2 text-sm font-light text-zinc-700'>
           Tag with a color
         </label>
-        <div className='flex space-x-2 mb-6'>
+        <div className='flex space-x-2 mb-4'>
           {colors.map((color) => (
             <div
               key={color}
@@ -45,10 +92,14 @@ const GroupForm: React.FC<GroupFormProps> = () => {
                   : ''
               }`}
               style={{ backgroundColor: color }}
-              onClick={() => setSelectedColor(color)}
+              onClick={() => {
+                setSelectedColor(color);
+                formik.setFieldValue('color', color);
+              }}
             ></div>
           ))}
         </div>
+        <span className='text-xs text-red-500'>{formik.errors.color}</span>
         <label
           htmlFor='inviteEmails'
           className='block mb-2 text-sm font-light text-zinc-700'
@@ -61,7 +112,12 @@ const GroupForm: React.FC<GroupFormProps> = () => {
           className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 mb-6'
           placeholder='user1@example.com, user2@example.com'
           rows={4}
+          value={formik.values.inviteEmails}
+          onChange={formik.handleChange}
         ></textarea>
+        <span className='text-xs text-red-500'>
+          {formik.errors.inviteEmails}
+        </span>
         <button
           type='submit'
           className='bg-amber-400 text-white py-2 px-4 rounded-md mt-16 ml-auto flex'
