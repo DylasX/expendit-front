@@ -1,5 +1,5 @@
 import { useUser } from '@/pages/login/hooks/useUser';
-import { Profile2User, ReceiptAdd } from 'iconsax-react';
+import { Profile2User, ReceiptAdd, SmsNotification } from 'iconsax-react';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -20,9 +20,16 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
         </div>
       );
     }
+    if (location.pathname === '/') {
+      return (
+        <div className='bg-amber-300 absolute right-[55px] rounded-full p-1'>
+          <ReceiptAdd size='22' className='text-zinc-700 ' variant='Bold' />
+        </div>
+      );
+    }
     return (
       <div className='bg-amber-300 absolute right-[55px] rounded-full p-1'>
-        <ReceiptAdd size='22' className='text-zinc-700 ' variant='Bold' />
+        <SmsNotification size='22' className='text-zinc-700 ' variant='Bold' />
       </div>
     );
   };
