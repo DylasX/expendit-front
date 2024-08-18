@@ -1,17 +1,25 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { protectedApi } from '@/shared/services/request';
 import { Group } from '@/pages/groups/types/group';
 import { useInView } from 'react-intersection-observer';
 import Header from '@/shared/components/Header';
 import { useUser } from '@/pages/login/hooks/useUser';
 import React from 'react';
 import Drawer from '@/shared/components/Drawer';
-import GroupForm from '@/pages/groups/components/groupForm';
+import GroupForm from '@/pages/groups/components/GroupForm';
+import useGroup from '@/pages/groups/hooks/group';
+import GroupList from '@/pages/groups/components/GroupList';
 
 const Groups: React.FC = () => {
   const { ref, inView } = useInView();
   const { data: user } = useUser();
   const [open, setOpen] = React.useState(false);
+  const {
+    error,
+    fetchNextPage,
+    groups,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useGroup();
 
   const renderOwesYou = (group: Group) =>
     group.balances?.length
@@ -30,31 +38,6 @@ const Groups: React.FC = () => {
         ))
       : `Settled up`;
 
-  const fetchGroups = async ({ pageParam }: { pageParam: number }) => {
-    const { data } = await protectedApi.get(`/groups?page=${pageParam}`);
-    return data;
-  };
-
-  const {
-    data: data,
-    isLoading,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['groups'],
-    // staleTime: 1000 * 60 * 5,
-    queryFn: fetchGroups,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      return lastPage.meta.nextPageUrl
-        ? lastPage.meta.currentPage + 1
-        : undefined;
-    },
-    refetchOnWindowFocus: true,
-  });
-
   React.useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -68,8 +51,6 @@ const Groups: React.FC = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  const groups = data?.pages.map(({ data }) => data).flat() as Group[];
 
   const onClose = () => {
     setOpen(false);
@@ -99,43 +80,11 @@ const Groups: React.FC = () => {
             Sorted by most recent activity.
           </p>
         </div>
-        <ul className='flex-1  p-4'>
-          {groups.length === 0 && (
-            <li className='text-center text-xs text-gray-500 mt-4'>
-              No groups yet.
-            </li>
-          )}
-          {groups?.map((group: Group, index: number) => (
-            <li
-              key={group.id + group.name + index}
-              className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'
-            >
-              <div className='flex items-center space-x-4 rtl:space-x-reverse'>
-                <div className='flex-shrink-0'>
-                  <img
-                    className='w-8 h-8 rounded-full'
-                    src='https://flowbite.com/docs/images/people/profile-picture-1.jpg'
-                    alt='Neil image'
-                  />
-                </div>
-                <div className='flex-1 min-w-0'>
-                  <p className='text-sm font-normal  truncate '>{group.name}</p>
-                  <span className='text-xs text-gray-500 truncate font-light '>
-                    {renderOwesYou(group)}
-                  </span>
-                </div>
-                <div
-                  className={`inline-flex items-center text-base font-normal ${
-                    group.balanceTotal < 0 ? 'text-red-600' : 'text-green-600'
-                  }`}
-                >
-                  {/* check if amount is - to change color */}
-                  {`$${Math.abs(group.balanceTotal) || 0}`}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <GroupList
+          groups={groups}
+          renderOwesYou={renderOwesYou}
+          className='flex-1 p-4'
+        />
         {groups.length ? (
           <span
             ref={ref}
