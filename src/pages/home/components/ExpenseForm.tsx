@@ -1,5 +1,6 @@
 import useGroup from '@/pages/groups/hooks/group';
 import { Group } from '@/pages/groups/types/group';
+import { DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -72,18 +73,58 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
             )}
           </>
         ) : (
-          <div className='flex flex-col items-center mt-4'>
-            <span
-              className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up`}
-              style={{ backgroundColor: selectedGroup.color }}
-            >
-              {selectedGroup.emoji}
-            </span>
-            <span className='capitalize font-light text-md'>
-              {selectedGroup.name}
-            </span>
-            <hr className='my-4 border-t border-gray-300 w-full' />
-          </div>
+          <section>
+            <div className='flex flex-col items-center mt-4'>
+              <span
+                className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up`}
+                style={{ backgroundColor: selectedGroup.color }}
+              >
+                {selectedGroup.emoji}
+              </span>
+              <span className='capitalize font-light text-md'>
+                {selectedGroup.name}
+              </span>
+              <hr className='my-4 border-t border-gray-100 w-full' />
+            </div>
+            <div>
+              <form className='max-w-sm mx-auto'>
+                <label
+                  htmlFor='description'
+                  className='block mb-2 text-sm font-light text-gray-900 dark:text-white'
+                >
+                  Description
+                </label>
+                <div className='relative'>
+                  <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
+                    <Message className='w-5 h-5 text-gray-400' />
+                  </div>
+                  <input
+                    type='text'
+                    id='description'
+                    className='bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  '
+                    placeholder='Coffee with friends'
+                  />
+                </div>
+                <label
+                  htmlFor='amount'
+                  className='block mb-2 text-sm font-light text-gray-900 dark:text-white'
+                >
+                  Amount
+                </label>
+                <div className='relative'>
+                  <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
+                    <DollarCircle className='w-5 h-5 text-gray-400' />
+                  </div>
+                  <input
+                    type='text'
+                    id='amount'
+                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  '
+                    placeholder='10.000'
+                  />
+                </div>
+              </form>
+            </div>
+          </section>
         )}
       </div>
     </section>
