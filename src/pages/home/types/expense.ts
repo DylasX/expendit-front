@@ -8,4 +8,5 @@ export interface Expense {
   createdAt: string;
   updatedAt: string;
   amountByUser: string;
+  emoji: string;
 }

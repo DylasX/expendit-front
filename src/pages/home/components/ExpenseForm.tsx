@@ -64,15 +64,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
         {!seletectedGroup ? (
           <>
             <h3 className='text-sm font-extralight text-zinc-700 mb-1'>
-              Select a group{' '}
+              Select a group
             </h3>
-            <input
+            {/* <input
               type='text'
               id='groupName'
               name='name'
               className='border bg-white mb-4 border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full'
               placeholder='Search group'
-            />{' '}
+            />{' '} */}
             <ul className='flex flex-row flex-wrap mt-4'>
               {groups.length === 0 && (
                 <li className='text-center text-xs text-gray-500 mt-4'>
@@ -100,7 +100,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
             {groups.length ? (
               <span
                 ref={ref}
-                className='block text-xs text-center  text-gray-500 mb-2'
+                className='block text-xs font-extralight text-center  text-zinc-400 mb-2'
               >
                 {isFetchingNextPage
                   ? 'Loading more...'

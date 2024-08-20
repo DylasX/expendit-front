@@ -1,5 +1,10 @@
 import { useUser } from '@/pages/login/hooks/useUser';
-import { Profile2User, ReceiptAdd, SmsNotification } from 'iconsax-react';
+import {
+  Profile2User,
+  ReceiptAdd,
+  SmsNotification,
+  UserOctagon,
+} from 'iconsax-react';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -39,11 +44,9 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe, openDrawer }) => {
     <section className='block  bg-white pb-6'>
       <div className=' text-zinc-700 p-4 flex-row flex'>
         <div className='text-lg flex-row flex'>
-          <img
-            className='w-10 h-10 rounded-full'
-            src='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-            alt='user photo'
-          />
+          <span className='w-8 h-8 rounded-full bg-amber-400 flex justify-center items-center'>
+            <UserOctagon size='22' className='text-zinc-700 ' variant='Bold' />
+          </span>
           <span className='ml-2 place-content-center text-sm font-light text-zinc-800'>
             <p className='font-light'>{queryUser.data?.fullName}</p>
           </span>

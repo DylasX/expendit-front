@@ -6,4 +6,5 @@ export const groupValidator = z.object({
     .string()
     .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, 'Invalid color'),
   inviteEmails: z.string().optional(),
+  emoji: z.string(),
 });

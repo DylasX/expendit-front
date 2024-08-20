@@ -7,6 +7,8 @@ import { Profile2User } from 'iconsax-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
+import EmojiPicker from 'emoji-picker-react';
+import { colors } from '@/shared/utils/color';
 
 interface GroupFormProps {
   onClose: () => void;
@@ -16,23 +18,12 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const queryClient = useQueryClient();
 
-  const colors = [
-    '#B1112C',
-    '#457B9D',
-    '#1D3557',
-    '#AAADDD',
-    '#E63946',
-    '#ACCBE1',
-    '#A8E6CE',
-    '#475D9A',
-    '#2DC163',
-  ];
-
   const formik = useFormik<GroupPayload>({
     initialValues: {
       name: '',
       color: '',
       inviteEmails: '',
+      emoji: '',
     },
     validateOnChange: false,
     validateOnBlur: true,
@@ -56,6 +47,20 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
       console.log(error);
       toast.error('Error creating group');
     },
+  });
+
+  React.useEffect(() => {
+    // Add these css rules to the document
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .epr-body + div{
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      style.remove();
+    };
   });
 
   return (
@@ -106,6 +111,25 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
           ))}
         </div>
         <span className='text-xs text-red-500'>{formik.errors.color}</span>
+        <label className='flex items-center justify-between mb-2 text-sm font-light text-zinc-700'>
+          Pick an emoji{' '}
+          <span
+            className='rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl'
+            style={{ backgroundColor: formik.values.color }}
+          >
+            {formik.values.emoji}
+          </span>
+        </label>
+        <div className='flex flex-col space-x-2 mb-4'>
+          <EmojiPicker
+            width={'100%'}
+            height={'300px'}
+            searchDisabled={true}
+            style={{ marginLeft: '0' }}
+            onEmojiClick={({ emoji }) => formik.setFieldValue('emoji', emoji)}
+          />
+        </div>
+        <span className='text-xs text-red-500'>{formik.errors.color}</span>
         <label
           htmlFor='inviteEmails'
           className='block mb-2 text-sm font-light text-zinc-700'
@@ -126,7 +150,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         </span>
         <button
           type='submit'
-          className='bg-amber-400 text-white py-2 px-4 rounded-md mt-16 ml-auto flex'
+          className='bg-amber-400 text-white py-2 px-4 rounded-md mt-4 ml-auto flex'
         >
           Create Group
         </button>

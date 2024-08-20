@@ -26,14 +26,15 @@ const GroupList: React.FC<GroupListProps> = ({
         >
           <div className='flex items-center space-x-4 rtl:space-x-reverse'>
             <div className='flex-shrink-0'>
-              <img
-                className='w-8 h-8 rounded-full'
-                src='https://flowbite.com/docs/images/people/profile-picture-1.jpg'
-                alt='Neil image'
-              />
+              <span
+                className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
+                style={{ backgroundColor: group.color }}
+              >
+                {group.emoji}
+              </span>
             </div>
             <div className='flex-1 min-w-0'>
-              <p className='text-sm font-normal  truncate '>{group.name}</p>
+              <p className='text-sm font-normal truncate'>{group.name}</p>
               {renderOwesYou && (
                 <span className='text-xs text-gray-500 truncate font-light '>
                   {renderOwesYou(group)}
