@@ -83,7 +83,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
             type='text'
             id='groupName'
             name='name'
-            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full ps-10 p-2.5'
+            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full ps-10 p-2.5'
             placeholder='My Group'
             value={formik.values.name}
             onChange={formik.handleChange}
@@ -99,7 +99,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
               key={color}
               className={`w-8 h-8 rounded-md cursor-pointer ${
                 selectedColor === color
-                  ? 'ring-2 ring-offset-2 ring-amber-500'
+                  ? 'ring-2 ring-offset-2 ring-primary-100'
                   : ''
               }`}
               style={{ backgroundColor: color }}
@@ -123,7 +123,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         <div className='flex flex-col space-x-2 mb-4'>
           <EmojiPicker
             width={'100%'}
-            height={'300px'}
+            height={'250px'}
             searchDisabled={true}
             style={{ marginLeft: '0' }}
             onEmojiClick={({ emoji }) => formik.setFieldValue('emoji', emoji)}
@@ -139,7 +139,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         <textarea
           id='inviteEmails'
           name='inviteEmails'
-          className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 mb-6'
+          className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full p-2.5 mb-6'
           placeholder='user1@example.com, user2@example.com'
           rows={4}
           value={formik.values.inviteEmails}
@@ -150,7 +150,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         </span>
         <button
           type='submit'
-          className='bg-amber-400 text-white py-2 px-4 rounded-md mt-4 ml-auto flex'
+          className='bg-primary-400 text-white py-2 px-4 rounded-md mt-4 ml-auto flex'
         >
           Create Group
         </button>

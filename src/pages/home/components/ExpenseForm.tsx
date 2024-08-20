@@ -70,7 +70,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
               type='text'
               id='groupName'
               name='name'
-              className='border bg-white mb-4 border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full'
+              className='border bg-white mb-4 border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full'
               placeholder='Search group'
             />{' '} */}
             <ul className='flex flex-row flex-wrap mt-4'>
@@ -139,7 +139,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
             type='text'
             id='groupName'
             name='name'
-            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full ps-10 p-2.5'
+            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full ps-10 p-2.5'
             placeholder='My Group'
             value={formik.values.name}
             onChange={formik.handleChange}
@@ -160,7 +160,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
             type='text'
             id='groupName'
             name='name'
-            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-amber-500 focus:border-amber-500 block w-full ps-10 p-2.5'
+            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full ps-10 p-2.5'
             placeholder='My Group'
             value={formik.values.name}
             onChange={formik.handleChange}
@@ -169,7 +169,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
         <span className='text-xs text-red-500'>{formik.errors.color}</span>
         <button
           type='submit'
-          className='bg-amber-400 text-white py-2 px-4 rounded-md mt-16 ml-auto flex'
+          className='bg-primary-100 text-white py-2 px-4 rounded-md mt-16 ml-auto flex'
         >
           Create Group
         </button>

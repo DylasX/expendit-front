@@ -106,8 +106,8 @@ const Invitations: React.FC = () => {
     //return span with text
     return (
       <span className='font-light text-sm'>
-        <span className='text-amber-500'>{inviterName}</span> invited{' '}
-        <span className='text-amber-500'>{inviteeName}</span>
+        <span className='text-primary-100'>{inviterName}</span> invited{' '}
+        <span className='text-primary-100'>{inviteeName}</span>
       </span>
     );
   };
@@ -127,7 +127,7 @@ const Invitations: React.FC = () => {
               })
             }
           >
-            <TickCircle size='32' className='text-amber-500' />
+            <TickCircle size='32' className='text-primary-100' />
           </button>
           <button
             onClick={() =>
@@ -196,7 +196,7 @@ const Invitations: React.FC = () => {
                   </p>
                   <p className='text-xs truncate  font-light'>
                     Group:{' '}
-                    <span className='text-amber-500'>
+                    <span className='text-primary-100'>
                       {invitation.group.name}
                     </span>
                   </p>

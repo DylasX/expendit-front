@@ -22,9 +22,9 @@ const Login: React.FC = () => {
         <Icon
           size='50'
           variant='Broken'
-          className='text-center text-amber-400'
+          className='text-center text-primary-400'
         />
-        <h2 className='text-center text-2xl font-light text-amber-400 mb-4'>
+        <h2 className='text-center text-2xl font-light text-primary-400 mb-4'>
           Expendit
         </h2>
         <p className='text-center text-sm font-light text-gray-500 mb-4'>
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             className='flex w-full -mb-px text-sm justify-around font-medium text-center'
             id='default-styled-tab'
             data-tabs-toggle='#default-styled-tab-content'
-            data-tabs-active-classes='text-amber-400 hover:text-amber-400 border-amber-400'
+            data-tabs-active-classes='text-primary-100 hover:text-primary-100 border-primary-100'
             data-tabs-inactive-classes='text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300'
             role='tablist'
           >
@@ -78,9 +78,9 @@ const Login: React.FC = () => {
           >
             <button
               type='button'
-              className='w-full text-amber-500 place-items-center justify-center bg-white border-amber-500 border focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 mb-2 flex'
+              className='w-full text-primary-400 place-items-center justify-center bg-white border-primary-400 border focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 mb-2 flex'
             >
-              <Google size='22' variant='Broken' className='text-amber-500' />{' '}
+              <Google size='22' variant='Broken' className='text-primary-400' />{' '}
               <span className='ml-4'>Login with Google</span>
             </button>
             <p className='text-center text-xs font-light text-gray-400 mt-12 mb-6'>
@@ -96,9 +96,9 @@ const Login: React.FC = () => {
           >
             <button
               type='button'
-              className='w-full mb-6 text-amber-500 place-items-center justify-center bg-white border-amber-500 border focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 flex'
+              className='w-full mb-6 text-primary-400 place-items-center justify-center bg-white border-primary-400 border focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 flex'
             >
-              <Google size='22' variant='Broken' className='text-amber-500' />{' '}
+              <Google size='22' variant='Broken' className='text-primary-100' />{' '}
               <span className='ml-4'>Login with Google</span>
             </button>
             <RegisterForm />
