@@ -57,7 +57,7 @@ const Groups: React.FC = () => {
   };
 
   return (
-    <main className='max-h-[90vh] overflow-y-auto scrollbar-hide'>
+    <main className='overflow-y-auto scrollbar-hide'>
       <Header
         owesYou={
           user?.myCredit?.reduce(
@@ -83,7 +83,7 @@ const Groups: React.FC = () => {
         <GroupList
           groups={groups}
           renderOwesYou={renderOwesYou}
-          className='flex-1 p-4'
+          className='p-4'
         />
         {groups.length ? (
           <span
