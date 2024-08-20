@@ -24,7 +24,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
       <div className='flex flex-col bg-opacity-10 rounded-2xl w-full animate-fade-up'>
         {!selectedGroup.id ? (
           <>
-            <h3 className='text-sm font-extralight text-zinc-700 mb-1'>
+            <h3 className='text-sm font-extralight text-gray-500 mb-1'>
               Select a group
             </h3>
             <ul className='flex flex-col flex-wrap mt-4'>
@@ -49,7 +49,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
                     >
                       {group.emoji}
                     </span>
-                    <span className='text-xs font-light ml-4 text-zinc-500'>
+                    <span className='text-md font-light ml-4 text-zinc-500'>
                       {group.name}
                     </span>
                   </a>
@@ -72,17 +72,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
             )}
           </>
         ) : (
-          <>
+          <div className='flex flex-col items-center mt-4'>
             <span
-              className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
+              className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up`}
               style={{ backgroundColor: selectedGroup.color }}
             >
               {selectedGroup.emoji}
             </span>
-            <span className='text-xs font-light ml-4 text-zinc-500'>
+            <span className='capitalize font-light text-md'>
               {selectedGroup.name}
             </span>
-          </>
+            <hr className='my-4 border-t border-gray-300 w-full' />
+          </div>
         )}
       </div>
     </section>
