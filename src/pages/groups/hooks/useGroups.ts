@@ -7,7 +7,7 @@ const fetchGroups = async ({ pageParam }: { pageParam: number }) => {
   return data;
 };
 
-const useGroup = () => {
+const useGroups = () => {
   const {
     data: data,
     isLoading,
@@ -40,4 +40,4 @@ const useGroup = () => {
   };
 };
 
-export default useGroup;
+export default useGroups;

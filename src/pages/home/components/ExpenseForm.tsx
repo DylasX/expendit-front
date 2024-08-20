@@ -1,5 +1,7 @@
-import useGroup from '@/pages/groups/hooks/group';
+import useGroup from '@/pages/groups/hooks/useGroup';
+import useGroups from '@/pages/groups/hooks/useGroups';
 import { Group } from '@/pages/groups/types/group';
+import { User } from '@/shared/types/user';
 import { DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -11,7 +13,10 @@ interface ExpenseFormProps {
 const ExpenseForm: React.FC<ExpenseFormProps> = () => {
   const [selectedGroup, setSelectedGroup] = React.useState({} as Group);
   const { ref, inView } = useInView();
-  const { groups, isFetchingNextPage, hasNextPage, fetchNextPage } = useGroup();
+  const { groups, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useGroups();
+
+  const { data: group } = useGroup(selectedGroup?.id);
 
   React.useEffect(() => {
     if (inView) {
@@ -22,7 +27,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
   return (
     <section className='p-4'>
       <h2 className='text-lg font-semibold text-zinc-700 mb-4'>New expense </h2>
-      <div className='flex flex-col bg-opacity-10 rounded-2xl w-full animate-fade-up'>
+      <div className='flex flex-col bg-opacity-10 rounded-2xl w-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
             <h3 className='text-sm font-extralight text-gray-500 mb-1'>
@@ -76,7 +81,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
           <section>
             <div className='flex flex-col items-center mt-4'>
               <span
-                className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up`}
+                className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up animate-duration-300`}
                 style={{ backgroundColor: selectedGroup.color }}
               >
                 {selectedGroup.emoji}
@@ -122,6 +127,63 @@ const ExpenseForm: React.FC<ExpenseFormProps> = () => {
                     placeholder='10.000'
                   />
                 </div>
+                <label
+                  htmlFor='description'
+                  className='block mb-2 mt-4 text-sm font-light text-gray-900 dark:text-white'
+                >
+                  Split money
+                </label>
+                <div className='flex justify-between'>
+                  <button
+                    className='px-4 py-2 rounded-lg bg-primary-400 text-white font-light'
+                    type='button'
+                  >
+                    Equals
+                  </button>
+                  <button
+                    className='px-4 py-2 rounded-lg bg-primary-400 text-white font-light'
+                    type='button'
+                  >
+                    Value
+                  </button>
+                  <button
+                    className='px-4 py-2 rounded-lg bg-primary-400 text-white font-light'
+                    type='button'
+                  >
+                    %
+                  </button>
+                </div>
+                <ul>
+                  {group?.users.map((member: User) => (
+                    <li
+                      key={member.id}
+                      className='flex items-center mb-2 mt-4 justify-between'
+                    >
+                      <label
+                        htmlFor={String(member.id)}
+                        className='ml-0 text-gray-900 dark:text-white'
+                      >
+                        {member.fullName}
+                      </label>
+                      <input
+                        type='text'
+                        id={String(member.id) + 'amount'}
+                        className='rounded-sm text-primary-500 border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+                      />
+                      <input
+                        type='checkbox'
+                        id={String(member.id)}
+                        className='rounded-sm text-primary-500 border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className='bg-primary-400 text-white px-4 py-2 rounded-lg mt-4'
+                  type='submit'
+                >
+                  Create expense
+                </button>
               </form>
             </div>
           </section>

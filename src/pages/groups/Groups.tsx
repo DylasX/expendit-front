@@ -5,7 +5,7 @@ import { useUser } from '@/pages/login/hooks/useUser';
 import React from 'react';
 import Drawer from '@/shared/components/Drawer';
 import GroupForm from '@/pages/groups/components/GroupForm';
-import useGroup from '@/pages/groups/hooks/group';
+import useGroups from '@/pages/groups/hooks/useGroups';
 import GroupList from '@/pages/groups/components/GroupList';
 
 const Groups: React.FC = () => {
@@ -19,7 +19,7 @@ const Groups: React.FC = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useGroup();
+  } = useGroups();
 
   const renderOwesYou = (group: Group) =>
     group.balances?.length
@@ -73,7 +73,7 @@ const Groups: React.FC = () => {
         }
         openDrawer={() => setOpen(true)}
       />
-      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up'>
+      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
         <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
           Groups
           <p className='mt-1 text-sm font-light text-gray-500 '>

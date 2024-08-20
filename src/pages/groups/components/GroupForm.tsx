@@ -7,7 +7,7 @@ import { Profile2User } from 'iconsax-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker, { SkinTonePickerLocation } from 'emoji-picker-react';
 import { colors } from '@/shared/utils/color';
 
 interface GroupFormProps {
@@ -124,7 +124,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
           <EmojiPicker
             width={'100%'}
             height={'250px'}
-            searchDisabled={true}
+            skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
             style={{ marginLeft: '0' }}
             onEmojiClick={({ emoji }) => formik.setFieldValue('emoji', emoji)}
           />

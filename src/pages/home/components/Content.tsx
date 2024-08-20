@@ -72,7 +72,7 @@ const Content: React.FC = () => {
   const expenses = data?.pages.map(({ data }) => data).flat() as Expense[];
 
   return (
-    <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up'>
+    <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
       <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
         Expenses
         <p className='mt-1 text-sm font-light text-gray-500 '>
