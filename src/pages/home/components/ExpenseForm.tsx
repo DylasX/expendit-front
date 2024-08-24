@@ -72,6 +72,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
       //validate the current user is included in the participants
       //convert to negative all the participants amount with id different from the current user
       values.groupId = selectedGroup.id;
+      if (values.divisionStrategy === 'PERCENTAGE') {
+        values.participants = values.participants.map((m) => {
+          m.amount = (values.amount * m.amount) / 100;
+          return m;
+        });
+      }
+      if (values.divisionStrategy !== 'EQUALS') {
+        const currentUser = values.participants.find((m) => m.id === user?.id);
+        currentUser!.amount = values.participants
+          .filter((m) => m.id !== user?.id)
+          .reduce((acc, acum) => Math.abs(acc) + Math.abs(acum.amount), 0);
+      }
       values.participants = values.participants.map((m) => {
         if (m.id !== user?.id) {
           m.amount = -m.amount;
@@ -108,7 +120,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             value={'VALUES'}
             name='strategy'
             onChange={handleRadioButtons}
-            disabled
             checked={formik.values.divisionStrategy === 'VALUES'}
             className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
           />
@@ -124,7 +135,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             value={'PERCENTAGE'}
             name='strategy'
             onChange={handleRadioButtons}
-            disabled
             checked={formik.values.divisionStrategy === 'PERCENTAGE'}
             className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
           />
