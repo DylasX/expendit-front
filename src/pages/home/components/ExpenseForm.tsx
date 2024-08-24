@@ -43,7 +43,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
       queryClient.invalidateQueries({ queryKey: ['expenses'] });
       queryClient.invalidateQueries({ queryKey: ['groups'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      toast.success('Group created');
+      toast.success('Expense created');
       onClose();
     },
     onError: (error) => {
@@ -53,7 +53,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
         }),
       ]);
       console.log(error);
-      toast.error('Error creating group');
+      toast.error('Error creating expense');
     },
   });
 

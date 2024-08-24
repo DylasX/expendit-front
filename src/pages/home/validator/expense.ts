@@ -19,7 +19,7 @@ export const expenseValidator = z
           amount: z.number(),
         })
       )
-      .min(1, 'At least 1 member is required'),
+      .min(2, 'At least 2 member are required'),
   })
   .refine(
     (data) => {
