@@ -1,3 +1,6 @@
+import { expenseValidator } from '@/pages/home/validator/expense';
+import { z } from 'zod';
+
 export interface Expense {
   id: number;
   ownerUserId: number;
@@ -10,3 +13,5 @@ export interface Expense {
   amountByUser: string;
   emoji: string;
 }
+
+export type ExpensePayload = z.infer<typeof expenseValidator>;
