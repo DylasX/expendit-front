@@ -78,16 +78,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
           return m;
         });
       }
-      if (values.divisionStrategy !== 'EQUALS') {
-        const currentUser = values.participants.find((m) => m.id === user?.id);
-        currentUser!.amount = values.participants
-          .filter((m) => m.id !== user?.id)
-          .reduce((acc, acum) => Math.abs(acc) + Math.abs(acum.amount), 0);
-      }
+      const currentUser = values.participants.find((m) => m.id === user?.id);
+      currentUser!.amount = values.participants
+        .filter((m) => m.id !== user?.id)
+        .reduce((acc, acum) => Math.abs(acc) + Math.abs(acum.amount), 0);
       values.participants = values.participants.map((m) => {
         if (m.id !== user?.id) {
           m.amount = -m.amount;
         }
+        m.amount = Number(m.amount.toFixed(2));
         return m;
       });
       expenseMutation.mutate(values);
