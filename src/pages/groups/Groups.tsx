@@ -25,15 +25,12 @@ const Groups: React.FC = () => {
     group.balances?.length
       ? group.balances.map((balance) => (
           <span key={balance.id + 'balance'}>
-            {parseFloat(balance.amount) > 0 ? (
-              balance.debtUserRelated === user?.id ? (
+            {parseFloat(balance.amount) > 0 &&
+              (balance.debtUserRelated === user?.id ? (
                 <p>{`You owe to ${balance.user.fullName}`}</p>
               ) : (
                 <p>{`${balance.debtUser.fullName} owes to you`}</p>
-              )
-            ) : (
-              'Settled up'
-            )}
+              ))}
           </span>
         ))
       : `Settled up`;
