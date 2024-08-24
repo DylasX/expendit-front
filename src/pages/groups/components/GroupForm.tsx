@@ -39,7 +39,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
       return protectedApi.post('/groups/', payload);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['groups'] });
+      queryClient.refetchQueries({ queryKey: ['groups'] });
       toast.success('Group created');
       onClose();
     },
