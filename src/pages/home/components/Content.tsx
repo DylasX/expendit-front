@@ -19,7 +19,7 @@ const Content: React.FC = () => {
     return (
       <div
         className={`flex flex-col text-right ${
-          amountToPay < 0 ? 'text-red-500' : 'text-green-500'
+          amountToPay < 0 ? 'text-red-600' : 'text-emerald-600'
         }`}
       >
         <span className='text-md'>${Math.abs(amountToPay)}</span>

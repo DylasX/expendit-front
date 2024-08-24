@@ -43,7 +43,7 @@ const GroupList: React.FC<GroupListProps> = ({
             </div>
             <div
               className={`inline-flex items-center text-base font-normal ${
-                group.balanceTotal < 0 ? 'text-red-600' : 'text-green-600'
+                group.balanceTotal < 0 ? 'text-red-600' : 'text-emerald-600'
               }`}
             >
               {/* check if amount is - to change color */}

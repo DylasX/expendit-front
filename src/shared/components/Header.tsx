@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe, openDrawer }) => {
         <h2 className='text-sm font-extralight'>Total Balance</h2>
         <span
           className={`text-lg font-semibold ${
-            owesYou - youOwe < 0 ? 'text-red-500' : 'text-green-500'
+            owesYou - youOwe < 0 ? 'text-red-500' : 'text-emerald-500'
           }`}
         >{`$${Math.abs(owesYou - youOwe)}`}</span>
       </div>
