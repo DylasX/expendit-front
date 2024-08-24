@@ -85,7 +85,7 @@ const Groups: React.FC = () => {
         {groups.length ? (
           <span
             ref={ref}
-            className='block text-xs text-center  text-gray-500 mb-2'
+            className='block text-xs text-center  text-gray-500 mb-20'
           >
             {isFetchingNextPage
               ? 'Loading more...'
