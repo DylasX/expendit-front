@@ -11,12 +11,17 @@ import { CloseCircle, TickCircle } from 'iconsax-react';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import toast from 'react-hot-toast';
+import Drawer from '@/shared/components/Drawer';
+import InvitationForm from '@/pages/invitations/components/InvitationForm';
 
 const Invitations: React.FC = () => {
   const { ref, inView } = useInView();
   const { data: user } = useUser();
   const queryClient = useQueryClient();
-
+  const [open, setOpen] = React.useState(false);
+  const onClose = () => {
+    setOpen(false);
+  };
   const getInvitations = async ({ pageParam }: { pageParam: number }) => {
     const { data } = await protectedApi.get(
       `user/invitations?page=${pageParam}`
@@ -106,8 +111,8 @@ const Invitations: React.FC = () => {
     //return span with text
     return (
       <span className='font-light text-sm'>
-        <span className='text-primary-100'>{inviterName}</span> invited{' '}
-        <span className='text-primary-100'>{inviteeName}</span>
+        <span className='text-emerald-400'>{inviterName}</span> invited{' '}
+        <span className='text-emerald-400'>{inviteeName}</span>
       </span>
     );
   };
@@ -127,7 +132,7 @@ const Invitations: React.FC = () => {
               })
             }
           >
-            <TickCircle size='32' className='text-primary-100' />
+            <TickCircle size='32' className='text-emerald-400' />
           </button>
           <button
             onClick={() =>
@@ -168,7 +173,7 @@ const Invitations: React.FC = () => {
           ) || 0
         }
         openDrawer={() => {
-          console.log('hi');
+          setOpen(true);
         }}
       />{' '}
       <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
@@ -196,7 +201,7 @@ const Invitations: React.FC = () => {
                   </p>
                   <p className='text-xs truncate  font-light'>
                     Group:{' '}
-                    <span className='text-primary-100'>
+                    <span className='text-emerald-400'>
                       {invitation.group.name}
                     </span>
                   </p>
@@ -223,6 +228,9 @@ const Invitations: React.FC = () => {
           ''
         )}
       </section>
+      <Drawer isFullScreen={true} open={open} onClose={onClose}>
+        <InvitationForm onClose={onClose} />
+      </Drawer>
     </div>
   );
 };

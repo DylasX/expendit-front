@@ -1,5 +1,7 @@
 import { Group } from '@/pages/groups/types/group';
+import { inviteValidator } from '@/pages/invitations/validator/invitation';
 import { User } from '@/shared/types/user';
+import { z } from 'zod';
 
 export interface Invitation {
   id: number;
@@ -19,3 +21,5 @@ export enum StatusEnum {
   ACCEPTED = 'accepted',
   REJECTED = 'rejected',
 }
+
+export type InvitationPayload = z.infer<typeof inviteValidator>;
