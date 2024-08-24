@@ -3,10 +3,6 @@ import { User } from '@/shared/types/user';
 import { useQuery } from '@tanstack/react-query';
 import * as authStorage from '@/pages/login/utils/session';
 
-export enum QUERY_KEYS {
-  USER = 'user',
-}
-
 export const useUser = () => {
   const fetchUser = async () => {
     const { data } = await protectedApi.get('user');
@@ -14,7 +10,7 @@ export const useUser = () => {
   };
 
   return useQuery<User>({
-    queryKey: [QUERY_KEYS.USER],
+    queryKey: ['user'],
     queryFn: () => {
       return fetchUser();
     },

@@ -2,27 +2,35 @@ import { z } from 'zod';
 
 export const expenseValidator = z
   .object({
-    description: z.string().min(3, 'description is too short'),
+    description: z.string().min(3, 'Description is too short'),
     emoji: z.string().default('👥'),
-    amount: z.number().min(1, 'amount is too low'),
+    amount: z.number().min(1, 'Amount is too low'),
+    groupId: z.number(),
     divisionStrategy: z
       .string()
       .refine(
-        (value) => ['equals', 'value', 'percentage'].includes(value),
-        'invalid division strategy'
+        (value) => ['EQUALS', 'VALUES', 'PERCENTAGE'].includes(value),
+        'Invalid division strategy'
       ),
-    members: z
+    participants: z
       .array(
         z.object({
           id: z.number(),
           amount: z.number(),
         })
       )
-      .length(1, 'must have at least 1 member'),
+      .min(1, 'At least 1 member is required'),
   })
   .refine(
     (data) => {
-      const totalMemberAmount = data.members.reduce(
+      if (data.divisionStrategy === 'percentage') {
+        const totalMemberPercentage = data.participants.reduce(
+          (sum, member) => sum + member.amount,
+          0
+        );
+        return totalMemberPercentage === 100;
+      }
+      const totalMemberAmount = data.participants.reduce(
         (sum, member) => sum + member.amount,
         0
       );
@@ -30,6 +38,6 @@ export const expenseValidator = z
     },
     {
       message: 'The sum of member amounts must be equal to the group amount',
-      path: ['members'],
+      path: ['participants'],
     }
   );

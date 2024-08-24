@@ -35,6 +35,7 @@ const Content: React.FC = () => {
     const { data } = await protectedApi.get(`/user/expenses?page=${pageParam}`);
     return data;
   };
+
   const {
     data: data,
     isLoading,
