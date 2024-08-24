@@ -41,6 +41,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['expenses'] });
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       toast.success('Group created');
       onClose();
