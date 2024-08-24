@@ -108,6 +108,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             value={'VALUES'}
             name='strategy'
             onChange={handleRadioButtons}
+            disabled
             checked={formik.values.divisionStrategy === 'VALUES'}
             className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
           />
@@ -123,6 +124,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             value={'PERCENTAGE'}
             name='strategy'
             onChange={handleRadioButtons}
+            disabled
             checked={formik.values.divisionStrategy === 'PERCENTAGE'}
             className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
           />
