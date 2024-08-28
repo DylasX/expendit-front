@@ -3,9 +3,9 @@ import Logo from '@/assets/logo.svg?react';
 
 const Loader: React.FC = () => {
   return (
-    <div className='loader-container min-h-screen bg-zinc-800  flex items-center justify-center flex-col'>
-      <Logo className='w-60 h-60' color='#fff' />
-      <div role='status' className='absolute bottom-1/3'>
+    <div className='loader-container h-screen relative z-50 flex items-center justify-center flex-col'>
+      <Logo className='w-60 h-60 absolute bottom-1/2' color='#fff' />
+      <div role='status' className='absolute bottom-[55%]'>
         <svg
           aria-hidden='true'
           className='w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-primary-200'

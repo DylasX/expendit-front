@@ -42,10 +42,6 @@ const Groups: React.FC = () => {
     }
   }, [fetchNextPage, inView]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -71,33 +67,38 @@ const Groups: React.FC = () => {
         }
         openDrawer={() => setOpen(true)}
       />
-      <section className='flex flex-col bg-zinc-600 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
-        <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
-          Groups
-          <p className='mt-1 text-sm font-light text-gray-50 '>
-            Sorted by most recent activity.
-          </p>
-        </div>
-        <GroupList
-          groups={groups}
-          renderOwesYou={renderOwesYou}
-          className='p-4'
-        />
-        {groups.length ? (
-          <span
-            ref={ref}
-            className='block text-xs text-center  text-gray-50 mb-20'
-          >
-            {isFetchingNextPage
-              ? 'Loading more...'
-              : hasNextPage
-              ? 'Load More'
-              : 'No more groups to load'}
-          </span>
-        ) : (
-          ''
-        )}
-      </section>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <section className='flex flex-col bg-zinc-600 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
+          <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
+            Groups
+            <p className='mt-1 text-sm font-light text-gray-50 '>
+              Sorted by most recent activity.
+            </p>
+          </div>
+          <GroupList
+            groups={groups}
+            renderOwesYou={renderOwesYou}
+            className='p-4'
+          />
+          {groups.length ? (
+            <span
+              ref={ref}
+              className='block text-xs text-center  text-gray-50 mb-20'
+            >
+              {isFetchingNextPage
+                ? 'Loading more...'
+                : hasNextPage
+                ? 'Load More'
+                : 'No more groups to load'}
+            </span>
+          ) : (
+            ''
+          )}
+        </section>
+      )}
+
       <Drawer isFullScreen={true} open={open} onClose={onClose}>
         <GroupForm onClose={onClose} />
       </Drawer>
