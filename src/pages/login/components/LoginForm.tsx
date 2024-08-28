@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginValidator } from '@/pages/login/validator/login';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Key, UserTag } from 'iconsax-react';
+import Loader from '@/shared/components/Loader';
 
 interface LoginFormProps {
   switchTabs: () => void;
@@ -38,6 +39,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
       navigate('/');
     },
   });
+
+  if (loginMutation.isPending) {
+    return <Loader />;
+  }
 
   return (
     <div className='animate-fade-up flex flex-col animate-duration-300'>
@@ -95,6 +100,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
         </a>
         <button
           type='submit'
+          disabled={loginMutation.isPending}
           className='w-full text-white mt-10 bg-primary-400 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
         >
           Login

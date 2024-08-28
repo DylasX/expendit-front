@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { registerValidator } from '@/pages/login/validator/login';
 import { Key, UserTag } from 'iconsax-react';
+import Loader from '@/shared/components/Loader';
 
 interface RegisterFormProps {
   switchTabs: () => void;
@@ -38,6 +39,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
       navigate('/');
     },
   });
+
+  if (registerMutation.isPending) {
+    return <Loader />;
+  }
 
   return (
     <div className='flex flex-col animate-fade-up animate-duration-300'>
@@ -115,6 +120,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
         </div>
         <button
           type='submit'
+          disabled={registerMutation.isPending}
           className='w-full text-white mt-10 bg-primary-400 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
         >
           Register
