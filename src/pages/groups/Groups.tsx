@@ -7,6 +7,7 @@ import Drawer from '@/shared/components/Drawer';
 import GroupForm from '@/pages/groups/components/GroupForm';
 import useGroups from '@/pages/groups/hooks/useGroups';
 import GroupList from '@/pages/groups/components/GroupList';
+import Loader from '@/shared/components/Loader';
 
 const Groups: React.FC = () => {
   const { ref, inView } = useInView();
@@ -42,7 +43,7 @@ const Groups: React.FC = () => {
   }, [fetchNextPage, inView]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {

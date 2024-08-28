@@ -5,6 +5,7 @@ import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { formatDistance } from 'date-fns';
 import { colors } from '@/shared/utils/color';
+import Loader from '@/shared/components/Loader';
 
 const Content: React.FC = () => {
   const { ref, inView } = useInView();
@@ -59,7 +60,7 @@ const Content: React.FC = () => {
   }, [fetchNextPage, inView]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {

@@ -13,6 +13,7 @@ import { useInView } from 'react-intersection-observer';
 import toast from 'react-hot-toast';
 import Drawer from '@/shared/components/Drawer';
 import InvitationForm from '@/pages/invitations/components/InvitationForm';
+import Loader from '@/shared/components/Loader';
 
 const Invitations: React.FC = () => {
   const { ref, inView } = useInView();
@@ -88,7 +89,7 @@ const Invitations: React.FC = () => {
   }, [fetchNextPage, inView]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {
