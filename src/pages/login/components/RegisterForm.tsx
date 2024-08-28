@@ -7,8 +7,12 @@ import * as authStorage from '@/pages/login/utils/session';
 import { useNavigate } from 'react-router-dom';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { registerValidator } from '@/pages/login/validator/login';
+import { Key, UserTag } from 'iconsax-react';
 
-const RegisterForm: React.FC = () => {
+interface RegisterFormProps {
+  switchTabs: () => void;
+}
+const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
   const navigate = useNavigate();
 
   //TODO: Implement handle error
@@ -36,82 +40,101 @@ const RegisterForm: React.FC = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className='relative z-0 w-full mb-5 group'>
-        <input
-          type='email'
-          name='email'
-          id='emailRegister'
-          className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-primary-100 peer'
-          placeholder=' '
-          value={formik.values.email}
-          autoComplete='off'
-          onChange={formik.handleChange}
-        />
-        <label
-          htmlFor='email'
-          className='peer-focus:font-medium absolute text-xs text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-100  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+    <div className='flex flex-col animate-fade-up animate-duration-300'>
+      <form onSubmit={formik.handleSubmit}>
+        <div className='relative z-0 w-full group mt-4'>
+          <label
+            htmlFor='email'
+            className={`block mb-2 text-sm font-medium text-white`}
+          >
+            Email
+          </label>
+          <div className={`relative `}>
+            <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
+              <UserTag className='w-5 h-5 text-gray-400' />
+            </div>
+            <input
+              type='text'
+              id='email'
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
+              placeholder='user1@example.com'
+              name='email'
+            />
+          </div>
+          <span className='text-xs text-red-500'>{formik.errors.email}</span>
+        </div>
+        <div className='relative z-0 w-full group  mt-4'>
+          <label
+            htmlFor='fullname'
+            className={`block mb-2 text-sm font-medium text-white`}
+          >
+            Fullname
+          </label>
+          <div className={`relative `}>
+            <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
+              <UserTag className='w-5 h-5 text-gray-400' />
+            </div>
+            <input
+              type='text'
+              id='fullName'
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
+              placeholder='user1@example.com'
+              name='fullName'
+            />
+          </div>
+          <span className='text-xs text-red-500'>{formik.errors.email}</span>
+        </div>
+        <div className='relative z-0 w-full mb-5 group'>
+          <label
+            htmlFor='password'
+            className={`block mb-2 text-sm font-medium text-white`}
+          >
+            Password
+          </label>
+          <div className={`relative `}>
+            <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
+              <Key className='w-5 h-5 text-gray-400' />
+            </div>
+            <input
+              type='password'
+              id='password'
+              name='password'
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
+              placeholder='password'
+            />
+          </div>
+          <span className='text-xs text-red-500 -mt-4'>
+            {formik.errors.password}
+          </span>
+        </div>
+        <button
+          type='submit'
+          className='w-full text-white mt-10 bg-primary-400 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
         >
-          Email address
-        </label>
-        <span className='text-xs text-red-500'>{formik.errors.email}</span>
-      </div>
-      <div className='relative z-0 w-full mb-5 group'>
-        <input
-          type='fullName'
-          name='fullName'
-          id='fullName'
-          className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-primary-100 peer'
-          placeholder=' '
-          value={formik.values.fullName}
-          onChange={formik.handleChange}
-        />
-        <label
-          htmlFor='fullName'
-          className='peer-focus:font-medium absolute text-xs text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary-100  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-        >
-          Fullname
-        </label>
-        <span className='text-xs text-red-500'>{formik.errors.fullName}</span>
-      </div>
-      <div className='relative z-0 w-full mb-5 group'>
-        <input
-          type='password'
-          name='password'
-          id='passwordRegister'
-          className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-primary-100 peer'
-          placeholder=' '
-          value={formik.values.password}
-          onChange={formik.handleChange}
-        />
-        <label
-          htmlFor='password'
-          className='peer-focus:font-medium absolute text-xs text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-primary-100  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-        >
-          Password
-        </label>
-        <span className='text-xs text-red-500'>{formik.errors.password}</span>
-      </div>
-
-      <a className='text-xs text-primary-100 mb-2' href='#'>
-        Registering you agree to our terms and conditions
-      </a>
-
-      <button
-        type='submit'
-        className='w-full text-white mt-10 bg-primary-100 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
+          Register
+        </button>
+        {registerMutation.isError && (
+          <span className='text-red-500 text-sm mt-2 text-center block'>
+            {
+              (registerMutation.error as unknown as errorMutationAxios).response
+                .data.errors[0].message
+            }
+          </span>
+        )}
+      </form>
+      <a
+        onClick={() => switchTabs()}
+        className='w-full  text-primary-400 focus:ring-4 focus:outline-none focus:ring-primary-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
       >
-        Register
-      </button>
-      {registerMutation.isError && (
-        <span className='text-red-500 text-sm mt-2 text-center block'>
-          {
-            (registerMutation.error as unknown as errorMutationAxios).response
-              .data.errors[0].message
-          }
-        </span>
-      )}
-    </form>
+        Already have an account? Login
+      </a>
+    </div>
   );
 };
 

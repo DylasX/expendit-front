@@ -15,14 +15,14 @@ const GroupList: React.FC<GroupListProps> = ({
   return (
     <ul className={className}>
       {groups.length === 0 && (
-        <li className='text-center text-xs text-gray-500 mt-4'>
+        <li className='text-center text-xs text-gray-50 mt-4'>
           No groups yet.
         </li>
       )}
       {groups?.map((group: Group, index: number) => (
         <li
           key={group.id + group.name + index}
-          className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'
+          className='pb-3 sm:pb-4 p-4 mb-3 bg-zinc-800 rounded-xl'
         >
           <div className='flex items-center space-x-4 rtl:space-x-reverse'>
             <div className='flex-shrink-0'>
@@ -34,16 +34,18 @@ const GroupList: React.FC<GroupListProps> = ({
               </span>
             </div>
             <div className='flex-1 min-w-0'>
-              <p className='text-sm font-normal truncate'>{group.name}</p>
+              <p className='text-sm font-normal truncate text-gray-50'>
+                {group.name}
+              </p>
               {renderOwesYou && (
-                <span className='text-xs text-gray-500 truncate font-light '>
+                <span className='text-xs text-gray-50 truncate font-light '>
                   {renderOwesYou(group)}
                 </span>
               )}
             </div>
             <div
               className={`inline-flex items-center text-base font-normal ${
-                group.balanceTotal < 0 ? 'text-red-600' : 'text-emerald-600'
+                group.balanceTotal < 0 ? 'text-red-400' : 'text-primary-400'
               }`}
             >
               {/* check if amount is - to change color */}

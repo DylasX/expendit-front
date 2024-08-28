@@ -20,7 +20,7 @@ const Drawer: React.FC<DrawerProps> = ({
     <div
       className={`fixed bottom-0 ${
         isFullScreen ? 'h-full' : 'h-auto'
-      } left-0 right-0 z-40 w-full p-4 overflow-hidden transition-transform bg-white animate-fade-up animate-duration-300`}
+      } left-0 right-0 z-40 w-full p-4 overflow-hidden transition-transform bg-zinc-800 animate-fade-up animate-duration-300`}
       tabIndex={1}
       aria-labelledby='drawer-top-label'
       style={{ maxHeight: '100vh' }}

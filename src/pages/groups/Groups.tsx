@@ -70,10 +70,10 @@ const Groups: React.FC = () => {
         }
         openDrawer={() => setOpen(true)}
       />
-      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
-        <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
+      <section className='flex flex-col bg-zinc-600 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
+        <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
           Groups
-          <p className='mt-1 text-sm font-light text-gray-500 '>
+          <p className='mt-1 text-sm font-light text-gray-50 '>
             Sorted by most recent activity.
           </p>
         </div>
@@ -85,7 +85,7 @@ const Groups: React.FC = () => {
         {groups.length ? (
           <span
             ref={ref}
-            className='block text-xs text-center  text-gray-500 mb-20'
+            className='block text-xs text-center  text-gray-50 mb-20'
           >
             {isFetchingNextPage
               ? 'Loading more...'

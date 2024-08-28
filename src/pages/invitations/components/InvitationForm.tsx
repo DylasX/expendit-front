@@ -68,23 +68,21 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
 
   return (
     <section className='p-4 h-full'>
-      <h2 className='text-lg font-semibold text-zinc-700 mb-4'>New expense </h2>
+      <h2 className='text-lg font-semibold text-gray-50 mb-4'>New expense </h2>
       <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
-            <h3 className='text-sm font-extralight text-gray-500 mb-1'>
-              Select a group
-            </h3>
+            <h3 className='text-sm  text-gray-50 mb-1'>Select a group</h3>
             <ul className='flex flex-col flex-wrap mt-4'>
               {groups?.length === 0 && (
-                <li className='text-center text-xs text-gray-500 mt-4'>
+                <li className='text-center text-xs text-gray-50 mt-4'>
                   No groups yet.
                 </li>
               )}
               {groups?.map((group: Group, index: number) => (
                 <li
                   key={group.id + group.name + index}
-                  className='bg-white rounded-xl mb-4'
+                  className='bg-zinc-800 rounded-xl mb-4'
                 >
                   <a
                     className='flex flex-row justify-start items-center'
@@ -97,7 +95,7 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
                     >
                       {group.emoji}
                     </span>
-                    <span className='text-md font-light ml-4 text-zinc-500'>
+                    <span className='text-md font-light ml-4 text-gray-50'>
                       {group.name}
                     </span>
                   </a>
@@ -107,7 +105,7 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
             {groups?.length ? (
               <span
                 ref={ref}
-                className='block text-xs font-extralight text-center  text-zinc-400 mb-2'
+                className='block text-xs font-extralight text-center  text-gray-50 mb-2'
               >
                 {isFetchingNextPage
                   ? 'Loading more...'
@@ -128,22 +126,21 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
               >
                 {selectedGroup.emoji}
               </span>
-              <span className='capitalize font-light text-md'>
+              <span className='capitalize font-light text-md text-gray-50 mt-2'>
                 {selectedGroup.name}
               </span>
-              <hr className='my-4 border-t border-gray-100 w-full' />
             </div>
             <form onSubmit={formik.handleSubmit}>
               <label
                 htmlFor='inviteEmails'
-                className='block mb-2 text-sm font-light text-zinc-700'
+                className='block mb-2 text-sm font-light text-gray-50'
               >
                 Invite users (emails separated by commas)
               </label>
               <textarea
                 id='inviteEmails'
                 name='inviteEmails'
-                className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full p-2.5 mb-6'
+                className='bg-customDark-100 text-sm text-gray-50 border-0 rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full p-2.5 mb-6'
                 placeholder='user1@example.com, user2@example.com'
                 rows={4}
                 value={formik.values.inviteEmails}

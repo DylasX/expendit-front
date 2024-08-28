@@ -110,9 +110,9 @@ const Invitations: React.FC = () => {
         : invitation.invitee.fullName;
     //return span with text
     return (
-      <span className='font-light text-sm'>
-        <span className='text-emerald-400'>{inviterName}</span> invited{' '}
-        <span className='text-emerald-400'>{inviteeName}</span>
+      <span className='font-light text-sm text-gray-50'>
+        <span className='text-primary-400'>{inviterName}</span> invited{' '}
+        <span className='text-primary-400'>{inviteeName}</span>
       </span>
     );
   };
@@ -132,7 +132,7 @@ const Invitations: React.FC = () => {
               })
             }
           >
-            <TickCircle size='32' className='text-emerald-400' />
+            <TickCircle size='32' className='text-primary-400' />
           </button>
           <button
             onClick={() =>
@@ -176,32 +176,32 @@ const Invitations: React.FC = () => {
           setOpen(true);
         }}
       />{' '}
-      <section className='flex flex-col bg-slate-400 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
-        <div className='p-5 text-lg font-semibold text-left w-full mb-5'>
+      <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
+        <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
           Invitations
-          <p className='mt-1 text-sm font-light text-gray-500 '>
+          <p className='mt-1 text-sm font-light text-gray-50'>
             Most recent invitations.
           </p>
         </div>
         <ul className='flex-1 divide-y  divide-gray-200 p-4'>
           {invitations.length === 0 && (
-            <li className='text-center text-xs text-gray-500 mt-4'>
+            <li className='text-center text-xs text-gray-50 mt-4'>
               No invitations yet.
             </li>
           )}
           {invitations.map((invitation, index) => (
             <li
               key={index}
-              className='pb-3 sm:pb-4 p-4 mb-3 bg-white rounded-xl'
+              className='pb-3 sm:pb-4 p-4 mb-3 bg-zinc-800 rounded-xl'
             >
               <div className='flex items-center space-x-4 rtl:space-x-reverse'>
                 <div className='flex-shrink-0'>
                   <p className='text-sm font-normal truncate'>
                     {formatInvitationText(invitation)}
                   </p>
-                  <p className='text-xs truncate  font-light'>
+                  <p className='text-xs truncate  font-light text-gray-50'>
                     Group:{' '}
-                    <span className='text-emerald-400'>
+                    <span className='text-primary-400'>
                       {invitation.group.name}
                     </span>
                   </p>
@@ -216,7 +216,7 @@ const Invitations: React.FC = () => {
         {invitations.length ? (
           <span
             ref={ref}
-            className='block text-xs text-center  text-gray-500 mb-2'
+            className='block text-xs text-center  text-gray-50 mb-2'
           >
             {isFetchingNextPage
               ? 'Loading more...'

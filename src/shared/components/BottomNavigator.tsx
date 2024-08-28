@@ -12,7 +12,7 @@ const BottomNavigator: React.FC = () => {
   };
 
   return (
-    <div className='box fixed bottom-0 left-0 z-50 bg-white h-16 w-full'>
+    <div className='box fixed bottom-0 left-0 z-50 bg-zinc-800 h-16 w-full'>
       <div className='grid h-full grid-cols-3 w-1/2 mx-auto font-medium'>
         <Link
           to='/groups'
@@ -27,11 +27,7 @@ const BottomNavigator: React.FC = () => {
               className='text-primary-400'
             />
           ) : (
-            <Profile2User
-              size='22'
-              variant='Broken'
-              className='text-zinc-700'
-            />
+            <Profile2User size='22' variant='Broken' className='text-gray-50' />
           )}{' '}
         </Link>
         <Link
@@ -43,7 +39,7 @@ const BottomNavigator: React.FC = () => {
           {isActiveLink('/') ? (
             <Receipt size='24' variant='Bold' className='text-primary-400' />
           ) : (
-            <Receipt size='22' variant='Broken' className='text-zinc-700' />
+            <Receipt size='22' variant='Broken' className='text-gray-50' />
           )}{' '}
         </Link>
         <Link
@@ -62,7 +58,7 @@ const BottomNavigator: React.FC = () => {
             <DirectboxNotif
               size='22'
               variant='Broken'
-              className='text-zinc-700'
+              className='text-gray-50'
             />
           )}
         </Link>

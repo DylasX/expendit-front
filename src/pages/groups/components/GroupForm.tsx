@@ -7,7 +7,7 @@ import { Profile2User } from 'iconsax-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import EmojiPicker, { SkinTonePickerLocation } from 'emoji-picker-react';
+import EmojiPicker, { SkinTonePickerLocation, Theme } from 'emoji-picker-react';
 import { colors } from '@/shared/utils/color';
 
 interface GroupFormProps {
@@ -65,32 +65,32 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
 
   return (
     <section className='p-4'>
-      <h2 className='text-lg font-semibold text-zinc-700 mb-6'>
+      <h2 className='text-lg font-semibold text-gray-50 mb-6'>
         Create a new group{' '}
       </h2>
       <form className='max-w-sm mx-auto' onSubmit={formik.handleSubmit}>
         <label
           htmlFor='groupName'
-          className='block mb-2 text-sm font-light text-zinc-700'
+          className='block mb-2 text-sm font-light text-gray-50'
         >
           Group name
         </label>
         <div className='relative mb-4'>
           <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-            <Profile2User size='22' className='text-gray-400' />
+            <Profile2User size='22' className='text-gray-50' />
           </div>
           <input
             type='text'
             id='groupName'
             name='name'
-            className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full ps-10 p-2.5'
+            className='bg-customDark-100 text-gray-50 border-0 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full ps-10 p-2.5'
             placeholder='My Group'
             value={formik.values.name}
             onChange={formik.handleChange}
           />
         </div>
         <span className='text-xs text-red-500'>{formik.errors.name}</span>
-        <label className='block mb-2 text-sm font-light text-zinc-700'>
+        <label className='block mb-2 text-sm font-light text-gray-50'>
           Tag with a color
         </label>
         <div className='flex space-x-2 mb-4'>
@@ -111,7 +111,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
           ))}
         </div>
         <span className='text-xs text-red-500'>{formik.errors.color}</span>
-        <label className='flex items-center justify-between mb-2 text-sm font-light text-zinc-700'>
+        <label className='flex items-center justify-between mb-2 text-sm font-light text-gray-50'>
           Pick an emoji{' '}
           <span
             className='rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl'
@@ -124,6 +124,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
           <EmojiPicker
             width={'100%'}
             height={'250px'}
+            theme={Theme.DARK}
             skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
             style={{ marginLeft: '0' }}
             onEmojiClick={({ emoji }) => formik.setFieldValue('emoji', emoji)}
@@ -132,14 +133,14 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         <span className='text-xs text-red-500'>{formik.errors.color}</span>
         <label
           htmlFor='inviteEmails'
-          className='block mb-2 text-sm font-light text-zinc-700'
+          className='block mb-2 text-sm font-light text-gray-50'
         >
           Invite users (emails separated by commas)
         </label>
         <textarea
           id='inviteEmails'
           name='inviteEmails'
-          className='border bg-white border-gray-300 text-zinc-700 text-sm rounded-md focus:ring-primary-100 focus:border-primary-100 block w-full p-2.5 mb-6'
+          className='bg-customDark-100 text-sm border-0 rounded-md text-gray-50 focus:ring-primary-100 focus:border-primary-100 block w-full p-2.5 mb-6'
           placeholder='user1@example.com, user2@example.com'
           rows={4}
           value={formik.values.inviteEmails}

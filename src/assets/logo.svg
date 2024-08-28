@@ -1,0 +1,11 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 10">
+  <!-- Dibujar la uña más gruesa y menos larga con inclinación -->
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+    text {
+      font-family: 'Nunito', sans-serif;
+    }
+  </style>
+  <path fill="#4ade80" d="M52.3,-29.7C59.6,-17.6,51.7,3.9,40.4,18.4C29.2,32.8,14.6,40.4,2.9,38.8C-8.9,37.1,-17.8,26.3,-24.1,14.6C-30.5,2.9,-34.3,-9.5,-29.9,-20C-25.4,-30.5,-12.7,-39.1,4.9,-41.9C22.5,-44.7,45,-41.9,52.3,-29.7Z" transform="translate(240 90) scale(0.5, 0.5) rotate(150)" />
+  <text x="200" y="160" font-family="Nunito, sans-serif" font-weight="bold" font-size="60" fill="currentColor" text-anchor="middle">Expendit</text>
+</svg>

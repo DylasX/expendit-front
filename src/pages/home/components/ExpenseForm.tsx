@@ -8,7 +8,7 @@ import { queryClient } from '@/shared/client/queryClient';
 import { protectedApi } from '@/shared/services/request';
 import { User } from '@/shared/types/user';
 import { useMutation } from '@tanstack/react-query';
-import EmojiPicker, { SkinTonePickerLocation } from 'emoji-picker-react';
+import EmojiPicker, { SkinTonePickerLocation, Theme } from 'emoji-picker-react';
 import { useFormik } from 'formik';
 import { DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
@@ -105,11 +105,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             value={'EQUALS'}
             onChange={handleRadioButtons}
             checked={formik.values.divisionStrategy === 'EQUALS'}
-            className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
+            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
           />
           <label
             htmlFor='strategy-equals'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+            className='w-full py-4 ms-2 text-sm font-medium text-gray-50'
           >
             Equals
           </label>
@@ -120,11 +120,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             name='strategy'
             onChange={handleRadioButtons}
             checked={formik.values.divisionStrategy === 'VALUES'}
-            className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
+            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
           />
           <label
             htmlFor='strategy-value'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+            className='w-full py-4 ms-2 text-sm font-medium text-gray-50 '
           >
             Value
           </label>
@@ -135,11 +135,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             name='strategy'
             onChange={handleRadioButtons}
             checked={formik.values.divisionStrategy === 'PERCENTAGE'}
-            className='w-4 h-4 text-primary-400 bg-gray-100 border-gray-300 focus:ring-primary-500  focus:ring-2'
+            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
           />
           <label
             htmlFor='strategy-percentage'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+            className='w-full py-4 ms-2 text-sm font-medium text-gray-50 '
           >
             Percentage
           </label>
@@ -155,7 +155,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             >
               <label
                 htmlFor={String(member.id)}
-                className='ml-0 text-gray-900 dark:text-white text-md font-light w-[8%]'
+                className='ml-0 text-gray-50  text-md font-light w-[8%]'
               >
                 {member.fullName}
               </label>
@@ -198,7 +198,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                     formik.values.participants.find((m) => m.id === member.id)
                       ?.amount || ''
                   }
-                  className='w-full ml-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block ps-10 p-2.5'
+                  className='w-full ml-4 bg-customDark-100 border-0 text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block ps-10 p-2.5 placeholder:text-gray-50 placeholder:opacity-40'
                 />
               </div>
               <input
@@ -261,7 +261,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                   formik.values.participants.some((m) => m.id === member.id) ||
                   false
                 }
-                className='w-[5%] text-primary-400 bg-gray-100 border-gray-300 rounded focus:ring-primary-400 focus:ring-2'
+                className='w-[5%] text-primary-400 bg-customDark-100 border-gray-500 rounded focus:ring-primary-400 focus:ring-2'
               />
             </li>
           ))}
@@ -278,23 +278,23 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
 
   return (
     <section className='p-4 h-full'>
-      <h2 className='text-lg font-semibold text-zinc-700 mb-4'>New expense </h2>
+      <h2 className='text-lg font-semibold text-gray-50 mb-4'>New expense </h2>
       <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
-            <h3 className='text-sm font-extralight text-gray-500 mb-1'>
+            <h3 className='text-sm font-extralight text-gray-50 mb-1'>
               Select a group
             </h3>
             <ul className='flex flex-col flex-wrap mt-4'>
               {groups?.length === 0 && (
-                <li className='text-center text-xs text-gray-500 mt-4'>
+                <li className='text-center text-xs text-gray-50 mt-4'>
                   No groups yet.
                 </li>
               )}
               {groups?.map((group: Group, index: number) => (
                 <li
                   key={group.id + group.name + index}
-                  className='bg-white rounded-xl mb-4'
+                  className='bg-zinc-800 rounded-xl mb-4'
                 >
                   <a
                     className='flex flex-row justify-start items-center'
@@ -307,7 +307,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                     >
                       {group.emoji}
                     </span>
-                    <span className='text-md font-light ml-4 text-zinc-500'>
+                    <span className='text-md font-light ml-4 text-gray-50 '>
                       {group.name}
                     </span>
                   </a>
@@ -317,7 +317,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
             {groups?.length ? (
               <span
                 ref={ref}
-                className='block text-xs font-extralight text-center  text-zinc-400 mb-2'
+                className='block text-xs font-extralight text-center  text-gray-50 mb-2'
               >
                 {isFetchingNextPage
                   ? 'Loading more...'
@@ -338,16 +338,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
               >
                 {selectedGroup.emoji}
               </span>
-              <span className='capitalize font-light text-md'>
+              <span className='capitalize text-md text-gray-50 mt-2'>
                 {selectedGroup.name}
               </span>
-              <hr className='my-4 border-t border-gray-100 w-full' />
             </div>
             <div>
               <form className='max-w-sm mx-auto' onSubmit={formik.handleSubmit}>
                 <label
                   htmlFor='description'
-                  className={`block mb-2 text-sm font-light text-gray-900 dark:text-white ${
+                  className={`block mb-2 text-sm  text-gray-50  ${
                     shouldRenderSplitMoney ? 'hidden' : 'block'
                   }`}
                 >
@@ -366,7 +365,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                     id='description'
                     value={formik.values.description}
                     onChange={formik.handleChange}
-                    className='bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  '
+                    className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
                     placeholder='Coffee with friends'
                   />
                 </div>
@@ -375,7 +374,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                 </span>
                 <label
                   htmlFor='amount'
-                  className='block mb-2 text-sm font-light text-gray-900 dark:text-white'
+                  className='block mb-2 text-sm font-light text-gray-50 dark:text-white'
                 >
                   Amount
                 </label>
@@ -391,7 +390,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                       formik.setFieldValue('amount', Number(e.target.value));
                       formik.setFieldValue('participants', []);
                     }}
-                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  '
+                    className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
                     placeholder='10.000'
                   />
                 </div>
@@ -416,6 +415,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                   <EmojiPicker
                     width={'100%'}
                     height={'300px'}
+                    theme={Theme.DARK}
                     skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
                     style={{
                       marginLeft: '0',
