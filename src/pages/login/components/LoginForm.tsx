@@ -22,8 +22,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
       email: '',
       password: '',
     },
-    validateOnChange: true,
-    validateOnBlur: true,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: (values) => {
       loginMutation.mutate(values);
     },
