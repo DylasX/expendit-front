@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Expendit</string>
+    <string name="title_activity_main">Expendit</string>
+    <string name="package_name">com.expendit.app</string>
+    <string name="custom_url_scheme">com.expendit.app</string>
+</resources>
