@@ -16,6 +16,8 @@ const MainLayout: React.FC = () => {
           style: {
             boxShadow: 'none',
             borderRadius: '5px',
+            background: '#333',
+            color: '#fff',
           },
         }}
       />
