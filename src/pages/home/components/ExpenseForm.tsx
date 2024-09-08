@@ -241,20 +241,21 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
         onClick={() => setSelectedGroup({} as Group)}
       >
         {selectedGroup.id ? (
-          <ArrowLeft size='20' className='text-primary-400' />
+          <>
+            <ArrowLeft size='20' className='text-primary-400' />
+            <h2 className='text-lg font-semibold text-gray-50 ml-2'>
+              New expense
+            </h2>
+          </>
         ) : (
-          ''
+          <h2 className='text-lg font-semibold text-gray-50 ml-2'>
+            Select a group
+          </h2>
         )}
-        <h2 className='text-lg font-semibold text-gray-50 ml-2'>
-          New expense{' '}
-        </h2>
       </a>
       <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
-            <h3 className='text-sm font-extralight text-gray-50 mb-1'>
-              Select a group
-            </h3>
             <ul className='flex flex-col flex-wrap mt-4'>
               {groups?.length === 0 && (
                 <li className='text-center text-xs text-gray-50 mt-4'>
