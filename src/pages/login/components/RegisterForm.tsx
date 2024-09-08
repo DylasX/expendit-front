@@ -41,6 +41,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       authStorage.saveToken(data.token.token);
       navigate('/');
     },
+    onError: (error) => {
+      console.log(error);
+      setIsLoading(false);
+    },
   });
 
   React.useEffect(() => {

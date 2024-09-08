@@ -38,6 +38,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs, setIsLoading }) => {
       authStorage.saveToken(data.token.token);
       navigate('/');
     },
+    onError: (error) => {
+      console.log(error);
+      setIsLoading(false);
+    },
   });
 
   React.useEffect(() => {
