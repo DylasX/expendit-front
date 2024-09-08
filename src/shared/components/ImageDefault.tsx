@@ -31,25 +31,24 @@ const ImageDefault: React.FC<ImageDefaultProps> = ({
     .slice(0, 2)
     .join('');
 
-  const sizeClass = `w-${size} h-${size}`;
-  const lineHeight = `${size * 0.25}rem`;
-  const fontSize = `${size * 0.1}rem`;
+  const sizePx = `${size * 4}px`; // Convertir el tamaño a píxeles
+  const fontSize = `${size * 0.1}rem`; // Ajustar el tamaño de la fuente proporcionalmente
 
   return (
-    <div>
-      <span
-        className={`inline-block ${sizeClass} rounded-full ${
-          isHexColor ? '' : backgroundColor
-        } text-white text-center`}
-        style={
-          isHexColor
-            ? { backgroundColor, lineHeight, fontSize }
-            : { lineHeight, fontSize }
-        }
-      >
-        {initials}
-      </span>
-    </div>
+    <span
+      className={`inline-block rounded-full ${
+        isHexColor ? '' : backgroundColor
+      } text-white text-center flex items-center justify-center`}
+      style={{
+        backgroundColor: isHexColor ? backgroundColor : undefined,
+        width: sizePx,
+        height: sizePx,
+        fontSize,
+        lineHeight: sizePx,
+      }}
+    >
+      {initials}
+    </span>
   );
 };
 

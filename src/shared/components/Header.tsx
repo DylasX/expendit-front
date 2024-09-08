@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
             onClick={() => console.log('redirect to ')}
             className='cursor-pointer'
           >
-            <ImageDefault name='John Doe' size={8} />
+            <ImageDefault name='John Doe' size={10} />
           </div>
         </div>
       </div>
