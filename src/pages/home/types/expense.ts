@@ -11,7 +11,7 @@ export interface Expense {
   createdAt: string;
   updatedAt: string;
   amountByUser: string;
-  emoji: string;
+  color: string;
 }
 
 export type ExpensePayload = z.infer<typeof expenseValidator>;

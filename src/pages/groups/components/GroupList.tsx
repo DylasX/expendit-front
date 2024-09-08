@@ -1,4 +1,5 @@
 import { Group } from '@/pages/groups/types/group';
+import ImageDefault from '@/shared/components/ImageDefault';
 import React from 'react';
 
 interface GroupListProps {
@@ -26,12 +27,7 @@ const GroupList: React.FC<GroupListProps> = ({
         >
           <div className='flex items-center space-x-4 rtl:space-x-reverse'>
             <div className='flex-shrink-0'>
-              <span
-                className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
-                style={{ backgroundColor: group.color }}
-              >
-                {group.emoji}
-              </span>
+              <ImageDefault name={group.name} color={group.color} />
             </div>
             <div className='flex-1 min-w-0'>
               <p className='text-sm font-normal truncate text-gray-50'>

@@ -3,13 +3,12 @@ import { z } from 'zod';
 export const expenseValidator = z
   .object({
     description: z.string().min(3, 'Description is too short'),
-    emoji: z.string().default('👥'),
     amount: z.number().min(1, 'Amount is too low'),
     groupId: z.number(),
     divisionStrategy: z
       .string()
       .refine(
-        (value) => ['EQUALS', 'VALUES', 'PERCENTAGE'].includes(value),
+        (value) => ['EQUALS', 'MANUAL'].includes(value),
         'Invalid division strategy'
       ),
     participants: z

@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { loginValidator } from '@/pages/login/validator/login';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Key, UserTag } from 'iconsax-react';
-import Loader from '@/shared/components/Loader';
 
 interface LoginFormProps {
   switchTabs: () => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ switchTabs, setIsLoading }) => {
   const navigate = useNavigate();
 
   const formik = useFormik<LoginPayload>({
@@ -40,9 +40,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
     },
   });
 
-  if (loginMutation.isPending) {
-    return <Loader />;
-  }
+  React.useEffect(() => {
+    if (loginMutation.isPending) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [loginMutation.isPending, setIsLoading]);
 
   return (
     <div className='animate-fade-up flex flex-col animate-duration-300'>
@@ -66,6 +70,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs }) => {
               className='bg-customDark-100 mb-4 border-0 text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
               placeholder='user1@example.com'
               name='email'
+              autoCapitalize='off'
             />
           </div>
           <span className='text-xs text-red-500'>{formik.errors.email}</span>

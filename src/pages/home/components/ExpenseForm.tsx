@@ -5,10 +5,11 @@ import { ExpensePayload } from '@/pages/home/types/expense';
 import { expenseValidator } from '@/pages/home/validator/expense';
 import { useUser } from '@/pages/login/hooks/useUser';
 import { queryClient } from '@/shared/client/queryClient';
+import ImageDefault from '@/shared/components/ImageDefault';
+import ToggleButton from '@/shared/components/ToggleButton';
 import { protectedApi } from '@/shared/services/request';
 import { User } from '@/shared/types/user';
 import { useMutation } from '@tanstack/react-query';
-import EmojiPicker, { SkinTonePickerLocation, Theme } from 'emoji-picker-react';
 import { useFormik } from 'formik';
 import { DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
@@ -23,15 +24,17 @@ interface ExpenseFormProps {
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
   const [selectedGroup, setSelectedGroup] = React.useState({} as Group);
   const { data: user } = useUser();
-  const [shouldRenderSplitMoney, setShouldRenderSplitMoney] =
-    React.useState(false);
   const { ref, inView } = useInView();
   const { groups, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useGroups();
   const { data: group } = useGroup(selectedGroup?.id);
-  const handleRadioButtons = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const swithStrategy = () => {
     formik.setFieldValue('participants', []);
-    formik.setFieldValue('divisionStrategy', e.target.value);
+    formik.setFieldValue(
+      'divisionStrategy',
+      formik.values.divisionStrategy === 'EQUALS' ? 'MANUAL' : 'EQUALS'
+    );
   };
 
   const expenseMutation = useMutation({
@@ -60,24 +63,17 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
   const formik = useFormik<ExpensePayload>({
     initialValues: {
       description: '',
-      emoji: '',
       amount: 0,
       divisionStrategy: 'EQUALS',
       participants: [],
       groupId: 0,
     },
-    validateOnChange: true,
+    validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => {
       //validate the current user is included in the participants
       //convert to negative all the participants amount with id different from the current user
       values.groupId = selectedGroup.id;
-      if (values.divisionStrategy === 'PERCENTAGE') {
-        values.participants = values.participants.map((m) => {
-          m.amount = (values.amount * m.amount) / 100;
-          return m;
-        });
-      }
       const currentUser = values.participants.find((m) => m.id === user?.id);
       currentUser!.amount = values.participants
         .filter((m) => m.id !== user?.id)
@@ -96,56 +92,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
 
   const renderSplitMoney = () => {
     return (
-      <div className='animate-fade-up animate-duration-300'>
-        <div className='flex items-center ps-4 mt-2'>
-          <input
-            id='strategy-equals'
-            type='radio'
-            name='strategy'
-            value={'EQUALS'}
-            onChange={handleRadioButtons}
+      <div className='animate-fade-up animate-duration-300 mb-10 mt-8'>
+        <div className='flex justify-end mb-4 mt-4'>
+          <ToggleButton
             checked={formik.values.divisionStrategy === 'EQUALS'}
-            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
+            onChange={swithStrategy}
+            leftLabel='Equals'
+            rightLabel='Manual'
           />
-          <label
-            htmlFor='strategy-equals'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-50'
-          >
-            Equals
-          </label>
-          <input
-            id='strategy-value'
-            type='radio'
-            value={'VALUES'}
-            name='strategy'
-            onChange={handleRadioButtons}
-            checked={formik.values.divisionStrategy === 'VALUES'}
-            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
-          />
-          <label
-            htmlFor='strategy-value'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-50 '
-          >
-            Value
-          </label>
-          <input
-            id='strategy-percentage'
-            type='radio'
-            value={'PERCENTAGE'}
-            name='strategy'
-            onChange={handleRadioButtons}
-            checked={formik.values.divisionStrategy === 'PERCENTAGE'}
-            className='w-4 h-4 text-primary-400 bg-customDark-100 border-gray-500 focus:ring-primary-500  focus:ring-2'
-          />
-          <label
-            htmlFor='strategy-percentage'
-            className='w-full py-4 ms-2 text-sm font-medium text-gray-50 '
-          >
-            Percentage
-          </label>
-          <span className='text-xs text-red-500'>
-            {formik.errors.divisionStrategy}
-          </span>
         </div>
         <ul>
           {group?.users.map((member: User) => (
@@ -265,6 +219,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
               />
             </li>
           ))}
+          <span className='text-xs text-red-500 mt-2'>
+            {formik.errors.participants as string}
+          </span>
         </ul>
       </div>
     );
@@ -301,12 +258,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                     href='#'
                     onClick={() => setSelectedGroup(group)}
                   >
-                    <span
-                      className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
-                      style={{ backgroundColor: group.color }}
-                    >
-                      {group.emoji}
-                    </span>
+                    <ImageDefault name={group.name} color={group.color} />
                     <span className='text-md font-light ml-4 text-gray-50 '>
                       {group.name}
                     </span>
@@ -332,12 +284,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
         ) : (
           <section>
             <div className='flex flex-col items-center mt-4'>
-              <span
-                className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up animate-duration-300`}
-                style={{ backgroundColor: selectedGroup.color }}
-              >
-                {selectedGroup.emoji}
-              </span>
+              <ImageDefault
+                name={selectedGroup.name}
+                color={selectedGroup.color}
+                size={16}
+              />
               <span className='capitalize text-md text-gray-50 mt-2'>
                 {selectedGroup.name}
               </span>
@@ -346,17 +297,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
               <form className='max-w-sm mx-auto' onSubmit={formik.handleSubmit}>
                 <label
                   htmlFor='description'
-                  className={`block mb-2 text-sm  text-gray-50  ${
-                    shouldRenderSplitMoney ? 'hidden' : 'block'
-                  }`}
+                  className={`block mb-2 text-sm  text-gray-50`}
                 >
                   Description
                 </label>
-                <div
-                  className={`relative ${
-                    shouldRenderSplitMoney ? 'hidden' : 'block'
-                  }`}
-                >
+                <div className={`relative`}>
                   <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
                     <Message className='w-5 h-5 text-gray-400' />
                   </div>
@@ -397,58 +342,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                 <span className='text-xs text-red-500'>
                   {formik.errors.amount}
                 </span>
-                <label
-                  className={`flex items-center justify-between mb-2 text-sm font-light text-zinc-700 ${
-                    shouldRenderSplitMoney ? 'hidden' : 'flex'
-                  }`}
+                {renderSplitMoney()}
+                <button
+                  className='bg-primary-400 text-white px-4 py-2 ml-auto flex rounded-lg'
+                  type='submit'
                 >
-                  Pick an emoji{' '}
-                  <span className='rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl'>
-                    {formik.values.emoji}
-                  </span>
-                </label>
-                <div
-                  className={`flex flex-col space-x-2 mb-4 animate-fade-up ${
-                    shouldRenderSplitMoney ? 'hidden' : 'block'
-                  }`}
-                >
-                  <EmojiPicker
-                    width={'100%'}
-                    height={'300px'}
-                    theme={Theme.DARK}
-                    skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
-                    style={{
-                      marginLeft: '0',
-                    }}
-                    onEmojiClick={({ emoji }) =>
-                      formik.setFieldValue('emoji', emoji)
-                    }
-                  />
-                </div>
-                <div className='flex justify-center mt-2 flex-col text-center'>
-                  <button
-                    className='px-4 py-2 rounded-lg border-primary-400 text-primary-400 border font-light mt-8'
-                    type='button'
-                    onClick={() =>
-                      setShouldRenderSplitMoney(!shouldRenderSplitMoney)
-                    }
-                  >
-                    Splitted by {formik.values.divisionStrategy}
-                  </button>
-                  <span className='text-xs text-red-500 mt-2'>
-                    {formik.errors.participants as string}
-                  </span>
-                </div>
-                {shouldRenderSplitMoney ? (
-                  renderSplitMoney()
-                ) : (
-                  <button
-                    className='bg-primary-400 text-white px-4 py-2 ml-auto flex rounded-lg mt-2'
-                    type='submit'
-                  >
-                    Create expense
-                  </button>
-                )}
+                  Create expense
+                </button>
               </form>
             </div>
           </section>

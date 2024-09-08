@@ -8,12 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { registerValidator } from '@/pages/login/validator/login';
 import { Key, UserTag } from 'iconsax-react';
-import Loader from '@/shared/components/Loader';
 
 interface RegisterFormProps {
   switchTabs: () => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  switchTabs,
+  setIsLoading,
+}) => {
   const navigate = useNavigate();
 
   //TODO: Implement handle error
@@ -40,9 +43,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
     },
   });
 
-  if (registerMutation.isPending) {
-    return <Loader />;
-  }
+  React.useEffect(() => {
+    if (registerMutation.isPending) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [registerMutation.isPending, setIsLoading]);
 
   return (
     <div className='flex flex-col animate-fade-up animate-duration-300'>
@@ -66,6 +73,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchTabs }) => {
               className='bg-customDark-100 border-0 mb-4  text-gray-50 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5  placeholder:text-gray-50 placeholder:opacity-40'
               placeholder='user1@example.com'
               name='email'
+              autoCapitalize='off'
             />
           </div>
           <span className='text-xs text-red-500'>{formik.errors.email}</span>

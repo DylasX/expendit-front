@@ -5,11 +5,13 @@ import LoginForm from '@/pages/login/components/LoginForm';
 import RegisterForm from '@/pages/login/components/RegisterForm';
 import Logo from '@/assets/logo.svg?react';
 import * as authStorage from '@/pages/login/utils/session';
+import Loader from '@/shared/components/Loader';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const userQuery = useUser();
   const [isRegister, setIsRegister] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const switchTabs = () => {
     setIsRegister(!isRegister);
@@ -21,6 +23,14 @@ const Login: React.FC = () => {
     }
   }, [navigate, userQuery.data?.id]);
 
+  if (isLoading) {
+    return (
+      <div className='p-10 flex flex-col h-screen bg-zinc-800'>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className='p-10 flex flex-col h-screen bg-zinc-800'>
       <section className='justify-end flex flex-col items-center mb-6'>
@@ -30,9 +40,9 @@ const Login: React.FC = () => {
         </p>
       </section>
       {isRegister ? (
-        <RegisterForm switchTabs={switchTabs} />
+        <RegisterForm switchTabs={switchTabs} setIsLoading={setIsLoading} />
       ) : (
-        <LoginForm switchTabs={switchTabs} />
+        <LoginForm switchTabs={switchTabs} setIsLoading={setIsLoading} />
       )}
     </div>
   );

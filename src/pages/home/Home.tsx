@@ -3,9 +3,9 @@ import { Expense } from '@/pages/home/types/expense';
 import { useUser } from '@/pages/login/hooks/useUser';
 import Drawer from '@/shared/components/Drawer';
 import Header from '@/shared/components/Header';
+import ImageDefault from '@/shared/components/ImageDefault';
 import Loader from '@/shared/components/Loader';
 import { protectedApi } from '@/shared/services/request';
-import { colors } from '@/shared/utils/color';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { formatDistance } from 'date-fns';
 import React from 'react';
@@ -114,12 +114,10 @@ const Home: React.FC = () => {
               <li key={index} className='pb-3  p-4 mb-3 bg-zinc-800 rounded-xl'>
                 <div className='flex items-center space-x-4'>
                   <div className='flex-shrink-0'>
-                    <span
-                      className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
-                      style={{ backgroundColor: colors[index % colors.length] }}
-                    >
-                      {expense.emoji}
-                    </span>
+                    <ImageDefault
+                      name={expense.description}
+                      color={expense.color}
+                    />
                   </div>
                   <div className='flex-1 min-w-0'>
                     <p className='text-sm font-normal truncate text-gray-50'>
