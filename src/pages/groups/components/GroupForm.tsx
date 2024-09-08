@@ -129,7 +129,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         </span>
         <button
           type='submit'
-          className='bg-primary-400 text-white py-2 px-4 rounded-md mt-4 ml-auto flex'
+          className='bg-primary-400 text-white py-2 px-4 rounded-md mt-4  w-full'
         >
           Create Group
         </button>

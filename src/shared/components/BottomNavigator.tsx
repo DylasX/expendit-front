@@ -1,4 +1,4 @@
-import { DirectboxNotif, Profile2User, Receipt } from 'iconsax-react';
+import { DirectboxNotif, Profile2User, Receipt1 } from 'iconsax-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -37,9 +37,9 @@ const BottomNavigator: React.FC = () => {
           }`}
         >
           {isActiveLink('/') ? (
-            <Receipt size='24' variant='Bold' className='text-primary-400' />
+            <Receipt1 size='24' variant='Bold' className='text-primary-400' />
           ) : (
-            <Receipt size='22' variant='Broken' className='text-gray-50' />
+            <Receipt1 size='22' variant='Broken' className='text-gray-50' />
           )}{' '}
         </Link>
         <Link

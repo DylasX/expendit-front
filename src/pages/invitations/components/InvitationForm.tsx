@@ -2,22 +2,14 @@ import useGroups from '@/pages/groups/hooks/useGroups';
 import { Group } from '@/pages/groups/types/group';
 import { InvitationPayload } from '@/pages/invitations/types/invitation';
 import { inviteValidator } from '@/pages/invitations/validator/invitation';
+import ImageDefault from '@/shared/components/ImageDefault';
 import { protectedApi } from '@/shared/services/request';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFormik } from 'formik';
-// import { queryClient } from '@/shared/client/queryClient';
-// import { protectedApi } from '@/shared/services/request';
-// import { User } from '@/shared/types/user';
-// import { useMutation } from '@tanstack/react-query';
-// import EmojiPicker, { SkinTonePickerLocation } from 'emoji-picker-react';
-// import { useFormik } from 'formik';
-// import { DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
 import toast from 'react-hot-toast';
-// import toast from 'react-hot-toast';
 import { useInView } from 'react-intersection-observer';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-// import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 interface InvitationFormProps {
   onClose: () => void;
@@ -89,12 +81,7 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
                     href='#'
                     onClick={() => setSelectedGroup(group)}
                   >
-                    <span
-                      className={`rounded-full p-2 text-white w-10 h-10 flex items-center justify-center text-2xl`}
-                      style={{ backgroundColor: group.color }}
-                    >
-                      {group.emoji}
-                    </span>
+                    <ImageDefault name={group.name} color={group.color} />
                     <span className='text-md font-light ml-4 text-gray-50'>
                       {group.name}
                     </span>
@@ -120,13 +107,12 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
         ) : (
           <section>
             <div className='flex flex-col items-center mt-4'>
-              <span
-                className={`rounded-full p-2 text-white w-16 h-16 flex items-center justify-center text-5xl animate-fade-up animate-duration-300`}
-                style={{ backgroundColor: selectedGroup.color }}
-              >
-                {selectedGroup.emoji}
-              </span>
-              <span className='capitalize font-light text-md text-gray-50 mt-2'>
+              <ImageDefault
+                name={selectedGroup.name}
+                color={selectedGroup.color}
+                size={16}
+              />
+              <span className='capitalize font-light text-md text-gray-50 mt-2 mb-4'>
                 {selectedGroup.name}
               </span>
             </div>
@@ -151,7 +137,7 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
               </span>
               <button
                 type='submit'
-                className='bg-primary-400 text-white py-2 px-4 rounded-md mt-4 ml-auto flex'
+                className='bg-primary-400 text-white py-2 px-4 rounded-md mt-4  w-full'
               >
                 Invite users
               </button>

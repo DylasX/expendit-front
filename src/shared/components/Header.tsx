@@ -1,10 +1,6 @@
 import { useUser } from '@/pages/login/hooks/useUser';
-import {
-  Profile2User,
-  ReceiptAdd,
-  SmsNotification,
-  UserOctagon,
-} from 'iconsax-react';
+import ImageDefault from '@/shared/components/ImageDefault';
+import { Profile2User, Receipt1, DirectboxNotif } from 'iconsax-react';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -29,13 +25,13 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe, openDrawer }) => {
     if (location.pathname === '/') {
       return (
         <div className='bg-primary-400 absolute right-[55px] rounded-full p-1'>
-          <ReceiptAdd size='22' className='text-zinc-800 ' variant='Bold' />
+          <Receipt1 size='22' className='text-zinc-800 ' variant='Bold' />
         </div>
       );
     }
     return (
       <div className='bg-primary-400 absolute right-[55px] rounded-full p-1'>
-        <SmsNotification size='22' className='text-zinc-800 ' variant='Bold' />
+        <DirectboxNotif size='22' className='text-zinc-800 ' variant='Bold' />
       </div>
     );
   };
@@ -44,9 +40,11 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe, openDrawer }) => {
     <section className='block  bg-zinc-800 pb-6'>
       <div className=' text-zinc-800 p-4 flex-row flex'>
         <div className='text-lg flex-row flex'>
-          <span className='w-8 h-8 rounded-full bg-primary-400 flex justify-center items-center'>
-            <UserOctagon size='22' className='text-zinc-800 ' variant='Bold' />
-          </span>
+          <ImageDefault
+            name={queryUser.data?.fullName || 'User'}
+            size={8}
+            color='#1a8c41'
+          />
           <span className='ml-2 place-content-center text-sm font-light text-gray-50'>
             <p className='font-medium'>{queryUser.data?.fullName}</p>
           </span>

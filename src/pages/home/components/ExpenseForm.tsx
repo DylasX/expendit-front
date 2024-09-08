@@ -11,7 +11,7 @@ import { protectedApi } from '@/shared/services/request';
 import { User } from '@/shared/types/user';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
-import { DollarCircle, Message } from 'iconsax-react';
+import { ArrowLeft, DollarCircle, Message } from 'iconsax-react';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { useInView } from 'react-intersection-observer';
@@ -235,7 +235,20 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
 
   return (
     <section className='p-4 h-full'>
-      <h2 className='text-lg font-semibold text-gray-50 mb-4'>New expense </h2>
+      <a
+        href='#'
+        className='flex flex-row items-center gap-1 mb-4'
+        onClick={() => setSelectedGroup({} as Group)}
+      >
+        {selectedGroup.id ? (
+          <ArrowLeft size='20' className='text-primary-400' />
+        ) : (
+          ''
+        )}
+        <h2 className='text-lg font-semibold text-gray-50 ml-2'>
+          New expense{' '}
+        </h2>
+      </a>
       <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
@@ -344,7 +357,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                 </span>
                 {renderSplitMoney()}
                 <button
-                  className='bg-primary-400 text-white px-4 py-2 ml-auto flex rounded-lg'
+                  className='bg-primary-400 text-white px-4 py-2 ml-auto w-full rounded-lg'
                   type='submit'
                 >
                   Create expense
