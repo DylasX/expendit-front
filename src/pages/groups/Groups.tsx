@@ -65,14 +65,21 @@ const Groups: React.FC = () => {
             0
           ) || 0
         }
-        openDrawer={() => setOpen(true)}
       />
       {isLoading ? (
         <Loader />
       ) : (
         <section className='flex flex-col bg-zinc-600 bg-opacity-10 rounded-2xl w-full min-h-[75vh] animate-fade-up animate-duration-300'>
           <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
-            Groups
+            <div className='flex flex-row justify-between'>
+              <h2>Groups</h2>
+              <button
+                onClick={() => setOpen(true)}
+                className='text-sm text-primary-400 flex flex-row items-center'
+              >
+                New group
+              </button>
+            </div>
             <p className='mt-1 text-sm font-light text-gray-50 '>
               Sorted by most recent activity.
             </p>
