@@ -20,11 +20,12 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
             </h2>
             <p className='text-xs'>Make your expenses simple</p>
           </span>
-          <ImageDefault
-            name={queryUser.data?.fullName || 'User'}
-            size={8}
-            color='#1a8c41'
-          />
+          <div
+            onClick={() => console.log('redirect to ')}
+            className='cursor-pointer'
+          >
+            <ImageDefault name='John Doe' size={8} />
+          </div>
         </div>
       </div>
       <div className='p-4'>

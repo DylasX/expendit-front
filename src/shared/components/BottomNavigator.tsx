@@ -1,4 +1,10 @@
-import { DirectboxNotif, Profile2User, Receipt1 } from 'iconsax-react';
+import {
+  Add,
+  DirectboxNotif,
+  Profile2User,
+  Receipt1,
+  User,
+} from 'iconsax-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -13,7 +19,7 @@ const BottomNavigator: React.FC = () => {
 
   return (
     <div className='box fixed bottom-0 left-0 z-50 bg-zinc-800 h-16 w-full'>
-      <div className='grid h-full grid-cols-3 w-1/2 mx-auto font-medium'>
+      <div className='grid h-full grid-cols-5 w-full mx-auto font-medium'>
         <Link
           to='/groups'
           className={`inline-flex flex-col items-center justify-center px-5 ${
@@ -43,6 +49,18 @@ const BottomNavigator: React.FC = () => {
           )}{' '}
         </Link>
         <Link
+          to='/add'
+          className={`inline-flex flex-col items-center justify-center px-5 ${
+            isActiveLink('/add') ? 'active' : ''
+          }`}
+        >
+          {isActiveLink('/add') ? (
+            <Add size='32' className='text-primary-400' />
+          ) : (
+            <Add size='30' variant='Broken' className='text-gray-50' />
+          )}
+        </Link>
+        <Link
           to='/invitations'
           className={`inline-flex flex-col items-center justify-center px-5 ${
             isActiveLink('/invitations') ? 'active' : ''
@@ -62,6 +80,19 @@ const BottomNavigator: React.FC = () => {
             />
           )}
         </Link>
+        <Link
+          to='/profile'
+          className={`inline-flex flex-col items-center justify-center px-5 ${
+            isActiveLink('/profile') ? 'active' : ''
+          }`}
+        >
+          {isActiveLink('/profile') ? (
+            <User size='24' variant='Bold' className='text-primary-400' />
+          ) : (
+            <User size='22' variant='Broken' className='text-gray-50' />
+          )}
+        </Link>
+        {/* //TODO: Create an add Button to handle with a drawer or modal what the user want to create to have the possibility to create a new group, expense or invitation */}
       </div>
     </div>
   );

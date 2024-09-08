@@ -1,8 +1,10 @@
+import Add from '@/pages/add/Add';
 import Groups from '@/pages/groups/Groups';
 import Home from '@/pages/home/Home';
 import Invitations from '@/pages/invitations/Invitations';
 import { useUser } from '@/pages/login/hooks/useUser';
 import Login from '@/pages/login/Login';
+import Profile from '@/pages/profile/Profile';
 import MainLayout from '@/shared/layouts/Main';
 import React, { ReactNode } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -47,6 +49,26 @@ const AppRouter: React.FC = () => {
           element={
             <ProtectedRoute>
               <Invitations />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='/add'
+          element={
+            <ProtectedRoute>
+              <Add />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
