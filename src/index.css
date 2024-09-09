@@ -4,10 +4,31 @@
 
 /* Añadir esto a tu archivo CSS global o al módulo CSS correspondiente */
 .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Oculta la barra de desplazamiento en navegadores basados en WebKit */
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* Oculta la barra de desplazamiento en IE y Edge */
-    scrollbar-width: none;  /* Oculta la barra de desplazamiento en Firefox */
-  }
+  display: none; /* Oculta la barra de desplazamiento en navegadores basados en WebKit */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Oculta la barra de desplazamiento en IE y Edge */
+  scrollbar-width: none;  /* Oculta la barra de desplazamiento en Firefox */
+}
+
+@layer base {
+	html {
+		height: -webkit-fill-available;
+	}
+
+	body {
+		height: -webkit-fill-available;
+	}
+
+	/* If using React, set height on the root div as well */
+	#root {
+		height: -webkit-fill-available;
+	}
+}
+
+body { 
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #27272a;
+}

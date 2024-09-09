@@ -34,5 +34,9 @@ export default {
   variants: {
     extend: {},
   },
-  plugins: [require('tailwindcss-animated'), require('flowbite/plugin')],
+  plugins: [
+    require('tailwindcss-animated'),
+    require('flowbite/plugin'),
+    require('tailwindcss-safe-area-capacitor'),
+  ],
 };

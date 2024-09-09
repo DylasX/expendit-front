@@ -18,17 +18,25 @@ const Drawer: React.FC<DrawerProps> = ({
   }
   return (
     <div
-      className={`fixed bottom-0 ${
+      className={`fixed bottom-0 drawer ${
         isFullScreen ? 'h-full' : 'h-auto'
       } left-0 right-0 z-40 w-full p-4 overflow-hidden transition-transform bg-zinc-800 animate-fade-up animate-duration-300`}
       tabIndex={1}
       aria-labelledby='drawer-top-label'
-      style={{ maxHeight: '100vh' }}
+      style={{
+        maxHeight: '100vh',
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+      }}
     >
       <button
         type='button'
         onClick={onClose}
-        className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center'
+        style={{
+          paddingTop: 'env(safe-area-inset-top)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        }}
+        className='text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center'
       >
         <svg
           className='w-3 h-3'
@@ -48,7 +56,7 @@ const Drawer: React.FC<DrawerProps> = ({
         <span className='sr-only'>Close menu</span>
       </button>
       <div
-        className='overflow-auto scrollbar-hide'
+        className='overflow-auto scrollbar-hide pt-4'
         style={{ maxHeight: 'calc(100vh - 4rem)' }}
       >
         {children}

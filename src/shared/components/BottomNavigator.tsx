@@ -18,8 +18,13 @@ const BottomNavigator: React.FC = () => {
   };
 
   return (
-    <div className='box fixed bottom-0 left-0 z-50 bg-zinc-800 h-16 w-full'>
-      <div className='grid h-full grid-cols-5 w-full mx-auto font-medium'>
+    <div
+      className='box fixed bottom-0 left-0 z-50 bg-zinc-800 h-16 w-full'
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom) - 0.5rem',
+      }}
+    >
+      <div className={`grid h-full grid-cols-5 w-full mx-auto font-medium`}>
         <Link
           to='/groups'
           className={`inline-flex flex-col items-center justify-center px-5 ${

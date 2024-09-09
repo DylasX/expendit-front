@@ -239,6 +239,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-6.1.2.tgz#568e8b904ad0a6d42fb1b2cc239eab2735ccd5e5"
   integrity sha512-HaeW68KisBd/7TmavzPDlL2bpoDK5AjR2ZYrqU4TlGwM88GtQfvduBCAlSCj20X0w/4+rWMkseD9dAAkacjiyQ==
 
+"@capacitor/status-bar@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-6.0.1.tgz#27cef2560cdefb8e14d2cecc976056ede7b822ef"
+  integrity sha512-Usd9hZZQVAqy+jJfL7jRcYI7dcsxN09Na1yttwdl+F1bk3Ztoukk7CGPDm5VgKUSs53ihQBOy1+sczCACxhNiw==
+
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz#c7184a326533fcdf1b8ee0733e21c713b975575f"
@@ -3469,6 +3474,11 @@ tailwindcss-animated@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/tailwindcss-animated/-/tailwindcss-animated-1.1.2.tgz#cc8aabe5b371abdf20a195809785b3dbf34adcd5"
   integrity sha512-SI4owS5ojserhgEYIZA/uFVdNjU2GMB2P3sjtjmFA52VxoUi+Hht6oR5+RdT+CxrX9cNNYEa+vbTWHvN9zbj3w==
+
+tailwindcss-safe-area-capacitor@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/tailwindcss-safe-area-capacitor/-/tailwindcss-safe-area-capacitor-0.5.1.tgz#80e6da10067a9d6fca9d7f82e8a698f29cf04d4f"
+  integrity sha512-ieyA7odik1IKff+0QRVdKnCdmJl+XS6yXY70ALstBC87g5eNgSkCrsKyRVAatuX6jTyeRryHzaOFkqzFI/ZbTA==
 
 tailwindcss@^3.4.7:
   version "3.4.10"
