@@ -11,6 +11,7 @@ const useGroup = (groupId: number) => {
     queryKey: ['group', groupId],
     queryFn: fetchGroup,
     enabled: !!groupId,
+    retry: 0,
   });
 };
 

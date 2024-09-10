@@ -1,4 +1,5 @@
 import Add from '@/pages/add/Add';
+import DetailGroup from '@/pages/detailGroup/DetailGroup';
 import Groups from '@/pages/groups/Groups';
 import Home from '@/pages/home/Home';
 import Invitations from '@/pages/invitations/Invitations';
@@ -8,6 +9,7 @@ import Profile from '@/pages/profile/Profile';
 import MainLayout from '@/shared/layouts/Main';
 import React, { ReactNode } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Logo from '@/assets/logo.svg?react';
 
 type ProtectedRouteProps = {
   children: ReactNode;
@@ -72,6 +74,27 @@ const AppRouter: React.FC = () => {
             </ProtectedRoute>
           }
         />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='/group/:id'
+          element={
+            <ProtectedRoute>
+              <DetailGroup />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='*'
+          element={
+            <div className='h-screen text-white text-lg items-center justify-around flex flex-col'>
+              <Logo className='w-60 -mt-24' color='#fff' />
+              <span className='absolute bottom-[45%] font-bold'>404</span>
+            </div>
+          }
+        ></Route>
       </Route>
     </Routes>
   );

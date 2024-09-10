@@ -10,11 +10,13 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { formatDistance } from 'date-fns';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const { data: user } = useUser();
   const [open, setOpen] = React.useState(false);
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
 
   const formatMoneyPayed = (expense: Expense) => {
     const amountByUser = parseFloat(expense.amountByUser);
@@ -116,7 +118,11 @@ const Home: React.FC = () => {
               </li>
             )}
             {expenses.map((expense, index) => (
-              <li key={index} className='pb-3  p-4 mb-3 bg-zinc-800 rounded-xl'>
+              <li
+                key={index}
+                className='pb-3  p-4 mb-3 bg-zinc-800 rounded-xl'
+                onClick={() => navigate(`/expense/${expense.id}`)}
+              >
                 <div className='flex items-center space-x-4'>
                   <div className='flex-shrink-0'>
                     <ImageDefault

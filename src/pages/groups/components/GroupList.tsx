@@ -1,6 +1,7 @@
 import { Group } from '@/pages/groups/types/group';
 import ImageDefault from '@/shared/components/ImageDefault';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface GroupListProps {
   groups: Group[];
@@ -13,6 +14,7 @@ const GroupList: React.FC<GroupListProps> = ({
   renderOwesYou,
   className,
 }) => {
+  const navigate = useNavigate();
   return (
     <ul className={className}>
       {groups.length === 0 && (
@@ -24,6 +26,7 @@ const GroupList: React.FC<GroupListProps> = ({
         <li
           key={group.id + group.name + index}
           className='pb-3 sm:pb-4 p-4 mb-3 bg-zinc-800 rounded-xl'
+          onClick={() => navigate(`/group/${group.id}`)}
         >
           <div className='flex items-center space-x-4 rtl:space-x-reverse'>
             <div className='flex-shrink-0'>

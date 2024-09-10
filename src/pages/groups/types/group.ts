@@ -7,7 +7,6 @@ export interface Group {
   color: string;
   balanceTotal: number;
   balances: Balance[];
-  emoji: string;
 }
 
 export interface Balance {
