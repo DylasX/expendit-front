@@ -34,7 +34,7 @@ const Login: React.FC = () => {
   return (
     <div className='p-10 flex flex-col h-screen bg-zinc-800'>
       <section className='justify-end flex flex-col items-center mb-6'>
-        <Logo className='w-60' color='#fff' />
+        <Logo className='w-60' color='#fff' viewBox='0 0 400 10' />
         <p className='text-center text-sm font-light text-gray-50 mt-2'>
           Track and share expenses with friends.
         </p>
