@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ group }) => {
                 group.balanceTotal < 0 ? 'text-red-400' : 'text-primary-400'
               }`}
             >
-              ${Math.abs(group.balanceTotal)}
+              ${Math.abs(group.balanceTotal || 0)}
             </span>
           </p>
         </span>
