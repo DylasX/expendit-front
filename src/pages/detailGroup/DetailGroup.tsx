@@ -72,7 +72,7 @@ const DetailGroup: React.FC = () => {
             >
               <div className='flex items-center space-x-4'>
                 <div className='flex-shrink-0'>
-                  <ImageDefault name={user.fullName} />
+                  <ImageDefault name={user.fullName} color={user.color} />
                 </div>
                 <div className='flex-1 min-w-0'>
                   <p className='text-sm font-normal truncate text-gray-50'>

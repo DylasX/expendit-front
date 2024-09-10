@@ -1,4 +1,5 @@
 import { Group } from '@/pages/groups/types/group';
+import { useUser } from '@/pages/login/hooks/useUser';
 import ImageDefault from '@/shared/components/ImageDefault';
 import { ArrowLeft } from 'iconsax-react';
 import React from 'react';
@@ -10,6 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ group }) => {
   const navigate = useNavigate();
+  const { data: user } = useUser();
 
   return (
     <section className='block  bg-zinc-800 pb-2'>
@@ -33,7 +35,11 @@ const Header: React.FC<HeaderProps> = ({ group }) => {
             onClick={() => console.log('redirect to ')}
             className='cursor-pointer'
           >
-            <ImageDefault name='John Doe' size={10} color={group.color} />
+            <ImageDefault
+              name={user?.fullName || 'User'}
+              size={10}
+              color={user?.color}
+            />
           </div>
         </div>
       </div>

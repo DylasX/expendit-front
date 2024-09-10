@@ -24,7 +24,11 @@ const Header: React.FC<HeaderProps> = ({ owesYou, youOwe }) => {
             onClick={() => console.log('redirect to ')}
             className='cursor-pointer'
           >
-            <ImageDefault name='John Doe' size={10} />
+            <ImageDefault
+              name={queryUser?.data?.fullName || 'User'}
+              size={10}
+              color={queryUser?.data?.color}
+            />
           </div>
         </div>
       </div>
