@@ -26,9 +26,11 @@ const GroupList: React.FC<GroupListProps> = ({
         <li
           key={group.id + group.name + index}
           className='pb-3 sm:pb-4 p-4 mb-3 bg-zinc-800 rounded-xl'
-          onClick={() => navigate(`/group/${group.id}`)}
         >
-          <div className='flex items-center space-x-4 rtl:space-x-reverse'>
+          <a
+            className='flex items-center space-x-4 rtl:space-x-reverse'
+            onClick={() => navigate(`/group/${group.id}`)}
+          >
             <div className='flex-shrink-0'>
               <ImageDefault name={group.name} color={group.color} />
             </div>
@@ -50,7 +52,7 @@ const GroupList: React.FC<GroupListProps> = ({
               {/* check if amount is - to change color */}
               {`$${Math.abs(group.balanceTotal) || 0}`}
             </div>
-          </div>
+          </a>
         </li>
       ))}
     </ul>

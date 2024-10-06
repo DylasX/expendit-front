@@ -120,12 +120,11 @@ const Home: React.FC = () => {
               </li>
             )}
             {expenses.map((expense, index) => (
-              <li
-                key={index}
-                className='pb-3  p-4 mb-3 bg-zinc-800 rounded-xl'
-                onClick={() => navigate(`/expense/${expense.id}`)}
-              >
-                <div className='flex items-center space-x-4'>
+              <li key={index} className='pb-3  p-4 mb-3 bg-zinc-800 rounded-xl'>
+                <a
+                  onClick={() => navigate(`/expense/${expense.id}`)}
+                  className='flex items-center space-x-4'
+                >
                   <div className='flex-shrink-0'>
                     <ImageDefault
                       name={expense.description}
@@ -143,7 +142,7 @@ const Home: React.FC = () => {
                   <div className='inline-flex items-center text-base font-normal'>
                     {formatMoneyPayed(expense)}
                   </div>
-                </div>
+                </a>
               </li>
             ))}
           </ul>
