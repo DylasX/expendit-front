@@ -187,7 +187,7 @@ const Invitations: React.FC = () => {
               Most recent invitations.
             </p>
           </div>
-          <ul className='flex-1 divide-y  divide-gray-200 p-4'>
+          <ul className='p-4 mb-5'>
             {invitations.length === 0 && (
               <li className='text-center text-xs text-gray-50 mt-4'>
                 No invitations yet.
