@@ -8,9 +8,12 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { Capacitor } from '@capacitor/core';
 
 const BottomNavigator: React.FC = () => {
   const location = useLocation();
+
+  const classMargin = Capacitor.getPlatform() !== 'web' ? 'mb-4' : '';
 
   // Function to determine if a link is active
   const isActiveLink = (path: string) => {
@@ -27,7 +30,7 @@ const BottomNavigator: React.FC = () => {
       <div className={`grid h-full grid-cols-5 w-full mx-auto font-medium`}>
         <Link
           to='/groups'
-          className={`inline-flex flex-col items-center justify-center px-5 ${
+          className={`inline-flex flex-col items-center justify-center ${classMargin} px-5 ${
             isActiveLink('/groups') ? 'active' : ''
           }`}
         >
@@ -43,7 +46,7 @@ const BottomNavigator: React.FC = () => {
         </Link>
         <Link
           to='/'
-          className={`inline-flex flex-col items-center justify-center px-5 ${
+          className={`inline-flex flex-col items-center justify-center ${classMargin} px-5 ${
             isActiveLink('/') ? 'active' : ''
           }`}
         >
@@ -55,7 +58,7 @@ const BottomNavigator: React.FC = () => {
         </Link>
         <Link
           to='/add'
-          className={`inline-flex flex-col items-center justify-center px-5 ${
+          className={`inline-flex flex-col items-center justify-center ${classMargin} px-5 ${
             isActiveLink('/add') ? 'active' : ''
           }`}
         >
@@ -67,7 +70,7 @@ const BottomNavigator: React.FC = () => {
         </Link>
         <Link
           to='/invitations'
-          className={`inline-flex flex-col items-center justify-center px-5 ${
+          className={`inline-flex flex-col items-center justify-center ${classMargin} px-5 ${
             isActiveLink('/invitations') ? 'active' : ''
           }`}
         >
@@ -87,7 +90,7 @@ const BottomNavigator: React.FC = () => {
         </Link>
         <Link
           to='/profile'
-          className={`inline-flex flex-col items-center justify-center px-5 ${
+          className={`inline-flex flex-col items-center justify-center ${classMargin} px-5 ${
             isActiveLink('/profile') ? 'active' : ''
           }`}
         >
