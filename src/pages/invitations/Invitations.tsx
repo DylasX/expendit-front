@@ -154,7 +154,7 @@ const Invitations: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <Header
         owesYou={
           user?.myCredit?.reduce(
@@ -172,7 +172,7 @@ const Invitations: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
+        <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300'>
           <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
             <div className='flex flex-row justify-between'>
               <h2>Invitations</h2>
@@ -236,7 +236,7 @@ const Invitations: React.FC = () => {
       <Drawer isFullScreen={true} open={open} onClose={onClose}>
         <InvitationForm onClose={onClose} />
       </Drawer>
-    </div>
+    </>
   );
 };
 
