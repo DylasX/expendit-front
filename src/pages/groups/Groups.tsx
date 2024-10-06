@@ -51,7 +51,7 @@ const Groups: React.FC = () => {
   };
 
   return (
-    <main className='overflow-y-auto scrollbar-hide'>
+    <main className='overflow-y-auto scrollbar-hide h-screen'>
       <Header
         owesYou={
           user?.myCredit?.reduce(

@@ -34,7 +34,7 @@ const DetailGroup: React.FC = () => {
         return <span className='p-4 text-white text-sm'>No expenses.</span>;
       }
       return (
-        <ul className='flex-1 p-4 mb-5'>
+        <ul className='p-4 mb-5'>
           {data.expenses.map((expense: Expense) => (
             <li
               key={expense.id + 'expenseDetail'}
@@ -93,7 +93,7 @@ const DetailGroup: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
+        <section className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[65%] animate-fade-up animate-duration-300 pb-10'>
           <div className='p-5 text-left w-full text-gray-50'>
             <div className='relative flex flex-row justify-around'>
               <button

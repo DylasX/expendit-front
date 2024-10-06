@@ -10,6 +10,7 @@ import MainLayout from '@/shared/layouts/Main';
 import React, { ReactNode } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Logo from '@/assets/logo.svg?react';
+import ExpenseDetail from '@/pages/expenses/Expense';
 
 type ProtectedRouteProps = {
   children: ReactNode;
@@ -81,6 +82,16 @@ const AppRouter: React.FC = () => {
           element={
             <ProtectedRoute>
               <DetailGroup />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route element={<MainLayout />}>
+        <Route
+          path='/expense/:id'
+          element={
+            <ProtectedRoute>
+              <ExpenseDetail />
             </ProtectedRoute>
           }
         />

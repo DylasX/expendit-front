@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 const MainLayout: React.FC = () => {
   return (
-    <section className='min-h-screen-safe bg-zinc-800'>
+    <section className='h-screen-safe bg-zinc-800'>
       <Toaster
         containerStyle={{
           bottom: '70px',

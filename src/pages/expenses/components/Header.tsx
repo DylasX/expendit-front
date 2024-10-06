@@ -1,4 +1,4 @@
-import { Group } from '@/pages/groups/types/group';
+import { Expense } from '@/pages/home/types/expense';
 import { useUser } from '@/pages/login/hooks/useUser';
 import ImageDefault from '@/shared/components/ImageDefault';
 import { ArrowLeft } from 'iconsax-react';
@@ -6,10 +6,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
-  group: Group;
+  expense: Expense;
 }
 
-const Header: React.FC<HeaderProps> = ({ group }) => {
+const Header: React.FC<HeaderProps> = ({ expense }) => {
   const navigate = useNavigate();
   const { data: user } = useUser();
 
@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ group }) => {
             <a
               href='#'
               className='flex flex-row items-center gap-1'
-              onClick={() => navigate('/groups')}
+              onClick={() => navigate(-1)}
             >
               <>
                 <ArrowLeft size='20' className='text-primary-400' />
@@ -45,38 +45,24 @@ const Header: React.FC<HeaderProps> = ({ group }) => {
       </div>
       <div className='flex flex-col w-full animate-fade-up animate-duration-300 mt-4'>
         <span className='m-auto'>
-          <ImageDefault size={16} name={group.name} color={group.color} />
+          <ImageDefault
+            size={16}
+            name={expense.description}
+            color={expense.color}
+          />
         </span>
         <span>
           <h2 className='text-lg font-medium text-center text-gray-50 mt-2'>
-            {group.name}
+            {expense.description}
           </h2>
         </span>
         <span>
           <p className='text-xs font-light text-center text-gray-50'>
-            Total balance:{' '}
-            <span
-              className={`text-xs font-bold ${
-                group.balanceTotal < 0 ? 'text-red-400' : 'text-primary-400'
-              }`}
-            >
-              ${Math.abs(group.balanceTotal || 0)}
+            Total amount:{' '}
+            <span className={`text-xs font-bold `}>
+              ${Math.abs(parseFloat(expense.amount) || 0)}
             </span>
           </p>
-        </span>
-        <span className='p-4 flex flex-row gap-4 w-full'>
-          <button
-            className='bg-primary-400 text-white px-4 py-2 w-auto text-xs rounded-lg'
-            type='button'
-          >
-            Settle up
-          </button>
-          {/* <button
-            className='border-primary-400 border text-primary-400 px-4 py-2 w-auto text-xs rounded-lg'
-            type='button'
-          >
-            Reports
-          </button> */}
         </span>
       </div>
     </section>

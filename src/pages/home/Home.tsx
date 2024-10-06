@@ -77,7 +77,9 @@ const Home: React.FC = () => {
   };
   return (
     <main
-      className={`overflow-y-auto scrollbar-hide ${open ? 'fixed' : 'block'}`}
+      className={`overflow-y-auto scrollbar-hide h-screen ${
+        open ? 'fixed' : 'block'
+      }`}
     >
       <Header
         owesYou={
@@ -96,7 +98,7 @@ const Home: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[80vh] animate-fade-up animate-duration-300'>
+        <section className='flex flex-col bg-zinc-500 bg-opacity-10 rounded-2xl w-full h-[70%] animate-fade-up animate-duration-300'>
           <div className='p-5 text-lg font-semibold text-left w-full  text-gray-50'>
             <div className='flex flex-row justify-between'>
               <h2>Expenses</h2>
@@ -111,7 +113,7 @@ const Home: React.FC = () => {
               Most recent expenses.
             </p>
           </div>
-          <ul className='flex-1 p-4 mb-5'>
+          <ul className='p-4 mb-5'>
             {expenses.length === 0 && (
               <li className='text-center text-xs text-gray-50 mt-4'>
                 No expenses yet.

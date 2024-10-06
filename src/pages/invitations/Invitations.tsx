@@ -78,7 +78,6 @@ const Invitations: React.FC = () => {
         ? lastPage.meta.currentPage + 1
         : undefined;
     },
-    refetchOnMount: true,
     refetchOnWindowFocus: true,
   });
 

@@ -7,6 +7,7 @@ export interface User {
   myCredit: myCredit[];
   myDebt: myDebt[];
   color: string;
+  amount?: string;
 }
 
 interface myCredit {

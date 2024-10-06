@@ -6,10 +6,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from '@/shared/client/queryClient';
 import React from 'react';
 import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 function App() {
   React.useEffect(() => {
-    StatusBar.setBackgroundColor({ color: '#27272a' });
+    if (Capacitor.getPlatform() !== 'web') {
+      StatusBar.setBackgroundColor({ color: '#27272a' });
+    }
   }, []);
   return (
     <>
