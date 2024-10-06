@@ -154,7 +154,12 @@ const Invitations: React.FC = () => {
   };
 
   return (
-    <>
+    <main
+      className={`overflow-y-auto scrollbar-hide h-screen ${
+        open ? 'fixed' : 'block'
+      }`}
+    >
+      {' '}
       <Header
         owesYou={
           user?.myCredit?.reduce(
@@ -189,9 +194,11 @@ const Invitations: React.FC = () => {
           </div>
           <ul className='p-4 mb-5'>
             {invitations.length === 0 && (
-              <li className='text-center text-xs text-gray-50 mt-4'>
-                No invitations yet.
-              </li>
+              <div className='flex items-center justify-center space-x-4 rtl:space-x-reverse'>
+                <li className='text-xs text-gray-50 mt-4'>
+                  No invitations yet.
+                </li>
+              </div>
             )}
             {invitations.map((invitation, index) => (
               <li
@@ -236,7 +243,7 @@ const Invitations: React.FC = () => {
       <Drawer isFullScreen={true} open={open} onClose={onClose}>
         <InvitationForm onClose={onClose} />
       </Drawer>
-    </>
+    </main>
   );
 };
 
