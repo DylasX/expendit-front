@@ -22,7 +22,9 @@ const BottomNavigator: React.FC = () => {
 
   return (
     <div
-      className='box fixed bottom-0 left-0 z-50 bg-zinc-800 h-16 w-full'
+      className={`box fixed bottom-0 left-0 z-50 bg-zinc-800 ${
+        Capacitor.getPlatform() === 'web' ? 'h-16' : 'h-20'
+      } w-full`}
       style={{
         paddingBottom: 'env(safe-area-inset-bottom) - 0.5rem',
       }}
