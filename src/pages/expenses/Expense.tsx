@@ -74,7 +74,7 @@ const ExpenseDetail: React.FC = () => {
   };
 
   return (
-    <>
+    <main className='h-screen'>
       <Header expense={data as Expense} />
       {isLoading ? (
         <Loader />
@@ -83,7 +83,7 @@ const ExpenseDetail: React.FC = () => {
           {renderList()}
         </section>
       )}
-    </>
+    </main>
   );
 };
 

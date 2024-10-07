@@ -90,12 +90,12 @@ const DetailGroup: React.FC = () => {
   };
 
   return (
-    <>
+    <main className='scrollbar-hide h-screen'>
       <Header group={data as Group} />
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[65%] animate-fade-up animate-duration-300 pb-10'>
+        <div className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300 pb-10'>
           <div className='p-5 text-left w-full text-gray-50'>
             <div className='relative flex flex-row justify-around'>
               <button
@@ -122,9 +122,9 @@ const DetailGroup: React.FC = () => {
             </div>
           </div>
           {renderList()}
-        </section>
+        </div>
       )}
-    </>
+    </main>
   );
 };
 
