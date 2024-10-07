@@ -154,12 +154,7 @@ const Invitations: React.FC = () => {
   };
 
   return (
-    <main
-      className={`overflow-y-auto scrollbar-hide h-screen ${
-        open ? 'fixed' : 'block'
-      }`}
-    >
-      {' '}
+    <main className={`overflow-y-auto scrollbar-hide h-screen `}>
       <Header
         owesYou={
           user?.myCredit?.reduce(
