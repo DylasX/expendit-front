@@ -115,7 +115,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
               </label>
               <div className='relative w-[60%]'>
                 <div className='absolute inset-y-0 start-0 flex items-center ps-6 pointer-events-none'>
-                  <DollarCircle className='w-5 h-5 text-gray-400' />
+                  <DollarCircle color='currentColor' className='w-5 h-5 text-gray-400' />
                 </div>
                 <input
                   type='number'
@@ -242,7 +242,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
       >
         {selectedGroup.id ? (
           <>
-            <ArrowLeft size='20' className='text-primary-400' />
+            <ArrowLeft size='20' color='currentColor' className='text-primary-400' />
             <h2 className='text-lg font-semibold text-gray-50 ml-2'>
               New expense
             </h2>
@@ -253,7 +253,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
           </h2>
         )}
       </a>
-      <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
+      <div className='flex flex-col rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
             <ul className='flex flex-col flex-wrap mt-4'>
@@ -317,7 +317,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                 </label>
                 <div className={`relative`}>
                   <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-                    <Message className='w-5 h-5 text-gray-400' />
+                    <Message color='currentColor' className='w-5 h-5 text-gray-400' />
                   </div>
                   <input
                     type='text'
@@ -339,7 +339,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                 </label>
                 <div className='relative'>
                   <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-                    <DollarCircle className='w-5 h-5 text-gray-400' />
+                    <DollarCircle color='currentColor' className='w-5 h-5 text-gray-400' />
                   </div>
                   <input
                     type='text'

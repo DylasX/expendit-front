@@ -95,7 +95,7 @@ const DetailGroup: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300 pb-10'>
+        <div className='bg-zinc-500/10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300 pb-10'>
           <div className='p-5 text-left w-full text-gray-50'>
             <div className='relative flex flex-row justify-around'>
               <button

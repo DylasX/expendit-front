@@ -79,7 +79,7 @@ const ExpenseDetail: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300 pb-10'>
+        <section className='bg-zinc-500/10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300 pb-10'>
           {renderList()}
         </section>
       )}

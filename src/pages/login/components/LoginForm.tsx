@@ -64,7 +64,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs, setIsLoading }) => {
           </label>
           <div className={`relative `}>
             <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-              <UserTag className='w-5 h-5 text-gray-400' />
+              <UserTag color='currentColor' className='w-5 h-5 text-gray-400' />
             </div>
             <input
               type='text'
@@ -88,7 +88,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchTabs, setIsLoading }) => {
           </label>
           <div className={`relative `}>
             <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-              <Key className='w-5 h-5 text-gray-400' />
+              <Key color='currentColor' className='w-5 h-5 text-gray-400' />
             </div>
             <input
               type='password'

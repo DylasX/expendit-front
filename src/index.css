@@ -1,6 +1,61 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito Variable", sans-serif;
+
+  /* Primary color scale */
+  --color-primary-50: #d5f7e6;
+  --color-primary-100: #aaf0c1;
+  --color-primary-200: #7eeb9d;
+  --color-primary-300: #4ade80;
+  --color-primary-400: #28c763;
+  --color-primary-500: #1e9f4d;
+  --color-primary-600: #1a8c41;
+  --color-primary-700: #147528;
+  --color-primary-800: #0f5f1a;
+  --color-primary-900: #0b4b13;
+
+  /* Custom dark color */
+  --color-customDark-100: #222222;
+
+  /* Animation definitions */
+  --animate-spin: spin 1s linear infinite;
+  --animate-fade-up: fade-up 1s ease both;
+}
+
+/* Keyframes */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation utilities */
+@utility animate-duration-* {
+  animation-duration: --value(integer)ms;
+  animation-duration: --value([*]);
+}
+
+/* SVG fixes for iconsax-react and other icon libraries */
+@layer base {
+  /* Override Tailwind's SVG display to work with inline icons */
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    /* Ensure SVG inherits color for currentColor */
+    color: inherit;
+  }
+
+  /* Ensure SVG children elements are visible */
+  svg > * {
+    display: inherit;
+  }
+}
 
 /* Añadir esto a tu archivo CSS global o al módulo CSS correspondiente */
 .scrollbar-hide::-webkit-scrollbar {

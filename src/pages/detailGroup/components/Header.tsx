@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ group }) => {
               onClick={() => navigate('/groups')}
             >
               <>
-                <ArrowLeft size='20' className='text-primary-400' />
+                <ArrowLeft size='20' color='currentColor' className='text-primary-400' />
                 <h2 className='text-lg font-semibold text-gray-50 ml-2'>
                   Back
                 </h2>

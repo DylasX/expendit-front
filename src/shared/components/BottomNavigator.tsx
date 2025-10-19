@@ -40,10 +40,16 @@ const BottomNavigator: React.FC = () => {
             <Profile2User
               size='24'
               variant='Bold'
+              color='currentColor'
               className='text-primary-400'
             />
           ) : (
-            <Profile2User size='22' variant='Broken' className='text-gray-50' />
+            <Profile2User
+              size='22'
+              variant='Broken'
+              color='currentColor'
+              className='text-gray-50'
+            />
           )}{' '}
         </Link>
         <Link
@@ -53,9 +59,19 @@ const BottomNavigator: React.FC = () => {
           }`}
         >
           {isActiveLink('/') ? (
-            <Receipt1 size='24' variant='Bold' className='text-primary-400' />
+            <Receipt1
+              size='24'
+              variant='Bold'
+              color='currentColor'
+              className='text-primary-400'
+            />
           ) : (
-            <Receipt1 size='22' variant='Broken' className='text-gray-50' />
+            <Receipt1
+              size='22'
+              variant='Broken'
+              color='currentColor'
+              className='text-gray-50'
+            />
           )}{' '}
         </Link>
         <Link
@@ -65,9 +81,14 @@ const BottomNavigator: React.FC = () => {
           }`}
         >
           {isActiveLink('/add') ? (
-            <Add size='32' className='text-primary-400' />
+            <Add size='32' color='currentColor' className='text-primary-400' />
           ) : (
-            <Add size='30' variant='Broken' className='text-gray-50' />
+            <Add
+              size='30'
+              variant='Broken'
+              color='currentColor'
+              className='text-gray-50'
+            />
           )}
         </Link>
         <Link
@@ -80,12 +101,14 @@ const BottomNavigator: React.FC = () => {
             <DirectboxNotif
               size='24'
               variant='Bold'
+              color='currentColor'
               className='text-primary-400'
             />
           ) : (
             <DirectboxNotif
               size='22'
               variant='Broken'
+              color='currentColor'
               className='text-gray-50'
             />
           )}
@@ -97,9 +120,19 @@ const BottomNavigator: React.FC = () => {
           }`}
         >
           {isActiveLink('/profile') ? (
-            <User size='24' variant='Bold' className='text-primary-400' />
+            <User
+              size='24'
+              variant='Bold'
+              color='currentColor'
+              className='text-primary-400'
+            />
           ) : (
-            <User size='22' variant='Broken' className='text-gray-50' />
+            <User
+              size='22'
+              variant='Broken'
+              color='currentColor'
+              className='text-gray-50'
+            />
           )}
         </Link>
         {/* //TODO: Create an add Button to handle with a drawer or modal what the user want to create to have the possibility to create a new group, expense or invitation */}
