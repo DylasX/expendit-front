@@ -1,8 +1,9 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GroupForm from './GroupForm';
+import { protectedApi } from '@/shared/services/request';
 
 // Mock toast
 vi.mock('react-hot-toast', () => ({
@@ -125,5 +126,89 @@ describe('GroupForm', () => {
     
     expect(label).toBeInTheDocument();
     expect(input).toBeInTheDocument();
+  });
+
+  describe('Color Selection', () => {
+    it('should render color options', () => {
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      expect(screen.getByText(/tag with a color/i)).toBeInTheDocument();
+    });
+
+    it('should render color divs', () => {
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const colorContainer = container.querySelector('.flex.space-x-2.mb-4');
+      expect(colorContainer).toBeInTheDocument();
+    });
+  });
+
+  describe('Invite Emails', () => {
+    it('should render invite emails textarea', () => {
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      expect(screen.getByLabelText(/invite users/i)).toBeInTheDocument();
+    });
+
+    it('should allow typing in invite emails field', async () => {
+      const user = userEvent.setup();
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const textarea = screen.getByLabelText(/invite users/i);
+      await user.type(textarea, 'user1@test.com');
+      
+      expect(textarea).toHaveValue('user1@test.com');
+    });
+  });
+
+  describe('Form Submission', () => {
+    it('should have submit button', () => {
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      expect(submitButton).toBeInTheDocument();
+    });
+
+    it('should show validation error when submitting without required fields', async () => {
+      const user = userEvent.setup();
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        const errorMessages = screen.queryAllByText(/invalid input/i);
+        expect(errorMessages.length).toBeGreaterThan(0);
+      });
+    });
+  });
+
+  describe('Style Injection', () => {
+    it('should inject style element on mount', () => {
+      render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const styles = document.querySelectorAll('style');
+      const hasInjectedStyle = Array.from(styles).some(style => 
+        style.innerHTML.includes('.epr-body + div')
+      );
+      
+      expect(hasInjectedStyle).toBe(true);
+    });
+
+    it('should remove style element on unmount', () => {
+      const { unmount } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const stylesBefore = document.querySelectorAll('style');
+      const countBefore = Array.from(stylesBefore).filter(style => 
+        style.innerHTML.includes('.epr-body + div')
+      ).length;
+      
+      unmount();
+      
+      const stylesAfter = document.querySelectorAll('style');
+      const countAfter = Array.from(stylesAfter).filter(style => 
+        style.innerHTML.includes('.epr-body + div')
+      ).length;
+      
+      expect(countAfter).toBeLessThan(countBefore);
+    });
   });
 });

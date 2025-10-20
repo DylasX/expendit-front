@@ -279,4 +279,150 @@ describe('Invitations', () => {
       ).toBeInTheDocument();
     });
   });
+
+  it('should handle accept invitation action', async () => {
+    const mockPost = vi.fn().mockResolvedValue({ data: {} });
+    vi.mocked(protectedApi.post).mockImplementation(mockPost);
+    
+    mockUseUser.mockReturnValue({ data: mockUser });
+    mockGet.mockResolvedValue({
+      data: {
+        data: mockInvitations,
+        meta: { currentPage: 1, nextPageUrl: null },
+      },
+    });
+
+    const user = userEvent.setup();
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('tick-icon')).toBeInTheDocument();
+    });
+
+    const acceptButton = screen.getByTestId('tick-icon').closest('button');
+    await user.click(acceptButton!);
+
+    await waitFor(() => {
+      expect(mockPost).toHaveBeenCalledWith('user/invitation/1');
+    });
+  });
+
+  it('should handle reject invitation action', async () => {
+    const mockDelete = vi.fn().mockResolvedValue({ data: {} });
+    vi.mocked(protectedApi.delete).mockImplementation(mockDelete);
+    
+    mockUseUser.mockReturnValue({ data: mockUser });
+    mockGet.mockResolvedValue({
+      data: {
+        data: mockInvitations,
+        meta: { currentPage: 1, nextPageUrl: null },
+      },
+    });
+
+    const user = userEvent.setup();
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+    });
+
+    const rejectButton = screen.getByTestId('close-icon').closest('button');
+    await user.click(rejectButton!);
+
+    await waitFor(() => {
+      expect(mockDelete).toHaveBeenCalledWith('user/invitation/1');
+    });
+  });
+
+  it('should close drawer when onClose is called', async () => {
+    mockUseUser.mockReturnValue({ data: mockUser });
+    mockGet.mockResolvedValue({
+      data: {
+        data: mockInvitations,
+        meta: { currentPage: 1, nextPageUrl: null },
+      },
+    });
+
+    const user = userEvent.setup();
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText('Test Group')).toBeInTheDocument();
+    });
+
+    const newInvitationButton = screen.getByRole('button', {
+      name: /New invitation/i,
+    });
+    await user.click(newInvitationButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('drawer')).toBeInTheDocument();
+    });
+
+    const closeButton = screen.getByText('Close Form');
+    await user.click(closeButton);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('drawer')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should show "Loading more..." when fetching next page', async () => {
+    mockUseUser.mockReturnValue({ data: mockUser });
+    mockGet
+      .mockResolvedValueOnce({
+        data: {
+          data: mockInvitations,
+          meta: { currentPage: 1, nextPageUrl: 'http://api.com/page2' },
+        },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          data: [],
+          meta: { currentPage: 2, nextPageUrl: null },
+        },
+      });
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText('Load More')).toBeInTheDocument();
+    });
+  });
+
+  it('should handle user with no credit', async () => {
+    mockUseUser.mockReturnValue({ 
+      data: { ...mockUser, myCredit: [] } 
+    });
+    mockGet.mockResolvedValue({
+      data: {
+        data: mockInvitations,
+        meta: { currentPage: 1, nextPageUrl: null },
+      },
+    });
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Owes You: \$0/)).toBeInTheDocument();
+    });
+  });
+
+  it('should handle user with no debt', async () => {
+    mockUseUser.mockReturnValue({ 
+      data: { ...mockUser, myDebt: [] } 
+    });
+    mockGet.mockResolvedValue({
+      data: {
+        data: mockInvitations,
+        meta: { currentPage: 1, nextPageUrl: null },
+      },
+    });
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText(/You Owe: \$0/)).toBeInTheDocument();
+    });
+  });
 });

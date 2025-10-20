@@ -12,6 +12,13 @@ export default defineConfig({
     // Setup
     setupFiles: ['./vitest.setup.ts'],
 
+    // Server dependencies optimization
+    server: {
+      deps: {
+        inline: ['parse5'],
+      },
+    },
+
     // Coverage
     coverage: {
       provider: 'v8',
@@ -27,9 +34,15 @@ export default defineConfig({
         'src/vite-env.d.ts',
         'src/assets/**',
         'coverage/',
-        '/android/',
-        '/ios/',
-        '.**'
+        'android/',
+        'ios/',
+        '.**',
+        'capacitor.config.ts',
+        'vite.config.ts',
+        'vitest.config.ts',
+        'public/**',
+        'src/mocks/**',
+        'src/test-utils/**'
       ],
       thresholds: {
         lines: 90,

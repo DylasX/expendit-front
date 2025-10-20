@@ -225,5 +225,40 @@ describe('expenseValidator', () => {
 
       expect(result.success).toBe(true);
     });
+
+    it('should handle large amounts', () => {
+      const validData = {
+        description: 'Expensive dinner',
+        amount: 10000,
+        groupId: 1,
+        divisionStrategy: 'EQUALS',
+        participants: [
+          { id: 1, amount: 5000 },
+          { id: 2, amount: 5000 },
+        ],
+      };
+
+      const result = expenseValidator.safeParse(validData);
+
+      expect(result.success).toBe(true);
+    });
+
+    it('should handle multiple participants with different amounts', () => {
+      const validData = {
+        description: 'Group dinner',
+        amount: 100,
+        groupId: 1,
+        divisionStrategy: 'MANUAL',
+        participants: [
+          { id: 1, amount: 40 },
+          { id: 2, amount: 30 },
+          { id: 3, amount: 30 },
+        ],
+      };
+
+      const result = expenseValidator.safeParse(validData);
+
+      expect(result.success).toBe(true);
+    });
   });
 });

@@ -239,4 +239,171 @@ describe('InvitationForm', () => {
     const images = screen.getAllByTestId('image-default');
     expect(images.length).toBeGreaterThanOrEqual(2);
   });
+
+  describe('Form Submission', () => {
+    it('should submit form successfully', async () => {
+      mockUseGroups.mockReturnValue({
+        groups: mockGroups,
+        isFetchingNextPage: false,
+        hasNextPage: false,
+        fetchNextPage: vi.fn(),
+      });
+      mockPost.mockResolvedValue({ data: {} });
+
+      const user = userEvent.setup();
+      renderComponent();
+
+      const group1Links = screen.getAllByText('Group 1');
+      const group1Link = group1Links[0].closest('a');
+      await user.click(group1Link!);
+
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+      });
+
+      const textarea = screen.getByRole('textbox');
+      await user.type(textarea, 'test@example.com');
+
+      const submitButton = screen.getByRole('button', { name: /Invite users/i });
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        expect(mockPost).toHaveBeenCalledWith('/user/1/invite', {
+          inviteEmails: 'test@example.com',
+        });
+      });
+    });
+
+    it('should call onClose after successful submission', async () => {
+      mockUseGroups.mockReturnValue({
+        groups: mockGroups,
+        isFetchingNextPage: false,
+        hasNextPage: false,
+        fetchNextPage: vi.fn(),
+      });
+      mockPost.mockResolvedValue({ data: {} });
+
+      const user = userEvent.setup();
+      renderComponent();
+
+      const group1Links = screen.getAllByText('Group 1');
+      const group1Link = group1Links[0].closest('a');
+      await user.click(group1Link!);
+
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+      });
+
+      const textarea = screen.getByRole('textbox');
+      await user.type(textarea, 'test@example.com');
+
+      const submitButton = screen.getByRole('button', { name: /Invite users/i });
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        expect(mockOnClose).toHaveBeenCalled();
+      });
+    });
+
+    it('should handle submission error', async () => {
+      mockUseGroups.mockReturnValue({
+        groups: mockGroups,
+        isFetchingNextPage: false,
+        hasNextPage: false,
+        fetchNextPage: vi.fn(),
+      });
+      mockPost.mockRejectedValue(new Error('Network error'));
+
+      const user = userEvent.setup();
+      renderComponent();
+
+      const group1Links = screen.getAllByText('Group 1');
+      const group1Link = group1Links[0].closest('a');
+      await user.click(group1Link!);
+
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+      });
+
+      const textarea = screen.getByRole('textbox');
+      await user.type(textarea, 'test@example.com');
+
+      const submitButton = screen.getByRole('button', { name: /Invite users/i });
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        expect(mockOnClose).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should log values on submit', async () => {
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      mockUseGroups.mockReturnValue({
+        groups: mockGroups,
+        isFetchingNextPage: false,
+        hasNextPage: false,
+        fetchNextPage: vi.fn(),
+      });
+      mockPost.mockResolvedValue({ data: {} });
+
+      const user = userEvent.setup();
+      renderComponent();
+
+      const group1Links = screen.getAllByText('Group 1');
+      const group1Link = group1Links[0].closest('a');
+      await user.click(group1Link!);
+
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+      });
+
+      const textarea = screen.getByRole('textbox');
+      await user.type(textarea, 'test@example.com');
+
+      const submitButton = screen.getByRole('button', { name: /Invite users/i });
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        expect(consoleSpy).toHaveBeenCalledWith({ inviteEmails: 'test@example.com' });
+      });
+
+      consoleSpy.mockRestore();
+    });
+
+    it('should log error on submission failure', async () => {
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const error = new Error('Network error');
+      mockUseGroups.mockReturnValue({
+        groups: mockGroups,
+        isFetchingNextPage: false,
+        hasNextPage: false,
+        fetchNextPage: vi.fn(),
+      });
+      mockPost.mockRejectedValue(error);
+
+      const user = userEvent.setup();
+      renderComponent();
+
+      const group1Links = screen.getAllByText('Group 1');
+      const group1Link = group1Links[0].closest('a');
+      await user.click(group1Link!);
+
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toBeInTheDocument();
+      });
+
+      const textarea = screen.getByRole('textbox');
+      await user.type(textarea, 'test@example.com');
+
+      const submitButton = screen.getByRole('button', { name: /Invite users/i });
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        expect(consoleSpy).toHaveBeenCalledWith(error);
+      });
+
+      consoleSpy.mockRestore();
+    });
+  });
+
 });
