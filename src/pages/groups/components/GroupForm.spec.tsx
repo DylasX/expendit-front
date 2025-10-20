@@ -140,6 +140,41 @@ describe('GroupForm', () => {
       const colorContainer = container.querySelector('.flex.space-x-2.mb-4');
       expect(colorContainer).toBeInTheDocument();
     });
+
+    it('should select a color when clicked', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const colorDivs = container.querySelectorAll('.w-8.h-8.rounded-md.cursor-pointer');
+      expect(colorDivs.length).toBeGreaterThan(0);
+      
+      await user.click(colorDivs[0] as HTMLElement);
+      
+      await waitFor(() => {
+        expect(colorDivs[0]).toHaveClass('ring-2');
+      });
+    });
+
+    it('should update formik color value when color is selected', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      const colorDivs = container.querySelectorAll('.w-8.h-8.rounded-md.cursor-pointer');
+      await user.click(colorDivs[0] as HTMLElement);
+      
+      // Color should be set in formik (we can verify by checking if validation passes with color)
+      const nameInput = screen.getByLabelText(/group name/i);
+      await user.type(nameInput, 'Test Group');
+      
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      await user.click(submitButton);
+      
+      // Should not show color validation error
+      await waitFor(() => {
+        const colorError = screen.queryByText(/color.*required/i);
+        expect(colorError).not.toBeInTheDocument();
+      });
+    });
   });
 
   describe('Invite Emails', () => {
@@ -178,6 +213,99 @@ describe('GroupForm', () => {
         const errorMessages = screen.queryAllByText(/invalid input/i);
         expect(errorMessages.length).toBeGreaterThan(0);
       });
+    });
+
+    it('should successfully submit form with valid data', async () => {
+      const user = userEvent.setup();
+      const mockPost = vi.mocked(protectedApi.post);
+      mockPost.mockResolvedValueOnce({ data: { id: 1, name: 'Test Group' } });
+      
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      // Fill in name
+      const nameInput = screen.getByLabelText(/group name/i);
+      await user.type(nameInput, 'Test Group');
+      
+      // Select color
+      const colorDivs = container.querySelectorAll('.w-8.h-8.rounded-md.cursor-pointer');
+      await user.click(colorDivs[0] as HTMLElement);
+      
+      // Fill in emails
+      const emailsTextarea = screen.getByLabelText(/invite users/i);
+      await user.type(emailsTextarea, 'user1@test.com');
+      
+      // Submit form
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        expect(mockPost).toHaveBeenCalledWith('/groups/', {
+          name: 'Test Group',
+          color: '#FF0000',
+          inviteEmails: 'user1@test.com',
+        });
+        expect(mockOnClose).toHaveBeenCalled();
+      });
+    });
+
+    it('should handle submission error', async () => {
+      const user = userEvent.setup();
+      const mockPost = vi.mocked(protectedApi.post);
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      mockPost.mockRejectedValueOnce(new Error('Network error'));
+      
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      // Fill in name
+      const nameInput = screen.getByLabelText(/group name/i);
+      await user.type(nameInput, 'Test Group');
+      
+      // Select color
+      const colorDivs = container.querySelectorAll('.w-8.h-8.rounded-md.cursor-pointer');
+      await user.click(colorDivs[0] as HTMLElement);
+      
+      // Submit form
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        expect(mockPost).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalled();
+        expect(mockOnClose).not.toHaveBeenCalled();
+      });
+      
+      consoleLogSpy.mockRestore();
+    });
+
+    it('should log form values on submit', async () => {
+      const user = userEvent.setup();
+      const mockPost = vi.mocked(protectedApi.post);
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      mockPost.mockResolvedValueOnce({ data: { id: 1 } });
+      
+      const { container } = render(<GroupForm onClose={mockOnClose} />, { wrapper: createWrapper() });
+      
+      // Fill in name
+      const nameInput = screen.getByLabelText(/group name/i);
+      await user.type(nameInput, 'Test Group');
+      
+      // Select color
+      const colorDivs = container.querySelectorAll('.w-8.h-8.rounded-md.cursor-pointer');
+      await user.click(colorDivs[0] as HTMLElement);
+      
+      // Submit form
+      const submitButton = screen.getByRole('button', { name: /create group/i });
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        expect(consoleLogSpy).toHaveBeenCalledWith({
+          name: 'Test Group',
+          color: '#FF0000',
+          inviteEmails: '',
+        });
+      });
+      
+      consoleLogSpy.mockRestore();
     });
   });
 
