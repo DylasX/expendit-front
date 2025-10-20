@@ -23,7 +23,9 @@ function App() {
           maxAge: 1000 * 60 * 60 * 24,
           dehydrateOptions: {
             shouldDehydrateQuery: (query) => {
-              return query.state.status === "success";
+              // Only persist successful queries that are idle (not fetching)
+              // This prevents persisting pending queries that get cancelled on navigation
+              return query.state.status === "success" && query.state.fetchStatus === "idle";
             },
           },
         }}
