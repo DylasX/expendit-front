@@ -61,7 +61,7 @@ const InvitationForm: React.FC<InvitationFormProps> = ({ onClose }) => {
   return (
     <section className='p-4 h-full'>
       <h2 className='text-lg font-semibold text-gray-50 mb-4'>New expense </h2>
-      <div className='flex flex-col bg-opacity-10 rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
+      <div className='flex flex-col rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
         {!selectedGroup.id ? (
           <>
             <h3 className='text-sm  text-gray-50 mb-1'>Select a group</h3>

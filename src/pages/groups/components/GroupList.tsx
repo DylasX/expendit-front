@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface GroupListProps {
   groups: Group[];
-  renderOwesYou?: (group: Group) => JSX.Element[] | string;
+  renderOwesYou?: (group: Group) => React.ReactElement[] | string;
   className: string;
 }
 

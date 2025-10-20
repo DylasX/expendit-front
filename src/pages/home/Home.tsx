@@ -67,7 +67,11 @@ const Home: React.FC = () => {
   }, [fetchNextPage, inView]);
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load expenses';
+    if (errorMessage.includes('CancelledError')) {
+      return null;
+    }
+    return <div>Error: {errorMessage}</div>;
   }
 
   const expenses = data?.pages.map(({ data }) => data).flat() as Expense[];
@@ -98,7 +102,7 @@ const Home: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300'>
+        <section className='bg-zinc-500/10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300'>
           <div className='p-5 text-lg font-semibold text-left w-full  text-gray-50'>
             <div className='flex flex-row justify-between'>
               <h2>Expenses</h2>

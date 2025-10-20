@@ -75,7 +75,7 @@ const GroupForm: React.FC<GroupFormProps> = ({ onClose }) => {
         </label>
         <div className='relative mb-4'>
           <div className='absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none'>
-            <Profile2User size='22' className='text-gray-50' />
+            <Profile2User size='22' color='currentColor' className='text-gray-50' />
           </div>
           <input
             type='text'

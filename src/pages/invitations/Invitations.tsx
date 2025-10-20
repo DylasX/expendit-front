@@ -128,7 +128,7 @@ const Invitations: React.FC = () => {
               })
             }
           >
-            <TickCircle size='32' className='text-primary-400' />
+            <TickCircle size='32' color='currentColor' className='text-primary-400' />
           </button>
           <button
             onClick={() =>
@@ -138,7 +138,7 @@ const Invitations: React.FC = () => {
               })
             }
           >
-            <CloseCircle size='32' className='text-red-400' />
+            <CloseCircle size='32' color='currentColor' className='text-red-400' />
           </button>
         </div>
       );
@@ -172,7 +172,7 @@ const Invitations: React.FC = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='bg-zinc-500 bg-opacity-10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300'>
+        <section className='bg-zinc-500/10 rounded-2xl w-full min-h-[70%] animate-fade-up animate-duration-300'>
           <div className='p-5 text-lg font-semibold text-left w-full mb-5 text-gray-50'>
             <div className='flex flex-row justify-between'>
               <h2>Invitations</h2>

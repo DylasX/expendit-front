@@ -1,32 +1,18 @@
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { QueryClient } from '@tanstack/react-query';
-import { persistQueryClient } from '@tanstack/react-query-persist-client';
+import {
+  QueryClient,
+} from "@tanstack/react-query";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      gcTime: 1000 * 60 * 60 * 24,
+      retry: 1,
+      gcTime: 1000 * 60 * 60 * 24, // 24 horas
     },
   },
 });
 
-const localStoragePersister = createSyncStoragePersister({
+export const persister = createAsyncStoragePersister({
   storage: window.localStorage,
-});
-
-persistQueryClient({
-  queryClient,
-  persister: localStoragePersister,
-  dehydrateOptions: {
-    shouldDehydrateQuery: (query) => {
-      const queryIsReadyForPersistance = query.state.status === 'success';
-      // if (queryIsReadyForPersistance) {
-      //   const { queryKey } = query;
-      //   const excludeFromPersisting = queryKey.includes('invitations');
-      //   return !excludeFromPersisting;
-      // }
-      return queryIsReadyForPersistance;
-    },
-  },
 });
