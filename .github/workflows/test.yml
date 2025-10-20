@@ -30,13 +30,13 @@ jobs:
       - name: Run tests with coverage
         run: pnpm test:cov
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-          fail_ci_if_error: true
-          flags: unittests
-          name: codecov-umbrella
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     files: ./coverage/lcov.info
+      #     fail_ci_if_error: true
+      #     flags: unittests
+      #     name: codecov-umbrella
 
       - name: Comment coverage on PR
         if: github.event_name == 'pull_request'
