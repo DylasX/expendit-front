@@ -20,16 +20,25 @@ const Home: React.FC = () => {
 
   const formatMoneyPayed = (expense: Expense) => {
     const amountByUser = parseFloat(expense.amountByUser);
-    const amountToPay = amountByUser;
+    const totalAmount = parseFloat(expense.amount);
+    // Check if current user is the payer (owner of the expense)
+    const isPayer = expense.ownerUserId === user?.id;
+    
+    // For payer: show what others owe them (total - their share)
+    // For borrower: show their individual debt (amountByUser)
+    const displayAmount = isPayer 
+      ? totalAmount - amountByUser  // What others owe the payer
+      : amountByUser;  // What the user owes
+    
     return (
       <div
         className={`flex flex-col text-right ${
-          amountToPay < 0 ? 'text-red-400' : 'text-primary-400'
+          isPayer ? 'text-primary-400' : 'text-red-400'
         }`}
       >
-        <span className='text-md'>${Math.abs(amountToPay)}</span>
+        <span className='text-md'>${Math.abs(displayAmount)}</span>
         <span className='text-xs font-bold'>
-          {amountToPay > 0 ? `You lent` : `You borrowed`}
+          {isPayer ? `You lent` : `You borrowed`}
         </span>
       </div>
     );

@@ -86,19 +86,27 @@ describe('Home', () => {
   const mockExpenses = [
     {
       id: 1,
+      ownerUserId: 1,  // Current user is the payer
+      groupId: 1,
       description: 'Dinner',
       amount: '100',
-      amountByUser: '50',
+      amountByUser: '25',  // User's share (100/4 = 25)
+      divisionStrategy: 'EQUALS',
       color: '#FF0000',
       createdAt: '2024-01-01T00:00:00Z',
+      updatedAt: '2024-01-01T00:00:00Z',
     },
     {
       id: 2,
+      ownerUserId: 2,  // Someone else is the payer
+      groupId: 1,
       description: 'Lunch',
       amount: '50',
-      amountByUser: '-25',
+      amountByUser: '25',  // User owes (borrowed money)
+      divisionStrategy: 'EQUALS',
       color: '#00FF00',
       createdAt: '2024-01-02T00:00:00Z',
+      updatedAt: '2024-01-02T00:00:00Z',
     },
   ];
 
@@ -246,7 +254,7 @@ describe('Home', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/expense/1');
   });
 
-  it('should show "You lent" for positive amounts', async () => {
+  it('should show "You lent" when user is the payer (ownerUserId matches)', async () => {
     mockUseUser.mockReturnValue({ data: mockUser });
     mockGet.mockResolvedValue({
       data: {
@@ -262,7 +270,7 @@ describe('Home', () => {
     });
   });
 
-  it('should show "You borrowed" for negative amounts', async () => {
+  it('should show "You borrowed" when user is not the payer', async () => {
     mockUseUser.mockReturnValue({ data: mockUser });
     mockGet.mockResolvedValue({
       data: {

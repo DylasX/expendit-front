@@ -13,11 +13,24 @@ const MainLayout: React.FC = () => {
         position='bottom-right'
         reverseOrder={false}
         toastOptions={{
+          duration: 1500,
           style: {
             boxShadow: 'none',
             borderRadius: '5px',
             background: '#333',
             color: '#fff',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
           },
         }}
       />

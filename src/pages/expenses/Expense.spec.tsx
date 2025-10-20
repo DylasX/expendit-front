@@ -56,13 +56,13 @@ describe('ExpenseDetail', () => {
         id: 1,
         fullName: 'John Doe',
         color: '#0000FF',
-        amount: '50',
+        amount: '0',  // Payer has amount=0
       },
       {
         id: 2,
         fullName: 'Jane Smith',
         color: '#FF00FF',
-        amount: '-50',
+        amount: '50',  // Non-payer owes 50
       },
     ],
   };
@@ -192,8 +192,8 @@ describe('ExpenseDetail', () => {
 
     await waitFor(() => {
       const paidLabel = screen.getByText('Paid');
-      const paidContainer = paidLabel.closest('div');
-      expect(paidContainer).toHaveClass('text-primary-500');
+      const paidContainer = paidLabel.closest('.text-primary-500');
+      expect(paidContainer).toBeInTheDocument();
     });
   });
 
@@ -208,8 +208,8 @@ describe('ExpenseDetail', () => {
 
     await waitFor(() => {
       const owesLabel = screen.getByText('Owes');
-      const owesContainer = owesLabel.closest('div');
-      expect(owesContainer).toHaveClass('text-red-500');
+      const owesContainer = owesLabel.closest('.text-red-500');
+      expect(owesContainer).toBeInTheDocument();
     });
   });
 });

@@ -22,12 +22,12 @@ interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
-  const [selectedGroup, setSelectedGroup] = React.useState({} as Group);
+  const [selectedGroup, setSelectedGroup] = React.useState<Group | null>(null);
   const { data: user } = useUser();
   const { ref, inView } = useInView();
   const { groups, isFetchingNextPage, hasNextPage, fetchNextPage } =
     useGroups();
-  const { data: group } = useGroup(selectedGroup?.id);
+  const { data: group } = useGroup(selectedGroup?.id || 0);
 
   const swithStrategy = () => {
     formik.setFieldValue('participants', []);
@@ -50,11 +50,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
       onClose();
     },
     onError: (error) => {
-      formik.setFieldValue('participants', [
-        ...formik.values.participants.map((m) => {
-          return { ...m, amount: Math.abs(m.amount) };
-        }),
-      ]);
       console.log(error);
       toast.error('Error creating expense');
     },
@@ -71,20 +66,28 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
     validateOnChange: false,
     validateOnBlur: true,
     onSubmit: (values) => {
-      //validate the current user is included in the participants
-      //convert to negative all the participants amount with id different from the current user
-      values.groupId = selectedGroup.id;
+      // Validate the current user (payer) is included in the participants
+      values.groupId = selectedGroup?.id || 0;
       const currentUser = values.participants.find((m) => m.id === user?.id);
-      currentUser!.amount = values.participants
-        .filter((m) => m.id !== user?.id)
-        .reduce((acc, acum) => Math.abs(acc) + Math.abs(acum.amount), 0);
+      
+      if (!currentUser) {
+        toast.error('You must be included in the participants');
+        return;
+      }
+      
+      // Calculate payer's share (total amount / number of participants)
+      const payerShare = values.amount / values.participants.length;
+      
       values.participants = values.participants.map((m) => {
-        if (m.id !== user?.id) {
-          m.amount = -m.amount;
+        if (m.id === user?.id) {
+          // Payer sends their actual share
+          return { ...m, amount: Number(payerShare.toFixed(2)) };
+        } else {
+          // Non-payers owe their share (keep positive, already calculated correctly)
+          return { ...m, amount: Number(Math.abs(m.amount).toFixed(2)) };
         }
-        m.amount = Number(m.amount.toFixed(2));
-        return m;
       });
+      
       expenseMutation.mutate(values);
     },
     validationSchema: toFormikValidationSchema(expenseValidator),
@@ -164,50 +167,41 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
                     (m) => m.id === member.id
                   );
                   if (e.target.checked) {
+                    // Calculate amount for the new participant
                     let amount = currentMember?.amount || 0;
                     if (formik.values.divisionStrategy === 'EQUALS') {
                       amount =
                         formik.values.amount /
                         (formik.values.participants.length + 1);
-                      1;
                     }
-                    //update the amount of all participants
-                    formik.setFieldValue(
-                      'participants',
-                      formik.values.participants.map((m) => {
-                        m.amount = amount;
-                        return m;
-                      })
-                    );
+                    
+                    // Add new participant if not already in the list
                     if (!currentMember) {
-                      formik.setFieldValue('participants', [
-                        ...formik.values.participants,
+                      const updatedParticipants = [
+                        ...formik.values.participants.map((m) => ({
+                          ...m,
+                          amount: formik.values.divisionStrategy === 'EQUALS' ? amount : m.amount,
+                        })),
                         {
                           id: member.id,
                           amount: amount,
                         },
-                      ]);
-                    } else {
-                      formik.setFieldValue('participants', [
-                        ...formik.values.participants,
-                        {
-                          id: member.id,
-                          amount: amount,
-                        },
-                      ]);
+                      ];
+                      formik.setFieldValue('participants', updatedParticipants);
                     }
                   } else {
+                    // Remove participant and recalculate amounts for remaining participants
                     const newparticipants = formik.values.participants.filter(
                       (m) => m.id !== member.id
                     );
+                    const newAmount = newparticipants.length > 0 
+                      ? formik.values.amount / newparticipants.length 
+                      : 0;
                     formik.setFieldValue(
                       'participants',
-                      newparticipants.map((m) => {
-                        m.amount =
-                          formik.values.amount /
-                            (formik.values.participants.length - 1) || 1;
-                        return m;
-                      })
+                      formik.values.divisionStrategy === 'EQUALS'
+                        ? newparticipants.map((m) => ({ ...m, amount: newAmount }))
+                        : newparticipants
                     );
                   }
                 }}
@@ -233,14 +227,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
     }
   }, [fetchNextPage, inView]);
 
+
   return (
     <section className='p-4 h-full'>
       <a
         href='#'
         className='flex flex-row items-center gap-1 mb-4'
-        onClick={() => setSelectedGroup({} as Group)}
+        onClick={() => setSelectedGroup(null)}
       >
-        {selectedGroup.id ? (
+        {selectedGroup?.id ? (
           <>
             <ArrowLeft size='20' color='currentColor' className='text-primary-400' />
             <h2 className='text-lg font-semibold text-gray-50 ml-2'>
@@ -254,7 +249,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
         )}
       </a>
       <div className='flex flex-col rounded-2xl w-full h-full animate-fade-up animate-duration-300'>
-        {!selectedGroup.id ? (
+        {!selectedGroup?.id ? (
           <>
             <ul className='flex flex-col flex-wrap mt-4'>
               {groups?.length === 0 && (
@@ -299,12 +294,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onClose }) => {
           <section>
             <div className='flex flex-col items-center mt-4'>
               <ImageDefault
-                name={selectedGroup.name}
-                color={selectedGroup.color}
+                name={selectedGroup?.name || ''}
+                color={selectedGroup?.color || ''}
                 size={16}
               />
               <span className='capitalize text-md text-gray-50 mt-2'>
-                {selectedGroup.name}
+                {selectedGroup?.name}
               </span>
             </div>
             <div>
