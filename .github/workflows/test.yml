@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_URL: http://localhost
 
     steps:
       - uses: actions/checkout@v4
